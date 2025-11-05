@@ -146,6 +146,62 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 ### ツール
 - バックグラウンドプロセス管理：`ghost`コマンド
 
+### 推奨MCPサーバー
+
+MCPサーバーはClaude Codeの機能を拡張する。以下のサーバーの導入を推奨する。
+
+#### 必須レベル
+
+1. **mcp-ripgrep** - 高速コード検索
+   - ripgrepベースの強力な検索機能
+   - 正規表現、ファイルパターン、コンテキスト表示に対応
+   - インストール: `npx @anvilco/mcp-ripgrep`
+
+2. **ts-morph-refactor** - TypeScript/JavaScriptリファクタリング
+   - シンボルリネーム（変数、関数、クラス名の一括変更）
+   - ファイル・フォルダ移動時のimport/export自動更新
+   - 参照検索、シンボル移動など高度なリファクタリング
+   - インストール: `npx @pureink/mcp-server-ts-morph-refactor`
+
+#### 推奨レベル
+
+3. **refactor** - 正規表現ベースのリファクタリング
+   - パターンマッチングによるコード変換
+   - 大規模な文字列置換に便利
+   - インストール: `npx @pureink/mcp-server-refactor`
+
+4. **ide** - VSCode統合
+   - 診断情報（エラー、警告）の取得
+   - Jupyter notebookのコード実行
+   - インストール: Claude Code組み込み（設定不要）
+
+#### MCP設定ファイル
+
+`~/.claude/.mcp.json` に設定を記述する。
+
+**注意**: `.mcp.json` はローカル環境依存のパス情報を含むため、`.gitignore` に追加してコミットしないこと。
+
+**設定例**:
+
+```json
+{
+  "mcpServers": {
+    "mcp-ripgrep": {
+      "command": "npx",
+      "args": ["@anvilco/mcp-ripgrep"]
+    },
+    "ts-morph-refactor": {
+      "command": "npx",
+      "args": ["@pureink/mcp-server-ts-morph-refactor"]
+    },
+    "refactor": {
+      "command": "npx",
+      "args": ["@pureink/mcp-server-refactor"]
+    }
+  }
+}
+```
+
 ---
 
 ## 開発備忘録
