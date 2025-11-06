@@ -229,12 +229,21 @@ MCPサーバーはClaude Codeの機能を拡張する。以下のサーバーの
 
 #### 必須レベル
 
-1. **mcp-ripgrep** - 高速コード検索
+1. **serena** - セマンティックコード検索・編集エージェント
+   - Language Server Protocol (LSP) を活用したIDE機能
+   - シンボルレベルのセマンティック解析・編集
+   - 多言語サポート（Python, JavaScript, TypeScript, Java等）
+   - 大規模コードベースでの高度なコード理解
+   - 無料・オープンソース、APIキー不要
+   - インストール: `claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide-assistant --project "$(pwd)"`
+   - **積極的に活用**: 複雑なリファクタリング、コード解析、大規模変更時に優先使用
+
+2. **mcp-ripgrep** - 高速コード検索
    - ripgrepベースの強力な検索機能
    - 正規表現、ファイルパターン、コンテキスト表示に対応
    - インストール: `npx mcp-ripgrep`
 
-2. **ts-morph-refactor** - TypeScript/JavaScriptリファクタリング
+3. **ts-morph-refactor** - TypeScript/JavaScriptリファクタリング
    - シンボルリネーム（変数、関数、クラス名の一括変更）
    - ファイル・フォルダ移動時のimport/export自動更新
    - 参照検索、シンボル移動など高度なリファクタリング
@@ -242,27 +251,44 @@ MCPサーバーはClaude Codeの機能を拡張する。以下のサーバーの
 
 #### 推奨レベル
 
-3. **refactor** - 正規表現ベースのリファクタリング
+4. **refactor** - 正規表現ベースのリファクタリング
    - パターンマッチングによるコード変換
    - 大規模な文字列置換に便利
    - インストール: `npx @myuon/refactor-mcp`
 
-4. **ide** - VSCode統合
+5. **ide** - VSCode統合
    - 診断情報（エラー、警告）の取得
    - Jupyter notebookのコード実行
    - インストール: Claude Code組み込み（設定不要）
 
 #### MCP設定ファイル
 
-`~/.claude/.mcp.json` に設定を記述する。
+グローバルな設定は `~/.claude.json` の `projects.<project-path>.mcpServers` に記述される。プロジェクト固有の設定は各プロジェクトディレクトリの `.mcp.json` に記述することも可能。
 
-**注意**: `.mcp.json` はローカル環境依存のパス情報を含むため、`.gitignore` に追加してコミットしないこと。
+**注意事項**:
 
-**設定例**:
+- `~/.claude.json` はローカル環境依存のパス情報を含むため、`.gitignore` に追加してコミットしないこと
+- **Windows環境**: `npx` を直接実行できないため、`cmd /c` ラッパーが必須
+- serenaは `claude mcp add` コマンドで自動設定することを推奨
+
+**設定例（Linux/macOS）**:
 
 ```json
 {
   "mcpServers": {
+    "serena": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant",
+        "--project",
+        "/path/to/your/project"
+      ]
+    },
     "mcp-ripgrep": {
       "command": "npx",
       "args": ["mcp-ripgrep"]
@@ -274,6 +300,40 @@ MCPサーバーはClaude Codeの機能を拡張する。以下のサーバーの
     "refactor": {
       "command": "npx",
       "args": ["@myuon/refactor-mcp"]
+    }
+  }
+}
+```
+
+**設定例（Windows）**:
+
+```json
+{
+  "mcpServers": {
+    "serena": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant",
+        "--project",
+        "C:/Users/username/workspace/project"
+      ]
+    },
+    "mcp-ripgrep": {
+      "command": "cmd",
+      "args": ["/c", "npx", "mcp-ripgrep"]
+    },
+    "ts-morph-refactor": {
+      "command": "cmd",
+      "args": ["/c", "npx", "@sirosuzume/mcp-tsmorph-refactor"]
+    },
+    "refactor": {
+      "command": "cmd",
+      "args": ["/c", "npx", "@myuon/refactor-mcp"]
     }
   }
 }
@@ -355,7 +415,44 @@ mock.module("react-turnstile", () => ({
 }));
 ```
 
-### ��� 備忘録更新ルール
+#### 8. Windows環境でのMCP設定
+
+Windows環境では `npx` を直接実行できないため、`cmd /c` ラッパーが必要。
+
+```json
+// ❌ Windows環境でエラーになる設定
+{
+  "mcpServers": {
+    "mcp-ripgrep": {
+      "command": "npx",
+      "args": ["mcp-ripgrep"]
+    }
+  }
+}
+
+// ✅ Windows環境での正しい設定
+{
+  "mcpServers": {
+    "mcp-ripgrep": {
+      "command": "cmd",
+      "args": ["/c", "npx", "mcp-ripgrep"]
+    }
+  }
+}
+```
+
+**エラーメッセージ例**:
+```
+[Warning] [mcp-ripgrep] mcpServers.mcp-ripgrep: Windows requires 'cmd /c' wrapper to execute npx
+```
+
+**対処法**:
+1. `~/.claude.json` を開く
+2. 該当するMCPサーバー設定の `command` を `"cmd"` に変更
+3. `args` の先頭に `"/c"` を追加
+4. Claude Codeを再起動
+
+### 📝 備忘録更新ルール
 
 1. **新しい問題発見時**: 即座に備忘録セクションに追記
 2. **解決策確認時**: 具体的なコード例と理由を記載
