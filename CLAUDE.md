@@ -232,20 +232,20 @@ MCPサーバーはClaude Codeの機能を拡張する。以下のサーバーの
 1. **mcp-ripgrep** - 高速コード検索
    - ripgrepベースの強力な検索機能
    - 正規表現、ファイルパターン、コンテキスト表示に対応
-   - インストール: `npx @anvilco/mcp-ripgrep`
+   - インストール: `npx mcp-ripgrep`
 
 2. **ts-morph-refactor** - TypeScript/JavaScriptリファクタリング
    - シンボルリネーム（変数、関数、クラス名の一括変更）
    - ファイル・フォルダ移動時のimport/export自動更新
    - 参照検索、シンボル移動など高度なリファクタリング
-   - インストール: `npx @pureink/mcp-server-ts-morph-refactor`
+   - インストール: `npx @sirosuzume/mcp-tsmorph-refactor`
 
 #### 推奨レベル
 
 3. **refactor** - 正規表現ベースのリファクタリング
    - パターンマッチングによるコード変換
    - 大規模な文字列置換に便利
-   - インストール: `npx @pureink/mcp-server-refactor`
+   - インストール: `npx @myuon/refactor-mcp`
 
 4. **ide** - VSCode統合
    - 診断情報（エラー、警告）の取得
@@ -265,15 +265,15 @@ MCPサーバーはClaude Codeの機能を拡張する。以下のサーバーの
   "mcpServers": {
     "mcp-ripgrep": {
       "command": "npx",
-      "args": ["@anvilco/mcp-ripgrep"]
+      "args": ["mcp-ripgrep"]
     },
     "ts-morph-refactor": {
       "command": "npx",
-      "args": ["@pureink/mcp-server-ts-morph-refactor"]
+      "args": ["@sirosuzume/mcp-tsmorph-refactor"]
     },
     "refactor": {
       "command": "npx",
-      "args": ["@pureink/mcp-server-refactor"]
+      "args": ["@myuon/refactor-mcp"]
     }
   }
 }
