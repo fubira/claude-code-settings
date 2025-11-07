@@ -145,6 +145,7 @@ import classes from './Component.module.css';
 - **必要十分な解説**: 何をしたか、なぜしたか、効果を簡潔に記述
 - **変更ファイルリスト不要**: gitログで確認できるため記載しない
 - **Conventional Commits形式**: `type(scope): subject` を使用
+- **絵文字を使用しない**: Cloudflare Pages APIが絵文字を含むコミットメッセージを受け付けないため
 
 ### 推奨フォーマット
 ```
@@ -154,7 +155,7 @@ type(scope): 簡潔なタイトル
 - なぜこの変更が必要か
 - 変更の効果・影響
 
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
+Generated with [Claude Code](https://claude.com/claude-code)
 
 Co-Authored-By: Claude <noreply@anthropic.com>
 ```
@@ -162,6 +163,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 ### 避けるべき内容
 - 変更ファイルの詳細リスト（`git show` で確認可能）
 - 冗長な説明や重複する情報
+- 絵文字（Cloudflare Pages等のCI/CDで問題が発生する）
 
 ## ファイル構造規約
 
