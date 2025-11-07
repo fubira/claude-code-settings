@@ -17,6 +17,7 @@
 ### 主要技術スタック
 - TypeScript, React 19, Vite 6
 - Mantine UI 8, CSS Modules, PostCSS
+- clsx（条件付きクラス名ユーティリティ）
 - Biome, Bun
 - Zustand, Konva.js
 - Cloudflare Workers, Wrangler
@@ -76,7 +77,33 @@
 - 関数コンポーネント（`function`宣言）、名前付きエクスポート
 - 純粋関数優先、`useEffect`/`setState`最小化
 - CSS Modules必須、インラインスタイル禁止
+- **clsx使用推奨**：条件付きクラス名の記述に必須（`bun add clsx`でインストール）
 - Biomeによるコード品質管理
+
+#### clsxの使用例
+
+```tsx
+// ✅ Good: clsxで条件付きクラス名
+import clsx from 'clsx';
+import classes from './Component.module.css';
+
+<div className={clsx(classes.base, {
+  [classes.active]: isActive,
+  [classes.disabled]: isDisabled,
+})}>
+
+// ❌ Bad: インラインスタイルで条件分岐
+<div style={{
+  ...(isActive && { backgroundColor: 'blue' }),
+  ...(isDisabled && { opacity: 0.5 }),
+}}>
+```
+
+**理由**：
+- 超軽量（239バイト gzip圧縮後）
+- Mantine UIとの相性抜群
+- 条件付きスタイルの記述を60%削減
+- CSS Modulesとの組み合わせで最高のパフォーマンス
 
 ### 4. ドキュメント品質管理
 - markdownlintを使用（`~/.markdownlint.jsonc`）
