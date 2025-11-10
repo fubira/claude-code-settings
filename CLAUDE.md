@@ -254,7 +254,33 @@ import { AuthUser } from '@/features/auth/types';
 
 `tsconfig.json`の`exclude`に`**/*.test.{ts,tsx}`、`**/*.spec.{ts,tsx}`を追加（ビルドエラー防止）
 
+### テスト作成の原則
+
+1. **実装を先に読む**: 推測でテストを書かず、実装の正確な挙動を理解してから書く
+2. **境界値テスト**: 閾値の前後（±1）を必ずテスト（`>` と `>=` の違いに注意）
+3. **統計的検証**: 確率的処理は10,000試行、±5%許容（`toBeCloseTo(expected, 1)`）
+4. **失敗時の対応**: 実装が正しければテストの期待値を疑う
+
+```typescript
+// ✅ Good: 実装を読んで計算過程をコメント
+test("フォントサイズ計算", () => {
+  // segmentWidth=100, baseFontSize=100/2.5=40, multiplier=0.5
+  // finalFontSize = max(40*0.5, 12) = 20
+  expect(result.fontSize).toBe(20);
+});
+
+// ✅ Good: 境界値±1をテスト
+expect(getTextColor("#7F7F7F")).toBe("#FFFFFF"); // 127 < 128
+expect(getTextColor("#808080")).toBe("#FFFFFF"); // 128 <= 128
+expect(getTextColor("#818181")).toBe("#000000"); // 129 > 128
+
+// ✅ Good: 統計的検証
+const trials = 10000;
+expect(counts["1"] / trials).toBeCloseTo(0.7, 1); // 70% ±5%
+```
+
 ## コメント
+
 - 重要な箇所のみ記述（複雑なロジック、モジュール概要など）
 - 現在の状態を説明、過去の変化は書かない
 - 変更履歴はGitで管理
