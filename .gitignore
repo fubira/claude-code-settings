@@ -3,6 +3,15 @@
 # 認証情報（絶対に除外）
 .credentials.json
 
+# MCP設定（ローカル環境依存）
+.mcp.json
+.mcp.json.backup
+.claude.json
+
+# 個人設定（permissions等）
+settings.json
+settings.local.json
+
 # ランタイムデータ
 history.jsonl
 file-history/

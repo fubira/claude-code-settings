@@ -84,13 +84,26 @@
 
 （今後追加）
 
-#### トラブルシューティング
+## 知見管理システム
 
-技術スタック別の詳細なトラブルシューティングは `~/.claude/troubleshooting/` に記録している。
-問題が発生した場合は該当ファイルを参照。
+プロジェクト固有の学びや汎用的なパターンは、`knowledge-manager` Skill（Personal Skill）によって自動的に管理される。
 
-- **TypeScript/React**: `~/.claude/troubleshooting/typescript-react.md`
-- **Go**: `~/.claude/troubleshooting/go.md`（今後追加）
+### 構成
+
+知見は以下のカテゴリに分類され、`~/.claude/knowledge/`に記録される：
+
+- **パターン** (`patterns/`): 設計パターン、アーキテクチャ、コード構造
+- **トラブルシューティング** (`troubleshooting/`): 技術的問題と解決策
+- **ベストプラクティス** (`best-practices/`): 品質・パフォーマンス・セキュリティ指針
+- **ワークフロー** (`workflows/`): CI/CD、開発プロセス
+
+### 動作原理
+
+- **Progressive Disclosure**: 必要な時だけ関連する知見を読み込む
+- **自動記録**: 汎用的なパターンや解決策を発見した際に自動提案
+- **構造化**: カテゴリ別、技術スタック別に整理（各カテゴリのINDEX.mdで検索可能）
+
+詳細は `~/.claude/knowledge/README.md` および `knowledge-manager` Skill の SKILL.md を参照。
 
 ## 開発フロー
 
@@ -221,7 +234,7 @@ MCPサーバーはClaude Codeの機能を拡張する。以下のサーバーの
 - `~/.claude.json` → `.gitignore`（ローカル環境依存のパス情報を含むため）
 - **Windows環境**: `npx` 実行時は `cmd /c` ラッパーが必須
 - **serena**: `claude mcp add` コマンドで自動設定を推奨
-- 詳細な設定方法は `~/.claude/troubleshooting/` 内の技術スタック別ドキュメントを参照
+- 詳細な設定方法は `~/.claude/knowledge/troubleshooting/` を参照
 
 ---
 
