@@ -139,34 +139,17 @@
 - GitHub Actions（または同等のCI/CD）で自動化
 - 環境変数・シークレットはCI/CDプラットフォームで管理
 
-## コミットメッセージ規約
+## Git操作
 
-**原則**:
+コミットは `git-commit-assistant` Skill（Personal Skill）が支援する。
 
-- **必要十分な解説**: 何をしたか、なぜしたか、効果を簡潔に記述
-- **変更ファイルリスト不要**: gitログで確認できるため記載しない
-- **Conventional Commits形式**: `type(scope): subject` を使用
-- **絵文字を使用しない**: CI/CDプラットフォームによっては正しく処理できないため
+**基本原則**:
 
-**推奨フォーマット**:
+- Conventional Commits形式（`type(scope): subject`）
+- 絵文字不使用（CI/CDとの互換性）
+- 必要十分な解説（何を・なぜ・影響）
 
-```text
-type(scope): 簡潔なタイトル
-
-- 変更内容の要約（箇条書き）
-- なぜこの変更が必要か
-- 変更の効果・影響
-
-Generated with [Claude Code](https://claude.com/claude-code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
-
-**避けるべき内容**:
-
-- 変更ファイルの詳細リスト（`git show` で確認可能）
-- 冗長な説明や重複する情報
-- 絵文字（CI/CDで問題が発生することがある）
+詳細は `~/.claude/skills/git-commit-assistant/SKILL.md` を参照。
 
 ## テスト
 
