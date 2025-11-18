@@ -51,12 +51,39 @@
 - エラー処理とエッジケースを優先し、早期リターンを活用
 - セキュリティベストプラクティスの遵守
 
-### 3. ドキュメント品質管理
+### 3. コード品質の継続的改善
+
+`refactoring-assistant` Skill（Personal Skill）がコード品質の改善を支援する。
+
+#### コーディング中に常に意識すべきCode Smells
+
+以下の基準を超えた場合は即座にリファクタリングを検討:
+
+1. **Long Method（関数が長すぎる）**: 50行超
+2. **Duplicate Code（重複コード）**: 同じコードが3箇所以上
+3. **Deep Nesting（ネストが深すぎる）**: 3段階超
+4. **Long Parameter List（引数が多すぎる）**: 5個超
+5. **Large Class/Module（クラス/モジュールが大きすぎる）**: 300行超
+6. **Complex Conditional（複雑な条件式）**: 3個超の条件を組み合わせ
+
+#### リファクタリング原則
+
+- **小さく段階的に**: 一度に大きく書き換えない
+- **テスト駆動**: リファクタリング前後でテストを実行
+- **動作を変えない**: リファクタリングは機能追加ではない
+- **コミット分離**: リファクタリングと機能追加は別コミット
+
+詳細なリファクタリングパターンは `refactoring-assistant` Skillが自動的に提案する。技術スタック別の詳細は以下を参照:
+
+- TypeScript/React: `~/.claude/skills/refactoring-assistant/patterns/typescript-react.md`
+- Go: `~/.claude/skills/refactoring-assistant/patterns/go.md`
+
+### 4. ドキュメント品質管理
 
 - markdownlintを使用（`~/.markdownlint.jsonc`）
 - `mcp__ide__getDiagnostics`でエラーチェック後にコミット
 
-### 4. 技術スタック別の標準
+### 5. 技術スタック別の標準
 
 #### TypeScript/React プロジェクト標準
 
