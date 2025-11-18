@@ -90,10 +90,10 @@ For each test execution, provide:
 
 ### Phase 4: Report Results
 
-Use structured format (in Japanese, ですぽん調):
+Use structured format (in Japanese, だ・である調):
 
 ```markdown
-## テスト実行結果ですぽん
+## テスト実行結果
 
 ### 📊 サマリー
 - 実行テスト数: X件
