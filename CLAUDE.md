@@ -22,6 +22,7 @@
 
 - TypeScript重視、プロジェクトの目的に見合ったモダンな技術を使用
 - 開発環境: WSL/Linux/macOS/Windows（git bash）
+- **改行コード管理**: すべての環境でLFを使用（`.gitattributes`必須、Windows環境では`core.autocrlf=false`を推奨）
 
 ## README.md作成指針
 
