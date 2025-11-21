@@ -62,7 +62,18 @@
 - エラー処理とエッジケースを優先し、早期リターンを活用
 - セキュリティベストプラクティスの遵守
 
-### 3. コード品質の継続的改善
+### 3. 問題解決の原則
+
+**本質を見極め、対症療法に走らない**
+
+- 動作環境と非動作環境の差異を特定する（コードではなく設定・環境の問題かを見極める）
+- 手詰まり時は目線を広げる（コード → ビルド設定 → 環境変数 → プラットフォーム固有の問題）
+- 既知の問題を調査する（公式ドキュメント、GitHub Issues、Stack Overflow）
+- 実装変更は最終手段（根本原因を理解してから）
+
+詳細: `~/.claude/knowledge/best-practices/problem-solving-principles.md`
+
+### 4. コード品質の継続的改善
 
 `refactoring-assistant` Skill（Personal Skill）がコード品質の改善を支援する。
 
@@ -89,12 +100,12 @@
 - TypeScript/React: `~/.claude/skills/refactoring-assistant/patterns/typescript-react.md`
 - Go: `~/.claude/skills/refactoring-assistant/patterns/go.md`
 
-### 4. ドキュメント品質管理
+### 5. ドキュメント品質管理
 
 - markdownlintを使用（`~/.markdownlint.jsonc`）
 - `mcp__ide__getDiagnostics`でエラーチェック後にコミット
 
-### 5. 技術スタック別の標準
+### 6. 技術スタック別の標準
 
 #### TypeScript/React プロジェクト標準
 

@@ -33,6 +33,7 @@ Template for new entries:
 **Tools**: [GitHub Actions / Git / etc.]
 **Applicability**: [Universal / Project-specific]
 **Added**: YYYY-MM-DD
+**Keywords**: keyword1, keyword2, keyword3, keyword4
 
 Brief one-sentence description.
 
