@@ -201,6 +201,21 @@
 
 詳細は `~/.claude/skills/git-commit-assistant/SKILL.md` を参照。
 
+## リリース作業
+
+リリースは `release-assistant` Skill（Personal Skill）が支援する。
+
+**基本フロー**: Lint → Test → Version Bump → Tag → Push
+
+**安全保証**:
+
+- Lint・テスト合格必須（CI通過保証）
+- Semantic Versioning準拠（自動バージョン決定）
+- クリーンな作業ツリー確認
+- ユーザー承認必須
+
+詳細は `~/.claude/skills/release-assistant/SKILL.md` を参照。
+
 ## テスト
 
 - **カバレッジ**: 80%以上を目標

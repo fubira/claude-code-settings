@@ -10,7 +10,7 @@ Standards, conventions, and quality guidelines.
 
 ### Testing
 
-None yet.
+- [外部ライブラリのテスト方針](testing-external-libraries.md) - Cross-stack (2025-01-24)
 
 ### Performance
 
@@ -46,6 +46,7 @@ None yet.
 
 - [問題解決の原則：本質を見極める](problem-solving-principles.md) (2025-01-19)
 - [改行コード統一管理（LF必須化）](line-ending-management.md) (2025-01-19)
+- [外部ライブラリのテスト方針](testing-external-libraries.md) (2025-01-24)
 
 ### Electron
 
@@ -103,6 +104,18 @@ Electronアプリでカスタムアイコンを正しく表示させるための
 
 ---
 
+### [外部ライブラリのテスト方針](testing-external-libraries.md)
+
+**Category**: Testing
+**Tech Stack**: Cross-stack
+**Applicability**: Universal
+**Added**: 2025-01-24
+**Keywords**: testing, external libraries, mocking, vi.spyOn, Dexie.js, responsibility separation
+
+外部ライブラリ自体の動作はテスト対象外とし、vi.spyOn()でモックすることで、プロジェクトコードのロジックのみをテストする方針。
+
+---
+
 <!--
 Template for new entries:
 
@@ -121,9 +134,9 @@ Brief one-sentence description.
 
 ## Statistics
 
-- Total practices: 4
+- Total practices: 5
 - Problem Solving: 1
-- Testing: 0
+- Testing: 1
 - Performance: 0
 - Security: 1
 - Code Quality: 1
@@ -132,10 +145,11 @@ Brief one-sentence description.
 
 ## Recently Added
 
-1. [Electronアプリケーションアイコン設定の完全ガイド](electron-application-icons.md) - 2025-01-20（更新: 2025-01-21）
-2. [問題解決の原則：本質を見極める](problem-solving-principles.md) - 2025-01-19
-3. [改行コード統一管理（LF必須化）](line-ending-management.md) - 2025-01-19
-4. [Electronセキュリティベストプラクティス](electron-security.md) - 2025-01-19
+1. [外部ライブラリのテスト方針](testing-external-libraries.md) - 2025-01-24
+2. [Electronアプリケーションアイコン設定の完全ガイド](electron-application-icons.md) - 2025-01-20（更新: 2025-01-21）
+3. [問題解決の原則：本質を見極める](problem-solving-principles.md) - 2025-01-19
+4. [改行コード統一管理（LF必須化）](line-ending-management.md) - 2025-01-19
+5. [Electronセキュリティベストプラクティス](electron-security.md) - 2025-01-19
 
 ## Most Referenced
 
