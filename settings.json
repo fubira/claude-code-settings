@@ -28,5 +28,7 @@
       "Read(C:/Users/matsushita/.claude/knowledge/**)"
     ],
     "deny": []
-  }
+  },
+  "alwaysThinkingEnabled": false,
+  "model": "opus"
 }

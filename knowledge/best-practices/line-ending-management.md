@@ -1,9 +1,13 @@
-# 改行コード統一管理（LF必須化）
+---
+title: 改行コード統一管理（LF必須化）
+category: best-practices
+tags: [universal, git, line-endings, windows, ci-cd]
+created: 2025-01-19
+updated: 2025-01-19
+status: verified
+---
 
-**Category**: Code Quality / Development Environment
-**Tech Stack**: Cross-stack
-**Applicability**: Universal
-**Added**: 2025-01-19
+# 改行コード統一管理（LF必須化）
 
 ## 概要
 

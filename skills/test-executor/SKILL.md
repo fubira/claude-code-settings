@@ -127,15 +127,6 @@ Use structured format (in Japanese, だ・である調):
 - **Build failures**: Distinguish between compilation errors and test failures
 - **Timeout issues**: Identify long-running tests and suggest optimization
 
-## Project-Specific Context
-
-### For panos-image-composer-go
-
-- **Coverage calculation**: Only `./internal/...` packages count toward 90% threshold
-- **Exclusions**: `cmd/panos` is intentionally excluded (CLI entry point)
-- **Test commands**: Prefer `make test` if Makefile exists
-- **CI alignment**: Ensure local results match CI expectations (GitHub Actions)
-
 ### Test Failure Analysis
 
 When test failures occur:
@@ -156,11 +147,6 @@ When test failures occur:
 - **code-reviewer**: Run after review to verify fixes don't break tests
 - **refactoring-assistant**: Verify refactoring doesn't cause regressions
 - **git-commit-assistant**: Ensure all tests pass before committing
-
-## Supporting Files
-
-- `rules/go-test-standards.md`: Go testing best practices and commands
-- `rules/coverage-analysis.md`: Coverage calculation and threshold guidelines
 
 ## Usage Tips
 

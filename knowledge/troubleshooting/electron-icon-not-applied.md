@@ -1,9 +1,13 @@
-# Electron アプリの exe ファイルにアイコンが反映されない
+---
+title: Electron アプリの exe ファイルにアイコンが反映されない
+category: troubleshooting
+tags: [electron, electron-builder, windows, icons]
+created: 2025-01-21
+updated: 2025-01-21
+status: verified
+---
 
-**Tech Stack**: Electron / electron-builder
-**Environment**: Windows 11
-**Date Added**: 2025-01-21
-**Severity**: Medium
+# Electron アプリの exe ファイルにアイコンが反映されない
 
 ## Symptoms
 

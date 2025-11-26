@@ -1,9 +1,13 @@
-# 外部プロセス統合パターン
+---
+title: 外部プロセス統合パターン
+category: patterns
+tags: [cross-stack, nodejs, python, security, spawn]
+created: 2025-01-19
+updated: 2025-01-19
+status: verified
+---
 
-**Category**: Code Structure
-**Tech Stack**: Cross-stack (Node.js, Deno, Bun, Electron)
-**Date Added**: 2025-01-19
-**Source Project**: codearts-nfc-reader-electron
+# 外部プロセス統合パターン
 
 ## Problem
 

@@ -1,10 +1,13 @@
-# 外部ライブラリのテスト方針
+---
+title: 外部ライブラリのテスト方針
+category: best-practices
+tags: [universal, testing, mocking, dexie, vitest]
+created: 2025-01-24
+updated: 2025-01-24
+status: verified
+---
 
-**Category**: Testing
-**Tech Stack**: Cross-stack
-**Applicability**: Universal
-**Added**: 2025-01-24
-**Keywords**: testing, external libraries, mocking, vi.spyOn, Dexie.js, responsibility separation
+# 外部ライブラリのテスト方針
 
 ## 原則
 

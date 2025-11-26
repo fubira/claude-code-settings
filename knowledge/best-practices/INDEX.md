@@ -154,3 +154,38 @@ Brief one-sentence description.
 ## Most Referenced
 
 None yet.
+
+## Front Matterによる検索
+
+ナレッジベース全体でYAML Front Matterを使った高度な検索が可能です。
+
+### 基本的な検索例
+
+```bash
+# 特定の技術スタックを含む全知見を検索
+rg "tags:.*typescript" ~/.claude/knowledge/
+
+# カテゴリで検索
+rg "category: best-practices" ~/.claude/knowledge/
+
+# 検証済みドキュメントのみ検索
+rg "status: verified" ~/.claude/knowledge/
+
+# 複数条件（TypeScript かつ React）
+rg "tags:.*typescript.*react" ~/.claude/knowledge/
+
+# 更新日が2025年3月以降のドキュメント
+rg "updated: 2025-0[3-9]|2025-1[0-2]" ~/.claude/knowledge/
+```
+
+### カテゴリ固有の検索
+
+```bash
+# このカテゴリ内で特定タグを検索
+rg "tags:.*security" ~/.claude/knowledge/best-practices/
+
+# このカテゴリで最近更新されたドキュメント
+rg "updated: 2025" ~/.claude/knowledge/best-practices/ --files-with-matches
+```
+
+詳細な検索方法は [FRONTMATTER.md](../FRONTMATTER.md) を参照してください。

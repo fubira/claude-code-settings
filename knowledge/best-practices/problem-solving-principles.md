@@ -1,9 +1,13 @@
-# 問題解決の原則：本質を見極める
+---
+title: 問題解決の原則：本質を見極める
+category: best-practices
+tags: [universal, problem-solving, debugging]
+created: 2025-01-19
+updated: 2025-01-19
+status: verified
+---
 
-**Category**: Problem Solving
-**Tech Stack**: Universal
-**Applicability**: Universal
-**Added**: 2025-01-19
+# 問題解決の原則：本質を見極める
 
 ## 核心原則
 
