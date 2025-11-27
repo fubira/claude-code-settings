@@ -8,7 +8,7 @@
       "Bash(cd:*)",
       "Bash(find:*)",
       "Bash(grep:*)",
-      "Bash(rg:*)", 
+      "Bash(rg:*)",
       "Bash(npm:*)",
       "Bash(node:*)",
       "Bash(python:*)",
@@ -27,6 +27,16 @@
       "WebFetch(domain:nextjs.org)"
     ],
     "deny": []
+  },
+  "enabledPlugins": {
+    "frontend-design@claude-code-plugins": true
+  },
+    "extraKnownMarketplaces": {
+    "claude-code": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-code"
+      }
+    }
   }
 }
-
