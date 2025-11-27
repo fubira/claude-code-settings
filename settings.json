@@ -25,14 +25,15 @@
       "WebFetch(domain:developer.mozilla.org)",
       "WebFetch(domain:npmjs.com)",
       "WebFetch(domain:nextjs.org)",
-      "Read(C:/Users/matsushita/.claude/knowledge/**)"
+      "Read(~/.claude/knowledge/**)"
     ],
     "deny": []
   },
+  "model": "opus",
   "enabledPlugins": {
     "frontend-design@claude-code-plugins": true
   },
-    "extraKnownMarketplaces": {
+  "extraKnownMarketplaces": {
     "claude-code": {
       "source": {
         "source": "github",
@@ -40,6 +41,5 @@
       }
     }
   },
-  "alwaysThinkingEnabled": false,
-  "model": "opus"
+  "alwaysThinkingEnabled": false
 }
