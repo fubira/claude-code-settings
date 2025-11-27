@@ -20,32 +20,19 @@
 
 ## Personal Skills
 
-開発支援のための7つのSkillを提供。必要な場面でのみ自動起動し、コンテキストを効率的に活用する。
+開発支援のための7つのSkill。**ユーザー指示を待たずに自動起動**する：
 
-| Skill | 役割 | 起動トリガー |
-|-------|------|-------------|
-| `git-commit-assistant` | Gitコミット支援 | コミット時、.gitignoreチェック時 |
-| `release-assistant` | リリース作業支援 | リリース、バージョンアップ時 |
-| `test-executor` | テスト実行・カバレッジ分析 | コード実装後、テスト要求時 |
-| `code-reviewer` | コードレビュー | 実装完了後、レビュー要求時 |
-| `refactoring-assistant` | リファクタリング支援 | コード編集中、Code Smell検出時 |
-| `doc-maintainer` | ドキュメント品質管理 | 機能実装後、ドキュメント更新時 |
-| `knowledge-manager` | 知見管理 | 汎用パターン発見時 |
+| Skill | 役割 | 自動起動タイミング |
+|-------|------|-------------------|
+| `git-commit-assistant` | Gitコミット支援 | コミット前 |
+| `release-assistant` | リリース作業支援 | リリース作業時 |
+| `test-executor` | テスト実行・カバレッジ分析 | 機能実装が一段落したとき |
+| `code-reviewer` | コードレビュー | 機能実装が一段落したとき |
+| `refactoring-assistant` | リファクタリング支援 | Code Smell検出時 |
+| `doc-maintainer` | ドキュメント品質管理 | ドキュメント更新が必要そうなとき |
+| `knowledge-manager` | 知見管理 | 汎用的な解決策を発見したとき |
 
 詳細は各 `~/.claude/skills/*/SKILL.md` を参照。
-
-### 積極的活用ルール
-
-以下の場面では、**ユーザーの指示を待たずに自動的に**該当Skillを起動する：
-
-| 場面 | 起動するSkill |
-|------|---------------|
-| 機能実装が一段落したとき | `code-reviewer` → `test-executor` |
-| コミット前 | `git-commit-assistant` |
-| 汎用的な解決策を発見したとき | `knowledge-manager` |
-| リファクタリング中にCode Smellを検出 | `refactoring-assistant` |
-| ドキュメント更新が必要そうなとき | `doc-maintainer` |
-| リリース作業時 | `release-assistant` |
 
 ### Knowledge参照タイミング
 
@@ -143,7 +130,6 @@
 - Biomeによるコード品質管理
 - **Feature-based アーキテクチャ**：機能ごとにディレクトリ分割（`src/features/`）
 - **バレルエクスポート**：コンポーネントは使用しない、ライブラリ的モジュールは使用
-- **Co-location原則**：テスト・CSS Modules等は同じディレクトリに配置
 - **Bun/Bun:Test使用**：ランタイムとテストフレームワークにBunを積極的に採用
 - **Testing Library**：コンポーネントテストに使用
 - **テストファイルのビルド除外**：`tsconfig.json`の`exclude`に`**/*.test.{ts,tsx}`を追加
@@ -198,56 +184,16 @@
 8. **知見記録** - 汎用的な学びがあれば`knowledge-manager`で記録
 9. **リリース** - `release-assistant` Skillでバージョニング・タグ作成
 
-## CI/CD・デプロイフローの基本思想
+## CI/CD
 
-### 環境分離とタグベースリリース
+- **Staging**: `main`プッシュで自動デプロイ
+- **Production**: タグ（`v*`）プッシュで自動デプロイ
+- **原則**: CIビルド前にLint必須、`main`マージだけでは本番デプロイしない
 
-**推奨構成**:
+## Git操作・リリース
 
-- **Staging環境**: `main`ブランチへのプッシュで自動デプロイ（開発・テスト用）
-- **Production環境**: タグ（`v*`）のプッシュで自動デプロイ（本番用）
-
-**タグベースリリースの利点**:
-
-1. **意図的なリリース**: タグ作成という明示的なアクションが必要
-2. **セマンティックバージョニング**: `v{major}.{minor}.{patch}`形式でバージョン管理
-3. **リリース履歴の可視化**: Gitタグがリリース履歴として機能
-4. **ロールバック容易性**: 過去のタグを再プッシュするだけで復帰可能
-
-**基本方針**:
-
-- `main`へのマージだけでは本番デプロイされない設計
-- 本番リリース前にStagingで十分な検証を実施
-- GitHub Actions（または同等のCI/CD）で自動化
-- 環境変数・シークレットはCI/CDプラットフォームで管理
-- **CIビルド前のLint必須**: デプロイビルドを行う前に必ずlintを実行し、コード品質を確保する
-
-## Git操作
-
-コミットは `git-commit-assistant` Skill（Personal Skill）が支援する。
-
-**基本原則**:
-
-- Conventional Commits形式（`type(scope): subject`）
-- 絵文字不使用（CI/CDとの互換性）
-- 必要十分な解説（何を・なぜ・影響）
-
-詳細は `~/.claude/skills/git-commit-assistant/SKILL.md` を参照。
-
-## リリース作業
-
-リリースは `release-assistant` Skill（Personal Skill）が支援する。
-
-**基本フロー**: Lint → Test → Version Bump → Tag → Push
-
-**安全保証**:
-
-- Lint・テスト合格必須（CI通過保証）
-- Semantic Versioning準拠（自動バージョン決定）
-- クリーンな作業ツリー確認
-- ユーザー承認必須
-
-詳細は `~/.claude/skills/release-assistant/SKILL.md` を参照。
+- **コミット**: `git-commit-assistant` Skill - Conventional Commits形式、絵文字不使用
+- **リリース**: `release-assistant` Skill - Lint→Test→Version Bump→Tag→Push
 
 ## テスト
 
@@ -271,57 +217,16 @@
 
 ## 推奨MCPサーバー
 
-MCPサーバーはClaude Codeの機能を拡張する。以下のサーバーの導入を推奨する。
+| サーバー | 用途 | 優先度 |
+|----------|------|--------|
+| serena | LSPベースのセマンティック解析・リファクタリング | 必須 |
+| mcp-ripgrep | ripgrepによる高速コード検索 | 必須 |
+| ts-morph-refactor | TS/JSシンボルリネーム・import自動更新 | 必須 |
+| refactor | 正規表現ベースのコード変換 | 推奨 |
+| ide | VSCode診断情報取得（組み込み） | 推奨 |
+| spec-workflow | 仕様ベース開発テンプレート | 推奨 |
 
-### 必須レベル
-
-1. **serena** - セマンティックコード検索・編集エージェント
-   - Language Server Protocol (LSP) を活用したIDE機能
-   - シンボルレベルのセマンティック解析・編集
-   - 多言語サポート（Python, JavaScript, TypeScript, Java等）
-   - 大規模コードベースでの高度なコード理解
-   - 無料・オープンソース、APIキー不要
-   - インストール: `claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide-assistant --project "$(pwd)"`
-   - **積極的に活用**: シンボルリネーム、参照検索、コード構造解析、大規模リファクタリング時に優先使用
-
-2. **mcp-ripgrep** - 高速コード検索
-   - ripgrepベースの強力な検索機能
-   - 正規表現、ファイルパターン、コンテキスト表示に対応
-   - インストール: `npx mcp-ripgrep`
-
-3. **ts-morph-refactor** - TypeScript/JavaScriptリファクタリング
-   - シンボルリネーム（変数、関数、クラス名の一括変更）
-   - ファイル・フォルダ移動時のimport/export自動更新
-   - 参照検索、シンボル移動など高度なリファクタリング
-   - インストール: `npx @sirosuzume/mcp-tsmorph-refactor`
-
-### 推奨レベル
-
-1. **refactor** - 正規表現ベースのリファクタリング
-   - パターンマッチングによるコード変換
-   - 大規模な文字列置換に便利
-   - インストール: `npx @myuon/refactor-mcp`
-
-2. **ide** - VSCode統合
-   - 診断情報（エラー、警告）の取得
-   - Jupyter notebookのコード実行
-   - インストール: Claude Code組み込み（設定不要）
-
-3. **spec-workflow** - 仕様ベース開発サポート
-   - 製品仕様・技術仕様・タスク分割のテンプレート管理
-   - 構造化された開発ワークフロー
-   - 設定: `~/.claude/.spec-workflow/`
-
-### MCP設定
-
-グローバルな設定は `~/.claude.json` に記述される。
-
-**注意事項**:
-
-- `~/.claude.json` → `.gitignore`（ローカル環境依存のパス情報を含むため）
-- **Windows環境**: `npx` 実行時は `cmd /c` ラッパーが必須
-- **serena**: `claude mcp add` コマンドで自動設定を推奨
-- 詳細な設定方法は `~/.claude/knowledge/troubleshooting/` を参照
+**設定**: `~/.claude.json`（`.gitignore`推奨、環境依存のため）
 
 ## Plugins
 
@@ -346,53 +251,3 @@ MCPサーバーはClaude Codeの機能を拡張する。以下のサーバーの
 - **複雑な新機能開発**: `/feature-dev`で探索→設計→実装→レビューの7フェーズを実行
 - **UI/フロントエンド**: `frontend-design`が自動で高品質なデザインを生成
 - **PR作成前**: `/code-review`でセルフレビュー（信頼度80以上の問題のみ報告）
-
----
-
-## Claude Code機能活用
-
-### TodoWrite
-
-タスク管理用の組み込みツール。複数ステップの作業を追跡し、進捗を可視化する。
-
-### カスタムスラッシュコマンド
-
-プロジェクトごとによく使うタスクを`.claude/commands/`にMarkdownファイルで定義する。
-
-**基本原則**:
-
-- 簡潔で意図が明確な名前を使う
-- プロジェクトルートの`.claude/commands/`に配置
-- チーム開発ではコミット推奨（Git管理）
-
-**Git管理指針**:
-
-- `.claude/commands/` → コミット（チーム共有）
-- `.claude/settings.local.json` → `.gitignore`（個人用設定）
-
-### Hooks
-
-`.claude/hooks.json`でツール実行前後の自動化を設定する。
-
-**主な用途**:
-
-- **自動フォーマット**: コード変更時にフォーマッターを自動実行
-- **リマインダー**: コミット前のチェックリスト表示
-
-**Git管理**:
-
-- `.claude/hooks.json` → コミット（チーム共有）
-
-### permissions設定
-
-`.claude/settings.local.json`で頻繁に使うツールを事前承認し、実行時の確認を省略する。
-
-**基本方針**:
-
-- テスト・ビルドコマンドは許可推奨
-- Git操作（status, log等）は許可推奨
-- 破壊的操作（rm, force push等）は許可しない
-
-**Git管理**:
-
-- `.claude/settings.local.json` → `.gitignore`（個人用設定）
