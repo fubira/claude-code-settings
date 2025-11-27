@@ -34,6 +34,30 @@
 
 詳細は各 `~/.claude/skills/*/SKILL.md` を参照。
 
+### 積極的活用ルール
+
+以下の場面では、**ユーザーの指示を待たずに自動的に**該当Skillを起動する：
+
+| 場面 | 起動するSkill |
+|------|---------------|
+| 機能実装が一段落したとき | `code-reviewer` → `test-executor` |
+| コミット前 | `git-commit-assistant` |
+| 汎用的な解決策を発見したとき | `knowledge-manager` |
+| リファクタリング中にCode Smellを検出 | `refactoring-assistant` |
+| ドキュメント更新が必要そうなとき | `doc-maintainer` |
+| リリース作業時 | `release-assistant` |
+
+### Knowledge参照タイミング
+
+問題解決や実装前に、**まず関連する知見がないか確認**する：
+
+| 状況 | 参照先 |
+|------|--------|
+| エラー・問題発生時 | `~/.claude/knowledge/troubleshooting/INDEX.md` |
+| 設計判断・実装パターン検討時 | `~/.claude/knowledge/patterns/INDEX.md` |
+| 品質・セキュリティ検討時 | `~/.claude/knowledge/best-practices/INDEX.md` |
+| CI/CD・プロセス検討時 | `~/.claude/knowledge/workflows/INDEX.md` |
+
 ## アシスト対象
 
 - TypeScript/Go重視、プロジェクトの目的に見合ったモダンな技術を使用
@@ -164,14 +188,15 @@
 
 ## 開発フロー
 
-1. 要求事項の分析と既存コードパターンの調査
-2. TodoWriteツールを使用したタスク管理
-3. 実装（テスト駆動開発推奨）
-4. Lint実行（コミット前に必須）
-5. 全テスト通過を確認
-6. コミット（Conventional Commits形式推奨）
-7. バージョニング（SemVer: v0.1.1形式のタグ）
-8. コードレビューと改善
+1. **要求分析** - Knowledge参照: `patterns/INDEX.md`で類似パターンを確認
+2. **タスク管理** - TodoWriteツールでタスク分解・進捗管理
+3. **実装** - テスト駆動開発推奨、複雑な機能は`/feature-dev`コマンド活用
+4. **テスト実行** - `test-executor` Skillでテスト・カバレッジ確認
+5. **セルフレビュー** - `code-reviewer` Skillで品質チェック
+6. **Lint実行** - コミット前に必須
+7. **コミット** - `git-commit-assistant` SkillでConventional Commits生成
+8. **知見記録** - 汎用的な学びがあれば`knowledge-manager`で記録
+9. **リリース** - `release-assistant` Skillでバージョニング・タグ作成
 
 ## CI/CD・デプロイフローの基本思想
 
@@ -297,6 +322,30 @@ MCPサーバーはClaude Codeの機能を拡張する。以下のサーバーの
 - **Windows環境**: `npx` 実行時は `cmd /c` ラッパーが必須
 - **serena**: `claude mcp add` コマンドで自動設定を推奨
 - 詳細な設定方法は `~/.claude/knowledge/troubleshooting/` を参照
+
+## Plugins
+
+マーケットプレイスから導入したPluginで開発ワークフローを強化する。
+
+### 有効化済み
+
+| Plugin | 用途 | 起動 |
+|--------|------|------|
+| `frontend-design` | プロダクション品質のUI生成 | UI実装時に自動適用 |
+
+### 推奨Plugin
+
+| Plugin | 用途 | 起動方法 |
+|--------|------|----------|
+| `feature-dev` | 7フェーズ構造化機能開発 | `/feature-dev [機能説明]` |
+| `code-review` | PR自動レビュー（信頼度スコア付き） | `/code-review` |
+| `commit-commands` | コミット・PR作成支援 | `/commit`, `/commit-push-pr` |
+
+### 活用ガイドライン
+
+- **複雑な新機能開発**: `/feature-dev`で探索→設計→実装→レビューの7フェーズを実行
+- **UI/フロントエンド**: `frontend-design`が自動で高品質なデザインを生成
+- **PR作成前**: `/code-review`でセルフレビュー（信頼度80以上の問題のみ報告）
 
 ---
 
