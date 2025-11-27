@@ -1,9 +1,13 @@
-# Electronセキュリティベストプラクティス
+---
+title: Electronセキュリティベストプラクティス
+category: best-practices
+tags: [electron, security, ipc, xss]
+created: 2025-01-19
+updated: 2025-01-19
+status: verified
+---
 
-**Category**: Security
-**Tech Stack**: Electron
-**Date Added**: 2025-01-19
-**Applicability**: Framework-specific
+# Electronセキュリティベストプラクティス
 
 ## Overview
 

@@ -83,6 +83,24 @@ All knowledge entries should:
 - Maintain accurate INDEX entries
 - Cross-reference related knowledge
 
+
+## Front Matter
+
+全ての知見ファイルにはYAML Front Matterが付与されています。
+
+```yaml
+---
+title: ドキュメントタイトル
+category: patterns|troubleshooting|best-practices|workflows
+tags: [技術スタック, キーワード...]
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+status: draft|active|verified|deprecated
+---
+```
+
+Front Matterを使った高度な検索方法は [FRONTMATTER.md](FRONTMATTER.md) を参照してください。
+
 ## Templates
 
 Template files are located in `~/.claude/skills/knowledge-manager/templates/`:

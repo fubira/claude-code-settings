@@ -1,9 +1,13 @@
-# Electron IPC通信パターン
+---
+title: Electron IPC通信パターン
+category: patterns
+tags: [electron, ipc, security, typescript]
+created: 2025-01-19
+updated: 2025-01-19
+status: verified
+---
 
-**Category**: Code Structure
-**Tech Stack**: Electron
-**Date Added**: 2025-01-19
-**Source Project**: codearts-nfc-reader-electron
+# Electron IPC通信パターン
 
 ## Problem
 

@@ -189,7 +189,6 @@ If encountering:
 
 ## Supporting Files
 
-- `rules/review-checklist.md`: Detailed checklist for each review area
 - `templates/review-report.md`: Structured template for review output
 
 ## Maintenance

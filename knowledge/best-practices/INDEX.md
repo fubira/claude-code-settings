@@ -10,7 +10,7 @@ Standards, conventions, and quality guidelines.
 
 ### Testing
 
-None yet.
+- [外部ライブラリのテスト方針](testing-external-libraries.md) - Cross-stack (2025-01-24)
 
 ### Performance
 
@@ -46,6 +46,7 @@ None yet.
 
 - [問題解決の原則：本質を見極める](problem-solving-principles.md) (2025-01-19)
 - [改行コード統一管理（LF必須化）](line-ending-management.md) (2025-01-19)
+- [外部ライブラリのテスト方針](testing-external-libraries.md) (2025-01-24)
 
 ### Electron
 
@@ -103,6 +104,18 @@ Electronアプリでカスタムアイコンを正しく表示させるための
 
 ---
 
+### [外部ライブラリのテスト方針](testing-external-libraries.md)
+
+**Category**: Testing
+**Tech Stack**: Cross-stack
+**Applicability**: Universal
+**Added**: 2025-01-24
+**Keywords**: testing, external libraries, mocking, vi.spyOn, Dexie.js, responsibility separation
+
+外部ライブラリ自体の動作はテスト対象外とし、vi.spyOn()でモックすることで、プロジェクトコードのロジックのみをテストする方針。
+
+---
+
 <!--
 Template for new entries:
 
@@ -121,9 +134,9 @@ Brief one-sentence description.
 
 ## Statistics
 
-- Total practices: 4
+- Total practices: 5
 - Problem Solving: 1
-- Testing: 0
+- Testing: 1
 - Performance: 0
 - Security: 1
 - Code Quality: 1
@@ -132,11 +145,47 @@ Brief one-sentence description.
 
 ## Recently Added
 
-1. [Electronアプリケーションアイコン設定の完全ガイド](electron-application-icons.md) - 2025-01-20（更新: 2025-01-21）
-2. [問題解決の原則：本質を見極める](problem-solving-principles.md) - 2025-01-19
-3. [改行コード統一管理（LF必須化）](line-ending-management.md) - 2025-01-19
-4. [Electronセキュリティベストプラクティス](electron-security.md) - 2025-01-19
+1. [外部ライブラリのテスト方針](testing-external-libraries.md) - 2025-01-24
+2. [Electronアプリケーションアイコン設定の完全ガイド](electron-application-icons.md) - 2025-01-20（更新: 2025-01-21）
+3. [問題解決の原則：本質を見極める](problem-solving-principles.md) - 2025-01-19
+4. [改行コード統一管理（LF必須化）](line-ending-management.md) - 2025-01-19
+5. [Electronセキュリティベストプラクティス](electron-security.md) - 2025-01-19
 
 ## Most Referenced
 
 None yet.
+
+## Front Matterによる検索
+
+ナレッジベース全体でYAML Front Matterを使った高度な検索が可能です。
+
+### 基本的な検索例
+
+```bash
+# 特定の技術スタックを含む全知見を検索
+rg "tags:.*typescript" ~/.claude/knowledge/
+
+# カテゴリで検索
+rg "category: best-practices" ~/.claude/knowledge/
+
+# 検証済みドキュメントのみ検索
+rg "status: verified" ~/.claude/knowledge/
+
+# 複数条件（TypeScript かつ React）
+rg "tags:.*typescript.*react" ~/.claude/knowledge/
+
+# 更新日が2025年3月以降のドキュメント
+rg "updated: 2025-0[3-9]|2025-1[0-2]" ~/.claude/knowledge/
+```
+
+### カテゴリ固有の検索
+
+```bash
+# このカテゴリ内で特定タグを検索
+rg "tags:.*security" ~/.claude/knowledge/best-practices/
+
+# このカテゴリで最近更新されたドキュメント
+rg "updated: 2025" ~/.claude/knowledge/best-practices/ --files-with-matches
+```
+
+詳細な検索方法は [FRONTMATTER.md](../FRONTMATTER.md) を参照してください。

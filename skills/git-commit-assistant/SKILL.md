@@ -292,8 +292,6 @@ All detailed rules, patterns, and templates are in this Skill's files.
 - `rules/gitignore-patterns.md`: Comprehensive .gitignore pattern library
 - `rules/file-classification.md`: Detailed file classification rules
 - `templates/commit-message.md`: Commit message template and examples
-- `examples/good-commits.md`: Examples of well-formed commits
-- `examples/bad-commits.md`: Anti-patterns to avoid
 
 ## Usage Tips
 

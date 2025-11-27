@@ -1,10 +1,13 @@
-# Electronアプリケーションアイコン設定の完全ガイド
+---
+title: Electronアプリケーションアイコン設定の完全ガイド
+category: best-practices
+tags: [electron, electron-builder, windows, macos, linux, build-configuration]
+created: 2025-01-20
+updated: 2025-01-21
+status: verified
+---
 
-**Category**: Build & Configuration
-**Tech Stack**: Electron
-**Applicability**: Framework-specific
-**Added**: 2025-01-20
-**Last Updated**: 2025-01-21
+# Electronアプリケーションアイコン設定の完全ガイド
 
 ## 概要
 

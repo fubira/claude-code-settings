@@ -1,8 +1,13 @@
-# TypeScript RORO Pattern
+---
+title: TypeScript RORO Pattern
+category: patterns
+tags: [typescript, react, code-structure, parameters]
+created: 2025-01-19
+updated: 2025-01-19
+status: verified
+---
 
-**Tech Stack**: TypeScript/React
-**Category**: Code Structure
-**Added**: 2025-01-19
+# TypeScript RORO Pattern
 
 ## Overview
 

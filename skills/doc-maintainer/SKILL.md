@@ -172,12 +172,6 @@ When providing recommendations:
 - **git-commit-assistant**: Ensure documentation is updated before commit
 - **knowledge-manager**: Record documentation patterns and best practices
 
-## Supporting Files
-
-- `rules/readme-standards.md`: Detailed README.md guidelines
-- `rules/claude-md-standards.md`: Detailed CLAUDE.md guidelines
-- `rules/code-comments-standards.md`: Language-specific code documentation rules
-
 ## Maintenance
 
 Update this Skill when:

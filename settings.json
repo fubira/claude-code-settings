@@ -24,7 +24,8 @@
       "WebFetch(domain:stackoverflow.com)",
       "WebFetch(domain:developer.mozilla.org)",
       "WebFetch(domain:npmjs.com)",
-      "WebFetch(domain:nextjs.org)"
+      "WebFetch(domain:nextjs.org)",
+      "Read(C:/Users/matsushita/.claude/knowledge/**)"
     ],
     "deny": []
   },
@@ -38,5 +39,7 @@
         "repo": "anthropics/claude-code"
       }
     }
-  }
+  },
+  "alwaysThinkingEnabled": false,
+  "model": "opus"
 }
