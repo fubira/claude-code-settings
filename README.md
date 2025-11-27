@@ -6,8 +6,9 @@
 
 ### Personal Skills（Progressive Disclosure）
 
-必要な場面でのみ自動起動する6つの Skill を提供。不要な時はプロンプトに含まれないため、コンテキストを効率的に活用できる。
+必要な場面でのみ自動起動する7つの Skill を提供。不要な時はプロンプトに含まれないため、コンテキストを効率的に活用できる。
 
+- **release-assistant**: リリース作業支援（バージョン管理、タグ作成）
 - **test-executor**: テスト実行・カバレッジ分析（主にGoプロジェクト向け）
 - **git-commit-assistant**: Gitコミット支援（.gitignoreチェック、Conventional Commits生成）
 - **code-reviewer**: コードレビュー（品質・セキュリティ・ベストプラクティス分析）

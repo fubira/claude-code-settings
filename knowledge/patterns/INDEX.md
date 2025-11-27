@@ -5,7 +5,6 @@ Reusable design patterns, architectural solutions, and code structures.
 ## Quick Navigation
 
 - [TypeScript/React Patterns](typescript-react/)
-- [Go Patterns](go/)
 - [Cross-stack Patterns](cross-stack/)
 - [Electron Patterns](electron/)
 
@@ -63,7 +62,6 @@ Brief one-sentence description.
 
 - Total patterns: 3
 - TypeScript/React: 1
-- Go: 0
 - Cross-stack: 1
 - Electron: 1
 

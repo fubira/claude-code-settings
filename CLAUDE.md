@@ -18,9 +18,25 @@
 - 文体: だ・である調（語尾なし）
 - 用途: コミットメッセージ、プロジェクトドキュメント（README.md、CLAUDE.md等）、テスト実行結果レポート、コードレビューレポート、実装ログ、その他チーム共有やプロフェッショナルな場面での出力
 
+## Personal Skills
+
+開発支援のための7つのSkillを提供。必要な場面でのみ自動起動し、コンテキストを効率的に活用する。
+
+| Skill | 役割 | 起動トリガー |
+|-------|------|-------------|
+| `git-commit-assistant` | Gitコミット支援 | コミット時、.gitignoreチェック時 |
+| `release-assistant` | リリース作業支援 | リリース、バージョンアップ時 |
+| `test-executor` | テスト実行・カバレッジ分析 | コード実装後、テスト要求時 |
+| `code-reviewer` | コードレビュー | 実装完了後、レビュー要求時 |
+| `refactoring-assistant` | リファクタリング支援 | コード編集中、Code Smell検出時 |
+| `doc-maintainer` | ドキュメント品質管理 | 機能実装後、ドキュメント更新時 |
+| `knowledge-manager` | 知見管理 | 汎用パターン発見時 |
+
+詳細は各 `~/.claude/skills/*/SKILL.md` を参照。
+
 ## アシスト対象
 
-- TypeScript重視、プロジェクトの目的に見合ったモダンな技術を使用
+- TypeScript/Go重視、プロジェクトの目的に見合ったモダンな技術を使用
 - 開発環境: WSL/Linux/macOS/Windows（git bash）
 - **改行コード管理**: すべての環境でLFを使用（`.gitattributes`必須、Windows環境では`core.autocrlf=false`を推奨）
 
@@ -117,7 +133,13 @@
 
 #### Go プロジェクト標準
 
-（今後追加）
+- **標準レイアウト**: `cmd/`, `internal/`, `pkg/` 構造を採用
+- **エラーハンドリング**: `errors.Is`/`errors.As`を使用、エラーラップで文脈追加
+- **テスト**: `go test ./...`、テーブル駆動テスト推奨
+- **Linter**: `golangci-lint`を使用
+- **依存管理**: Go Modules（`go.mod`）
+- **並行処理**: goroutine + channel、context.Contextでキャンセル制御
+- **テスト実行**: `test-executor` Skillが支援
 
 ## 知見管理システム
 
@@ -259,6 +281,11 @@ MCPサーバーはClaude Codeの機能を拡張する。以下のサーバーの
    - 診断情報（エラー、警告）の取得
    - Jupyter notebookのコード実行
    - インストール: Claude Code組み込み（設定不要）
+
+3. **spec-workflow** - 仕様ベース開発サポート
+   - 製品仕様・技術仕様・タスク分割のテンプレート管理
+   - 構造化された開発ワークフロー
+   - 設定: `~/.claude/.spec-workflow/`
 
 ### MCP設定
 
