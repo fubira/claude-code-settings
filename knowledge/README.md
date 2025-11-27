@@ -1,111 +1,36 @@
 # Knowledge Base
 
-This directory contains a structured knowledge base managed by the `knowledge-manager` Skill.
+`knowledge-manager` Skill が管理する構造化されたナレッジベース。
 
-## Purpose
+## 目的
 
-Capture project learnings without bloating global CLAUDE.md. Knowledge is organized by category and referenced only when relevant (progressive disclosure).
+グローバル CLAUDE.md を肥大化させずにプロジェクト横断的な学びを蓄積する。知見は必要な時だけ参照される（Progressive Disclosure）。
 
-## Categories
+## カテゴリ
 
-### [Patterns](patterns/INDEX.md)
+| カテゴリ | 内容 | INDEX |
+|---------|------|-------|
+| patterns | 設計パターン、アーキテクチャ、コード構造 | [INDEX.md](patterns/INDEX.md) |
+| troubleshooting | 技術的問題と解決策 | [INDEX.md](troubleshooting/INDEX.md) |
+| best-practices | 品質・パフォーマンス・セキュリティ指針 | [INDEX.md](best-practices/INDEX.md) |
+| workflows | CI/CD、開発プロセス | [INDEX.md](workflows/INDEX.md) |
 
-Reusable design patterns, architectural solutions, and code structures.
+## 知見の検索
 
-**Tech Stack Subcategories**:
+各カテゴリの INDEX.md から検索するか、Front Matter を使った ripgrep 検索が可能。
 
-- [TypeScript/React](patterns/typescript-react/)
-- [Go](patterns/go/)
-- [Cross-stack](patterns/cross-stack/)
+```bash
+# タグで検索
+rg "tags:.*typescript" ~/.claude/knowledge/
 
-### [Troubleshooting](troubleshooting/INDEX.md)
-
-Technical issues, error resolutions, and debugging guides.
-
-### [Best Practices](best-practices/INDEX.md)
-
-Standards, conventions, and quality guidelines.
-
-### [Workflows](workflows/INDEX.md)
-
-Process documentation, CI/CD patterns, and operational procedures.
-
-### [Archive](archive/)
-
-Low-priority or deprecated knowledge for historical reference.
-
-## How It Works
-
-### Automatic Recording
-
-The `knowledge-manager` Skill automatically detects valuable knowledge during development and proposes recording it in the appropriate category.
-
-### Progressive Disclosure
-
-Knowledge files are read only when relevant to the current task, keeping context windows efficient.
-
-### Search and Discovery
-
-Use INDEX.md files in each category to quickly find relevant knowledge.
-
-## Management
-
-### Adding Knowledge
-
-Knowledge is added via the `knowledge-manager` Skill, which:
-
-1. Evaluates the knowledge against quality criteria
-2. Selects the appropriate category and template
-3. Creates or updates the knowledge file
-4. Updates the INDEX.md file
-
-### Updating Knowledge
-
-When updating existing knowledge:
-
-1. Read the current entry
-2. Make updates preserving the template structure
-3. Update the "Last Updated" date
-4. Note changes in the INDEX.md if significant
-
-### Archiving Knowledge
-
-Move low-value or outdated knowledge to `archive/` to keep active knowledge relevant.
-
-## Quality Standards
-
-All knowledge entries should:
-
-- Use the appropriate template
-- Have clear, scannable titles
-- Include concrete examples
-- Provide proper categorization
-- Maintain accurate INDEX entries
-- Cross-reference related knowledge
-
-
-## Front Matter
-
-全ての知見ファイルにはYAML Front Matterが付与されています。
-
-```yaml
----
-title: ドキュメントタイトル
-category: patterns|troubleshooting|best-practices|workflows
-tags: [技術スタック, キーワード...]
-created: YYYY-MM-DD
-updated: YYYY-MM-DD
-status: draft|active|verified|deprecated
----
+# ステータスで検索
+rg "status: verified" ~/.claude/knowledge/
 ```
 
-Front Matterを使った高度な検索方法は [FRONTMATTER.md](FRONTMATTER.md) を参照してください。
+詳細は [FRONTMATTER.md](FRONTMATTER.md) を参照。
 
-## Templates
+## 知見の追加
 
-Template files are located in `~/.claude/skills/knowledge-manager/templates/`:
+`knowledge-manager` Skill が自動的に提案・記録する。手動で追加する場合は、各カテゴリのテンプレートに従う。
 
-- `pattern.md`
-- `troubleshooting.md`
-- `best-practice.md`
-- `workflow.md`
+テンプレート: `~/.claude/skills/knowledge-manager/templates/`
