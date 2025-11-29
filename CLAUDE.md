@@ -195,6 +195,12 @@
 - **コミット**: `git-commit-assistant` Skill - Conventional Commits形式、絵文字不使用
 - **リリース**: `release-assistant` Skill - Lint→Test→Version Bump→Tag→Push
 
+### コミットメッセージの書き方
+
+- **タイトル**: 修正内容を一言で表す（何をしたか）
+- **本文**: 変更内容ではなく変更意図を書く（なぜそうしたか）
+- タイトルで「何を」、本文で「なぜ」を説明する
+
 ## テスト
 
 - **カバレッジ**: 80%以上を目標
