@@ -38,3 +38,8 @@ plugins/
 # OS固有ファイル
 .DS_Store
 Thumbs.db
+
+cache/
+
+# 一時ファイル
+tmpclaude-*-cwd
