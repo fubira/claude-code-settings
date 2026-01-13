@@ -1,28 +1,27 @@
 ---
 title: Claude Code "File has been unexpectedly modified" エラー
 category: troubleshooting
-tags: [claude-code, windows, bugs, workaround, serena, mcp]
+tags: [claude-code, windows, bugs, workaround, serena, mcp, cli-patch]
 created: 2025-01-19
-updated: 2025-01-25
+updated: 2026-01-13
 status: active
 ---
 
-# Claude Code "File has been unexpectedly modified" エラー
-
 ## ⚠️ 注意事項
 
-**これは Claude Code v1.0.111 のクリティカルなリグレッションバグです。**
-Edit/Writeツールが完全に使用不可能になるため、代替手段を使用する必要があります。
+**これは Claude Code v1.0.111 以降で継続しているクリティカルなリグレッションバグである。**
+v2.1.6（2026年1月時点の最新）でも未修正。Edit/Writeツールが完全に使用不可能になるため、代替手段を使用する必要がある。
 
 ## Symptoms
 
 Read ツールでファイルを読み取った直後に Edit/Write ツールで編集しようとすると必ず失敗する。
 
-```
+```text
 Error: File has been unexpectedly modified. Read it again before attempting to write it.
 ```
 
 **重要な特徴**:
+
 - 既存ファイルの編集が完全に不可能になる
 - Readツール直後でも必ず失敗する
 - セッション中に作成したファイルは編集可能
@@ -30,27 +29,68 @@ Error: File has been unexpectedly modified. Read it again before attempting to w
 
 ## Root Cause
 
-Claude Code v1.0.111 で発生したクリティカルな回帰バグ。Read/Writeツール間のファイル状態トラッキングが完全に壊れている。
+Claude Code v1.0.111 で発生したクリティカルな回帰バグ。`cli.js`のファイル変更検出ロジックが壊れている。
 
-### 確認された原因
+### 技術的詳細
 
-1. **ファイル状態トラッキングの不具合（主要因）**
+1. **タイムスタンプ精度の問題（主要因）**
+   - `fs.statSync(path).mtime` と `Date.now()` の比較で誤検出
+   - Windows/NTFSのタイムスタンプ精度が異なる
+   - Node.js の `mtime` がキャッシュされた古い値を返す場合がある
+   - タイミングジッターで「変更された」と誤判定
+
+2. **ファイル状態トラッキングの不具合**
    - Readツールが成功してもEdit/Writeツールがその情報を認識しない
-   - 内部的なファイル状態キャッシュの初期化・同期が壊れている
+   - 内部的なファイル状態キャッシュがツール呼び出し間で永続化されない
 
-2. **Windows環境での問題（特に顕著）**
-   - Git Bash環境で特に問題が起きやすい
-   - ログインシェル実行による `.bash_profile` の影響も疑われたが、環境変数設定では解決せず
-
-3. **相対パス/絶対パスによる違い**
-   - 相対パスの方が成功率が高いという報告あり（ただし環境依存）
-   - 本質的な解決策ではない
+3. **Windows環境での問題（特に顕著）**
+   - Git Bash (MINGW64) 環境で特に問題が起きやすい
+   - CRLF/LF変換が「変更」として検出される場合もあり
 
 ## Solution
 
-### ✅ 最優先: serena MCP の \`replace_content\` ツールを使用
+### ✅ 推奨1: cli.js にパッチを当てる
 
-**問題発生時はすぐに serena を使うこと。**
+**根本的な回避策。タイムスタンプチェックを無効化する。**
+
+⚠️ **注意**: パッチパターンはバージョンごとに変数名が変わる。動作しない場合は Issue #12805 で最新パターンを確認すること。
+
+#### Git Bash (MINGW64) の場合（v2.0.75+）
+
+```bash
+CLAUDE_CLI="/c/Users/$USER/AppData/Roaming/npm/node_modules/@anthropic-ai/claude-code/cli.js"
+
+# バックアップ
+cp "$CLAUDE_CLI" "${CLAUDE_CLI}.backup"
+
+# パッチ適用
+sed -i 's/if(Ew(B)>J.timestamp)return{result:!1,message:"File has been modified since read/if(false)return{result:!1,message:"File has been modified since read/' "$CLAUDE_CLI"
+sed -i 's/if(Ew(Y)>W.timestamp)return{result:!1,behavior:"ask"/if(false)return{result:!1,behavior:"ask"/' "$CLAUDE_CLI"
+sed -i 's/if(!z||E>z.timestamp)throw Error("File has been unexpectedly modified/if(false)throw Error("File has been unexpectedly modified/' "$CLAUDE_CLI"
+
+echo "Patched! Restart Claude Code."
+```
+
+#### PowerShell の場合（v2.0.75+）
+
+```powershell
+$cliPath = "$env:APPDATA\npm\node_modules\@anthropic-ai\claude-code\cli.js"
+$timestamp = Get-Date -Format "yyyyMMddHHmmss"
+Copy-Item $cliPath "$cliPath.backup.$timestamp"
+
+$content = Get-Content $cliPath -Raw
+$content = $content -replace 'if\(Ew\(B\)>J\.timestamp\)return\{result:!1,message:"File has been modified since read', 'if(false)return{result:!1,message:"File has been modified since read'
+$content = $content -replace 'if\(!z\|\|E>z\.timestamp\)throw Error\("File has been unexpectedly modified', 'if(false)throw Error("File has been unexpectedly modified'
+
+Set-Content $cliPath $content -NoNewline
+Write-Host "Patched! Restart Claude Code."
+```
+
+**注意**: Claude Code のアップデート後は再度パッチを当てる必要がある。SessionStart Hook で自動化することも可能（Issue #12805 参照）。
+
+### ✅ 推奨2: serena MCP のシンボル編集ツールを使用
+
+**パッチを当てられない場合や、より安全な方法を求める場合。**
 
 #### 1. serena の初期化
 
@@ -64,22 +104,27 @@ mcp__serena__activate_project("project-name")
 
 #### 2. ファイル編集
 
-serena の \`replace_content\` ツールを使用：
+serena のシンボル編集ツールを使用：
 
 ```typescript
-// 正規表現モードで柔軟に編集
-mcp__serena__replace_content({
-  relative_path: "src/shared/lib/tauri.ts",
-  needle: "export interface SystemInfo \{[^}]+\}",
-  repl: "export interface SystemInfo {\n  // 更新内容\n}",
-  mode: "regex"
+// シンボル単位で編集（クラス、関数、メソッド等）
+mcp__serena__replace_symbol_body({
+  relative_path: "src/services/auth.ts",
+  name_path: "AuthService/login",
+  body: "async login(credentials: Credentials): Promise<User> {\n  // 新しい実装\n}"
+})
+
+// パターン検索で編集箇所を特定
+mcp__serena__search_for_pattern({
+  substring_pattern: "export interface SystemInfo",
+  relative_path: "src/types"
 })
 ```
 
 **serena の利点**:
+
 - ✅ Claude Code のバグの影響を受けない
-- ✅ 正規表現による柔軟な編集が可能
-- ✅ シンボルレベルの編集にも対応
+- ✅ シンボルレベルの精密な編集が可能
 - ✅ 大規模なリファクタリングに適している
 
 ### ⚠️ 非推奨: sed/cat での回避策
@@ -94,103 +139,16 @@ content here
 EOF
 ```
 
-**避けるべき理由**:
-- ❌ 非効率（特に大きなファイル）
-- ❌ エラー処理が不完全
-- ❌ コードの可読性が低下
-- ❌ 型チェックができない
-
-### 📋 問題解決フロー
-
-Edit/Writeツールが失敗した場合の推奨手順：
-
-1. **まず GitHub Issues を確認** → バグ修正版がリリースされているか確認
-2. **serena を初期化** → \`mcp__serena__initial_instructions\` と \`activate_project\`
-3. **serena の \`replace_content\` で編集** → 正規表現を活用
-4. **sed/cat は最終手段** → serena でも解決できない場合のみ
-
-## Verification
-
-以下のテストで問題が解消されたか確認：
-
-1. **既存ファイルの読み取り**:
-
-   ```
-   Read: src/shared/lib/tauri.ts
-   ```
-
-2. **即座に編集を試行**:
-
-   ```
-   Edit: src/shared/lib/tauri.ts（コメント追加など簡単な変更）
-   ```
-
-3. **失敗する場合**:
-   - すぐに serena に切り替える
-   - sed/cat での回避は避ける
-
-## Prevention
-
-### 実装時の原則
-
-1. **問題発生時は根本原因を調べる**
-   - sed/cat に逃げる前に GitHub Issues を検索
-   - \`.bash_profile\` 等の環境設定を疑う前にバグ報告を確認
-
-2. **serena を積極的に活用**
-   - 初期化手順を理解しておく
-   - \`replace_content\` の正規表現パターンを習得
-
-3. **効率重視**
-   - sed/cat は非効率なので避ける
-   - serena は型安全で効率的
-
-### 短期的対策（バグ修正まで）
-
-- ✅ **serena を標準の編集ツールとして使用**
-- ✅ GitHub Issue #7443, #10882, #11684 等を定期的にチェック
-- ⚠️ Claude Code のバージョン更新情報を確認
-
-### 長期的対策（バグ修正後）
-
-- Claude Code の最新版へのアップデート
-- Edit/Write ツールの動作確認
-- serena は引き続き大規模リファクタリング用に使用
+これらの方法は緊急時のみ使用し、通常は推奨1または推奨2を使用すること。
 
 ## Related Issues
 
-- [GitHub #7443](https://github.com/anthropics/claude-code/issues/7443) - クリティカルバグ報告（メインスレッド）
-- [GitHub #10882](https://github.com/anthropics/claude-code/issues/10882) - VSCode拡張での失敗
-- [GitHub #7918](https://github.com/anthropics/claude-code/issues/7918) - Windows環境での問題
-- [GitHub #11463](https://github.com/anthropics/claude-code/issues/11463) - エラーループ
-- [GitHub #10437](https://github.com/anthropics/claude-code/issues/10437) - Read直後のEdit失敗
-- [GitHub #11684](https://github.com/anthropics/claude-code/issues/11684) - Git Bash環境
-
-## References
-
-- [serena MCP](https://github.com/oraios/serena) - セマンティックコード編集ツール
-- [GitHub Issue #7443](https://github.com/anthropics/claude-code/issues/7443) - メイントラッキングIssue
-- [Medium記事](https://medium.com/@yunjeongiya/the-elusive-claude-file-has-been-unexpectedly-modified-bug-a-workaround-solution-831182038d1d) - 回避策のまとめ
+- [GitHub #12805](https://github.com/anthropics/claude-code/issues/12805) - Open（メイントラッカー、最新パッチ情報あり）
+- [GitHub #12462](https://github.com/anthropics/claude-code/issues/12462) - Open（duplicate マーク付き）
+- [GitHub #14516](https://github.com/anthropics/claude-code/issues/14516) - Closed（#12462 の duplicate）
 
 ## バージョン情報
 
-- **発生バージョン**: Claude Code v1.0.111〜
-- **最終動作バージョン**: v1.0.100
-- **調査日**: 2025-01-19, 2025-01-25（更新）
-- **ステータス**: クリティカルバグ（根本修正待ち）、serena で回避可能
-
-## 学んだ教訓
-
-1. **問題解決の原則を守る**
-   - 対症療法（sed/cat）に走らない
-   - 根本原因を調査する（GitHub Issues検索）
-   - 効率的な代替手段を探す（serena）
-
-2. **serena の有用性**
-   - バグ回避だけでなく、通常の開発でも有用
-   - 正規表現による柔軟な編集
-   - シンボルレベルの操作が可能
-
-3. **環境変数設定の限界**
-   - \`CLAUDE_BASH_NO_LOGIN=1\` は効果なし
-   - ツール内部のバグは環境設定では解決できない
+- **影響バージョン**: v1.0.111 以降
+- **確認済み未修正バージョン**: v2.0.55, v2.0.61, v2.0.62, v2.0.64, v2.0.72, v2.0.75, v2.1.6
+- **調査日**: 2025-01-19, 2026-01-13
