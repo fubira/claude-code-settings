@@ -43,3 +43,9 @@ cache/
 
 # 一時ファイル
 tmpclaude-*-cwd
+
+# Claude Code 一時データ
+plans/
+tasks/
+usage-data/
+stats-cache.json
