@@ -5,7 +5,7 @@
 Automate and ensure reliable release workflows with:
 
 - Automatic version bump based on commit history
-- Mandatory lint and test execution before release
+- Mandatory lint, build, and test execution before release
 - Safe tag creation and push
 - Semantic versioning (SemVer) compliance
 
@@ -16,6 +16,11 @@ Automatically activate when:
 - User says "リリース", "release", "リリースして"
 - User mentions "バージョンアップ", "version bump", "タグを切る"
 - User asks to publish or deploy a new version
+
+**Patch Release triggers:**
+- `/patch-release` command
+- "パッチリリース", "パッチバージョン上げて"
+- "lint, buildしてタグ作成"
 
 ## Workflow
 
@@ -41,7 +46,17 @@ Automatically activate when:
      - Ask user to fix manually if auto-fix unavailable
      - ABORT release until lint passes
 
-3. **Run tests**
+3. **Run build**
+   - Execute project-specific build command:
+     - `bun run build` (Bun projects)
+     - `npm run build` (npm projects)
+     - `pnpm build` (pnpm projects)
+   - If build fails:
+     - Show build errors to user
+     - ABORT release until build passes
+   - Note: TypeScript type check is included in build (`tsc -b`)
+
+4. **Run tests** (optional, based on project configuration)
    - Execute project-specific test command:
      - `bun test` (Bun projects)
      - `npm test` (npm projects)
@@ -50,12 +65,7 @@ Automatically activate when:
      - Show failed tests to user
      - ABORT release until tests pass
      - Suggest running tests locally first
-
-4. **Run type check** (TypeScript projects)
-   - Execute `bun run typecheck` or equivalent
-   - If type errors exist:
-     - Show errors to user
-     - ABORT release until type check passes
+   - Note: Skip if no test script exists or user explicitly skips
 
 **Only proceed if ALL checks pass**
 
@@ -243,6 +253,58 @@ This Skill provides these safety guarantees:
 2. **Review commit history** to ensure all changes are included
 3. **Check CI/CD status** after push to verify deployment
 4. **Use conventional commits** for automatic version detection
+
+## Quick Patch Release (`/patch-release`)
+
+Simplified workflow for patch version releases. Use when:
+
+- Only bug fixes, refactoring, or minor changes
+- No new features (no `feat` commits)
+- Want quick release without full analysis
+
+### Workflow
+
+```bash
+# 1. Check working directory is clean
+git status
+
+# 2. Run lint
+bun run lint
+
+# 3. Run build (includes TypeScript check)
+bun run build
+
+# 4. Get current version
+cat package.json | grep '"version"'
+
+# 5. Bump patch version (e.g., 0.1.1 → 0.1.2)
+# Edit package.json
+
+# 6. Commit and tag
+git add package.json
+git commit -m "chore(release): vX.Y.Z"
+git tag -a vX.Y.Z -m "vX.Y.Z - brief description"
+
+# 7. Verify
+git log --oneline -2
+git tag --sort=-v:refname | head -3
+```
+
+### Command Usage
+
+User can invoke with:
+- `/patch-release` - Run simplified patch release flow
+- `パッチリリース` - Same as above
+- `パッチバージョン上げて` - Same as above
+
+### Differences from Full Release
+
+| Aspect | Full Release | Patch Release |
+|--------|--------------|---------------|
+| Version analysis | Auto-detect from commits | Always PATCH |
+| Tests | Required | Optional (build includes type check) |
+| Changelog | Generated | Skip |
+| User confirmation | Multiple steps | Minimal |
 
 ## Maintenance
 

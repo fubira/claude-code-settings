@@ -9,6 +9,7 @@
 | [Electron IPC通信パターン](electron/ipc-communication.md) | Electron | contextBridgeを使った安全なIPC通信 |
 | [外部プロセス統合パターン](cross-stack/external-process-integration.md) | Cross-stack | spawn()による安全な外部スクリプト実行 |
 | [TypeScript RORO Pattern](typescript-react/roro-pattern.md) | TypeScript | オブジェクト引数/戻り値パターン |
+| [PWA + ローカルデバイス通信パターン](typescript-react/pwa-local-communication.md) | TypeScript/React | Service Workerキャッシュ + localhost WebSocket/MQTT |
 
 ## サブディレクトリ
 
