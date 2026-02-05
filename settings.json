@@ -31,7 +31,10 @@
   },
   "model": "opus",
   "enabledPlugins": {
-    "frontend-design@claude-code-plugins": true
+    "frontend-design@claude-code-plugins": true,
+    "code-review@claude-code-plugins": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "claude-code": {
