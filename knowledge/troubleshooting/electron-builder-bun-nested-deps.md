@@ -1,3 +1,12 @@
+---
+title: "Electron Builder + Bun: ネストした依存が含まれない問題"
+category: troubleshooting
+tags: [electron, bun, electron-builder]
+created: 2025-12-15
+updated: 2025-12-15
+status: active
+---
+
 # Electron Builder + Bun: ネストした依存が含まれない問題
 
 ## 概要

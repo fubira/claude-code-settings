@@ -41,8 +41,8 @@ Execute tests, analyze results comprehensively, and provide actionable insights 
    - Check for Makefile or custom test commands
 
 2. **Project-specific settings**
-   - **This project**: Focus on `./internal/...`, exclude `cmd/panos`
-   - Coverage threshold: 90%
+   - プロジェクトの構造に応じて対象パッケージを決定
+   - Coverage threshold: CLAUDE.md またはプロジェクト設定に従う（デフォルト: 80%）
    - Test command: `make test` or `go test ./...`
 
 ### Phase 2: Run Tests with Coverage
@@ -74,7 +74,7 @@ For each test execution, provide:
 **1. Executive Summary**
 - Total tests run / passed / failed
 - Overall coverage percentage
-- Comparison to threshold (90% for this project)
+- Comparison to threshold
 - Quick verdict: ✅ All passing, ⚠️ Issues found, ❌ Critical failures
 
 **2. Detailed Breakdown**
@@ -99,7 +99,7 @@ Use structured format (in Japanese, だ・である調):
 - 実行テスト数: X件
 - 成功: Y件 ✅
 - 失敗: Z件 ❌
-- カバレッジ: W% (閾値: 90%)
+- カバレッジ: W% (閾値: プロジェクト設定値)
 - 総合評価: [verdict]
 
 ### 📦 パッケージ別カバレッジ

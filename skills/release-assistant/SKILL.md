@@ -132,7 +132,7 @@ Automatically activate when:
 
      🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
-     Co-Authored-By: Claude <noreply@anthropic.com>
+     Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
      ```
 
 2. **Create git tag**

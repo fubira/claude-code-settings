@@ -93,7 +93,7 @@ git clone <repository-url> ~/.claude
 # serena
 claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena-mcp-server
 
-# その他のサーバー（npx経由で自動インストール）
+# ide サーバーは Claude Code に組み込み済みのため、追加インストール不要
 # 設定は .mcp.json を参照
 ```
 

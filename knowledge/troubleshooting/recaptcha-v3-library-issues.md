@@ -1,3 +1,12 @@
+---
+title: "reCAPTCHA v3: react-google-recaptcha-v3 ライブラリの問題と解決策"
+category: troubleshooting
+tags: [react, nextjs, recaptcha, google-api]
+created: 2026-02-05
+updated: 2026-02-05
+status: active
+---
+
 # reCAPTCHA v3: react-google-recaptcha-v3 ライブラリの問題と解決策
 
 ## 問題
