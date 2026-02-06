@@ -125,7 +125,7 @@
 - **serena**: セマンティック解析（調査のみ、編集には使わない）
 - **ide**: VSCode診断情報
 
-ファイル編集には `Edit` / `Write` ツールを使う。設定: `~/.claude.json`
+ファイル編集には `Edit` / `Write` ツールを使う。設定: `~/.claude/.mcp.json`
 
 ## 推奨Plugins
 
