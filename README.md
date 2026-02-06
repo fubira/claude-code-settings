@@ -56,7 +56,6 @@
 │   └── knowledge-manager/
 ├── knowledge/             # 知見管理システム
 │   ├── README.md          # システム概要
-│   ├── USAGE.md           # 使い方ガイド
 │   ├── patterns/
 │   │   └── INDEX.md       # パターン一覧
 │   ├── troubleshooting/
@@ -92,7 +91,7 @@ git clone <repository-url> ~/.claude
 
 ```bash
 # serena
-claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide-assistant --project "$(pwd)"
+claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena-mcp-server
 
 # その他のサーバー（npx経由で自動インストール）
 # 設定は .mcp.json を参照

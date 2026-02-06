@@ -46,6 +46,7 @@ Thumbs.db
 cache/
 
 # 一時ファイル
+*.tmp
 tmpclaude-*-cwd
 paste-cache/
 
