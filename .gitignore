@@ -33,6 +33,9 @@ projects/
 # プラグイン（環境依存のパス情報、外部リポジトリを含む）
 plugins/
 
+# spec-workflow（プロジェクト固有の設定）
+.spec-workflow/
+
 # ログファイル
 *.log
 
