@@ -43,6 +43,7 @@ cache/
 
 # 一時ファイル
 tmpclaude-*-cwd
+paste-cache/
 
 # Claude Code 一時データ
 plans/
