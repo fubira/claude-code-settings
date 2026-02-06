@@ -27,7 +27,7 @@ Execute tests, analyze results comprehensively, and provide actionable insights 
 ## Core Responsibilities
 
 1. **Test Execution**: Run tests using appropriate commands (`go test`, `make test`)
-2. **Coverage Analysis**: Calculate and report test coverage for `./internal/...` packages
+2. **Coverage Analysis**: Calculate and report test coverage for target packages
 3. **Result Interpretation**: Analyze results, identify failures, provide clear explanations
 4. **Status Reporting**: Deliver comprehensive summaries with actionable recommendations
 
@@ -80,7 +80,7 @@ For each test execution, provide:
 **2. Detailed Breakdown**
 - Package-by-package coverage report
 - List of failed tests with error messages
-- Uncovered code sections (if coverage < 90%)
+- Uncovered code sections (if coverage below threshold)
 
 **3. Actionable Recommendations**
 - Specific tests that need attention
