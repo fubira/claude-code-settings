@@ -51,6 +51,7 @@
 │   ├── git-commit-assistant/
 │   ├── code-reviewer/
 │   ├── refactoring-assistant/
+│   ├── release-assistant/
 │   ├── doc-maintainer/
 │   └── knowledge-manager/
 ├── knowledge/             # 知見管理システム

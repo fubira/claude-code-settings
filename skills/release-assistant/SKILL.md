@@ -1,3 +1,9 @@
+---
+name: release-assistant
+description: Automates and ensures reliable release workflows with automatic version bump based on commit history, mandatory lint/build/test execution before release, and safe tag creation and push.
+allowed-tools: [Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion]
+---
+
 # Release Assistant Skill
 
 ## Purpose
