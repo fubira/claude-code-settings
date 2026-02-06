@@ -134,6 +134,6 @@
 | Plugin | 用途 | 起動 |
 |--------|------|------|
 | `frontend-design` | UI生成 | 自動 |
-| `feature-dev` | 構造化機能開発 | `/feature-dev` |
 | `code-review` | PRレビュー | `/code-review` |
-| `commit-commands` | コミット・PR支援 | `/commit` |
+| `typescript-lsp` | TS型チェック・補完 | 自動 |
+| `gopls-lsp` | Go型チェック・補完 | 自動 |
