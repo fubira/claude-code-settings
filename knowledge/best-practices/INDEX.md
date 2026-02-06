@@ -11,3 +11,4 @@
 | [改行コード統一管理](line-ending-management.md) | Code Quality | LF必須化、.gitattributes設定 |
 | [Electronアイコン設定](electron-application-icons.md) | Build | インストーラー/ウィンドウ両方のアイコン設定 |
 | [外部ライブラリのテスト方針](testing-external-libraries.md) | Testing | ライブラリ自体はテストしない、vi.spyOn活用 |
+| [Biomeインポートソート方針](biome-import-sorting.md) | Code Quality | グループ順のみ必要、文字順不要。将来の細粒度設定に備える |
