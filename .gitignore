@@ -8,7 +8,8 @@
 .mcp.json.backup
 .claude.json
 
-# 個人設定（ローカル上書き用）
+# 個人設定（settings.example.json をコピーしてカスタマイズ）
+settings.json
 settings.local.json
 
 # ランタイムデータ

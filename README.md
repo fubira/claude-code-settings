@@ -65,7 +65,7 @@
 │   └── workflows/
 │       └── INDEX.md
 ├── .mcp.json              # MCP サーバー設定
-├── settings.json          # permissions 設定
+├── settings.example.json  # permissions 設定テンプレート
 └── .gitignore             # 除外設定
 ```
 
@@ -99,7 +99,11 @@ claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena 
 
 #### 3. settings.json を配置（任意）
 
-頻繁に使うコマンドの permissions を事前承認したい場合、`settings.json` を `~/.claude/settings.json` にコピー。
+頻繁に使うコマンドの permissions を事前承認したい場合、テンプレートをコピーしてカスタマイズ。
+
+```bash
+cp ~/.claude/settings.example.json ~/.claude/settings.json
+```
 
 ## 基本的な使い方
 
@@ -159,6 +163,7 @@ Skill tool を使用して明示的に呼び出すことも可能。
 - `CLAUDE.md`
 - `skills/`
 - `knowledge/`
+- `settings.example.json` - permissions テンプレート
 - `.gitignore`
 
 ### 除外すべきファイル
@@ -166,11 +171,11 @@ Skill tool を使用して明示的に呼び出すことも可能。
 以下は個人環境依存のため `.gitignore` で除外：
 
 - `.mcp.json` - ローカルパスを含む
-- `settings.json` - 個人の permissions 設定
+- `settings.json` - 個人の permissions 設定（`settings.example.json` からコピー）
 - `.credentials.json` - 認証情報
 - `history.jsonl`, `file-history/`, `session-env/` - ランタイムデータ
 
-各メンバーは自分の環境に合わせて `.mcp.json` と `settings.json` を作成する。
+各メンバーは `settings.example.json` をコピーし、自分の環境に合わせてカスタマイズする。
 
 ## 参考リンク
 
