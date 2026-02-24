@@ -45,6 +45,9 @@ Thumbs.db
 
 cache/
 
+# バックアップファイル
+backups/
+
 # 一時ファイル
 *.tmp
 tmpclaude-*-cwd
