@@ -113,6 +113,16 @@
 - Production: タグ（`v*`）で自動デプロイ
 - Lint必須、`main`マージだけでは本番デプロイしない
 
+## PR レビュー
+
+PRスタイルの開発を行うプロジェクトでは `codeartsjp/codearts-pr-reviewer` の導入を推奨する。
+
+- **概要**: Claude API を使った AI マルチロール PR レビュー GitHub Action
+- **リポジトリ**: `codeartsjp/codearts-pr-reviewer`（Private）
+- **Org 内**: `uses: codeartsjp/codearts-pr-reviewer@v1.0.0`
+- **Org 外**: PAT で動的チェックアウトして `uses: ./.github/actions/pr-reviewer` で参照
+- **詳細**: リポジトリの README.md を参照
+
 ## ドキュメント
 
 ドキュメント作成・更新時は `doc-maintainer` Skill を使うこと。
