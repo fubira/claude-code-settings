@@ -36,10 +36,10 @@
 
 ### MCP サーバー統合
 
-2つの MCP サーバーを統合済み。
+以下の MCP サーバーを統合済み。
 
-- **serena**: LSPベースのセマンティックコード検索（調査のみ、編集には使わない）
 - **ide**: VSCode診断情報
+- **obsidian-mcp**: Obsidian vault の読み取り（読み取り専用）
 
 ## ディレクトリ構造
 
@@ -75,7 +75,6 @@
 
 - Claude Code がインストール済み
 - Node.js 環境（MCPサーバー用）
-- Python/uv 環境（serena用）
 
 ### インストール手順
 
@@ -90,10 +89,8 @@ git clone <repository-url> ~/.claude
 各サーバーのインストール方法：
 
 ```bash
-# serena
-claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena-mcp-server
-
 # ide サーバーは Claude Code に組み込み済みのため、追加インストール不要
+# obsidian-mcp は claude mcp add で追加
 # 設定は .mcp.json を参照
 ```
 
@@ -133,8 +130,8 @@ Skill tool を使用して明示的に呼び出すことも可能。
 
 ### MCP サーバーの活用
 
-- **コード調査**: serena のシンボル検索、参照検索（編集には使わない）
 - **診断情報**: ide で VSCode のエラー・警告を取得
+- **ノート参照**: obsidian-mcp で Obsidian vault の読み取り
 
 ## カスタマイズ
 

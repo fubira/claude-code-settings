@@ -1,7 +1,7 @@
 ---
 title: Claude Code "File has been unexpectedly modified" エラー
 category: troubleshooting
-tags: [claude-code, windows, bugs, workaround, serena, mcp, cli-patch]
+tags: [claude-code, windows, bugs, workaround, mcp, cli-patch]
 created: 2025-01-19
 updated: 2026-01-13
 status: active
@@ -87,45 +87,6 @@ Write-Host "Patched! Restart Claude Code."
 ```
 
 **注意**: Claude Code のアップデート後は再度パッチを当てる必要がある。SessionStart Hook で自動化することも可能（Issue #12805 参照）。
-
-### ✅ 推奨2: serena MCP のシンボル編集ツールを使用
-
-**パッチを当てられない場合や、より安全な方法を求める場合。**
-
-#### 1. serena の初期化
-
-```bash
-# serena をアクティブ化（必須）
-mcp__serena__initial_instructions
-
-# プロジェクトをアクティブ化
-mcp__serena__activate_project("project-name")
-```
-
-#### 2. ファイル編集
-
-serena のシンボル編集ツールを使用：
-
-```typescript
-// シンボル単位で編集（クラス、関数、メソッド等）
-mcp__serena__replace_symbol_body({
-  relative_path: "src/services/auth.ts",
-  name_path: "AuthService/login",
-  body: "async login(credentials: Credentials): Promise<User> {\n  // 新しい実装\n}"
-})
-
-// パターン検索で編集箇所を特定
-mcp__serena__search_for_pattern({
-  substring_pattern: "export interface SystemInfo",
-  relative_path: "src/types"
-})
-```
-
-**serena の利点**:
-
-- ✅ Claude Code のバグの影響を受けない
-- ✅ シンボルレベルの精密な編集が可能
-- ✅ 大規模なリファクタリングに適している
 
 ### ⚠️ 非推奨: sed/cat での回避策
 
