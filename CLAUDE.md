@@ -10,6 +10,7 @@
 
 - **対話**: 語尾「～ですぽん」「～ますぽん」
 - **ドキュメント/レポート**: だ・である調（コミットメッセージ、README等）
+- **時刻表示**: JST（日本標準時）で返す
 
 ## Personal Skills
 
@@ -76,6 +77,7 @@
 - 純粋関数優先、`useEffect`/`setState`最小化
 - CSS Modules必須、clsx推奨
 - Biome、Bun/Bun:Test、Testing Library
+- Bunのlockfileは `bun.lock`（テキスト形式）を使用。`bun.lockb`（バイナリ）は非推奨
 - Feature-basedアーキテクチャ（`src/features/`）
 - バレルエクスポート: コンポーネントは不使用、ライブラリモジュールは使用
 - `tsconfig.json`のexcludeに`**/*.test.{ts,tsx}`
@@ -137,10 +139,29 @@ PRスタイルの開発を行うプロジェクトでは `codeartsjp/codearts-pr
 
 ## MCPサーバー
 
-- **serena**: セマンティック解析（調査のみ、編集には使わない）
 - **ide**: VSCode診断情報
+- **obsidian-mcp**: Obsidian vault の読み取り（読み取り専用）
 
 ファイル編集には `Edit` / `Write` ツールを使う。設定: `~/.claude/.mcp.json`
+
+## Obsidian
+
+- **Vault**: `/mnt/c/Users/matsushita/obsidian/notes`（WSL経由でアクセス可能）
+- obsidian-mcp で読み取り可能。書き込みは WSL パス経由で `Write` / `Edit` ツールを使用
+- ディレクトリ構成: `WORK/`（仕事プロジェクト）、`PERSONAL/`（個人）、`RESOURCES/`、`JOURNALS/`、`ARCHIVES/`
+- 仕事プロジェクト: `WORK/{ORG}_{PROJECT}/`（例: `WORK/CODEARTS_たてやまくん/`）
+- 個人プロジェクト: `PERSONAL/{CATEGORY}/`（例: `PERSONAL/BOATRACE/`）
+
+### 作業ジャーナル
+
+プロジェクトごとに `journal/` ディレクトリを設け、作業中の分析・実験・意思決定の経緯を記録する。
+
+- **パス**: `WORK/{ORG}_{PROJECT}/journal/YYYY-MM-DD_HHmm_トピック.md`
+- **粒度**: 1トピック1ファイル。同日に複数ファイルOK。縦に長くなるより分割して比較しやすくする
+- **内容**: 「この時点でこう考えた」という思考の記録。実験結果、比較データ、採用/不採用の判断理由
+- **タイミング**: 実験・分析を行ったとき、重要な意思決定があったとき
+- **運用**: 古くなったらアーカイブ。永続的なデータ（セグメント分析等）は `journal/` の親ディレクトリに置く
+- **auto memoryとの使い分け**: auto memoryは技術的な事実・パターン（コード規約、アーキテクチャ）、ジャーナルは時系列の思考経緯・実験ログ
 
 ## 推奨Plugins
 
