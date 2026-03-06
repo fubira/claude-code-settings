@@ -20,6 +20,8 @@ shell-snapshots/
 todos/
 debug/
 statsig/
+telemetry/
+mcp-needs-auth-cache.json
 
 # Anthropic固有データ
 .anthropic/
