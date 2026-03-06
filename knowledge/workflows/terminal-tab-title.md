@@ -26,6 +26,11 @@ settitle() {
 }
 ```
 
+### 前提環境
+
+- Windows Terminal + WSL (Ubuntu)
+- PS1 は Ubuntu 既定の `.bashrc` のカラープロンプト形式をベースにしている。カスタム PS1 を使用している場合は `settitle` 内の PS1 も合わせて変更すること
+
 ### 仕組み
 
 1. PS1 からタイトル自動設定部分（`\e]0;user@host: dir\a`）を除去
