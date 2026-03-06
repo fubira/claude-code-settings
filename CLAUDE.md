@@ -33,13 +33,13 @@
 セッション開始時、作業内容を判断してタブタイトルを自動設定する。
 
 ```bash
-settitle 'プロジェクト名 - 作業内容'
+echo -ne "\033]0;プロジェクト名 - 作業内容\a"
 ```
 
 - プロジェクト名はカレントディレクトリやCLAUDE.mdから判断
 - 作業内容はユーザーの最初の指示から要約（短く）
-- 例: `settitle 'たてやまくん - API実装'`、`settitle 'claude-settings - 設定整理'`
-- `settitle` は `~/.bashrc` で定義済み（Windows Terminal タブタイトルを設定）
+- 例: `echo -ne "\033]0;たてやまくん - API実装\a"`
+- Bash ツールは非インタラクティブシェルのため `~/.bashrc` の `settitle` 関数は使えない。エスケープシーケンスを直接実行する
 - 詳細: `~/.claude/knowledge/workflows/terminal-tab-title.md`
 
 ## アシスト対象
@@ -154,14 +154,13 @@ PRスタイルの開発を行うプロジェクトでは `codeartsjp/codearts-pr
 ## MCPサーバー
 
 - **ide**: VSCode診断情報
-- **obsidian-mcp**: Obsidian vault の読み取り（読み取り専用）
 
 ファイル編集には `Edit` / `Write` ツールを使う。設定: `~/.claude/.mcp.json`
 
 ## Obsidian
 
 - **Vault**: `/mnt/c/Users/matsushita/obsidian/notes`（WSL経由でアクセス可能）
-- obsidian-mcp で読み取り可能。書き込みは WSL パス経由で `Write` / `Edit` ツールを使用
+- 読み書きは WSL パス経由で `Read` / `Write` / `Edit` ツールを使用
 - ディレクトリ構成: `WORK/`（仕事プロジェクト）、`PERSONAL/`（個人）、`RESOURCES/`、`JOURNALS/`、`ARCHIVES/`
 - 仕事プロジェクト: `WORK/{ORG}_{PROJECT}/`（例: `WORK/CODEARTS_たてやまくん/`）
 - 個人プロジェクト: `PERSONAL/{CATEGORY}/`（例: `PERSONAL/BOATRACE/`）

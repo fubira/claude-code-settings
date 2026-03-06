@@ -1,6 +1,6 @@
 # Claude Code グローバル設定
 
-個人向け Claude Code 開発環境の設定集。Personal Skills、知見管理システム、MCP サーバー統合により、開発効率とコード品質を向上させる。
+個人向け Claude Code 開発環境の設定集。Personal Skills、知見管理システムにより、開発効率とコード品質を向上させる。
 
 ## 主要機能
 
@@ -34,13 +34,6 @@
 3. 後続のタスクで関連する知見が必要な場合のみ、INDEX.md から検索して参照
 4. 不要な知見はコンテキストに含まれないため、効率的
 
-### MCP サーバー統合
-
-以下の MCP サーバーを統合済み。
-
-- **ide**: VSCode診断情報
-- **obsidian-mcp**: Obsidian vault の読み取り（読み取り専用）
-
 ## ディレクトリ構造
 
 ```text
@@ -55,16 +48,11 @@
 │   ├── doc-maintainer/
 │   └── knowledge-manager/
 ├── knowledge/             # 知見管理システム
-│   ├── README.md          # システム概要
+│   ├── README.md
 │   ├── patterns/
-│   │   └── INDEX.md       # パターン一覧
 │   ├── troubleshooting/
-│   │   └── INDEX.md
 │   ├── best-practices/
-│   │   └── INDEX.md
 │   └── workflows/
-│       └── INDEX.md
-├── .mcp.json              # MCP サーバー設定
 ├── settings.example.json  # permissions 設定テンプレート
 └── .gitignore             # 除外設定
 ```
@@ -74,7 +62,6 @@
 ### 前提条件
 
 - Claude Code がインストール済み
-- Node.js 環境（MCPサーバー用）
 
 ### インストール手順
 
@@ -84,17 +71,7 @@
 git clone <repository-url> ~/.claude
 ```
 
-#### 2. MCP サーバーをインストール
-
-各サーバーのインストール方法：
-
-```bash
-# ide サーバーは Claude Code に組み込み済みのため、追加インストール不要
-# obsidian-mcp は claude mcp add で追加
-# 設定は .mcp.json を参照
-```
-
-#### 3. settings.json を配置（任意）
+#### 2. settings.json を配置（任意）
 
 頻繁に使うコマンドの permissions を事前承認したい場合、テンプレートをコピーしてカスタマイズ。
 
@@ -106,77 +83,39 @@ cp ~/.claude/settings.example.json ~/.claude/settings.json
 
 ### Skills の使用
 
-#### 自動起動
-
 Skills は設定された条件で自動的に起動する。例：
 
 - コード実装後 → `test-executor` がテスト実行を提案
 - コミット時 → `git-commit-assistant` が .gitignore チェックとメッセージ生成
 - リファクタリング中 → `refactoring-assistant` が Code Smell を検出
 
-#### 手動起動
-
 Skill tool を使用して明示的に呼び出すことも可能。
 
 ### Knowledge 管理
 
-#### 知見の記録
-
-開発中に汎用的なパターンや解決策を発見すると、Claude が自動的に記録を提案する。承認するだけで適切なカテゴリに構造化して保存される。
-
-#### 知見の検索
-
-各カテゴリの INDEX.md ファイルから検索するか、Claude に「〜についての知見はあるか？」と尋ねる。
-
-### MCP サーバーの活用
-
-- **診断情報**: ide で VSCode のエラー・警告を取得
-- **ノート参照**: obsidian-mcp で Obsidian vault の読み取り
+開発中に汎用的なパターンや解決策を発見すると、Claude が自動的に記録を提案する。各カテゴリの INDEX.md ファイルから検索するか、Claude に「〜についての知見はあるか？」と尋ねる。
 
 ## カスタマイズ
 
-### CLAUDE.md の編集
-
-`~/.claude/CLAUDE.md` を編集して、個人の開発スタイルや指針を追加できる。
-
-### Skills の追加
-
-`~/.claude/skills/` に新しい Skill ディレクトリを作成。`SKILL.md` に以下を定義：
-
-- `name`: Skill 名
-- `description`: 起動条件と役割
-- `allowed-tools`: 使用可能なツール
-
-### MCP サーバーの追加
-
-`~/.claude/.mcp.json` に新しいサーバー設定を追加。
+- **CLAUDE.md**: `~/.claude/CLAUDE.md` を編集して開発スタイルや指針を追加
+- **Skills**: `~/.claude/skills/` に新しいディレクトリを作成し `SKILL.md` を定義
+- **MCP サーバー**: `~/.claude/.mcp.json` に設定を追加
 
 ## 社内共有時の注意事項
 
 ### Git 管理対象
 
-以下のファイルは Git で管理し、チーム共有可能：
-
-- `CLAUDE.md`
-- `skills/`
-- `knowledge/`
-- `settings.example.json` - permissions テンプレート
-- `.gitignore`
+- `CLAUDE.md`, `skills/`, `knowledge/`, `settings.example.json`, `.gitignore`
 
 ### 除外すべきファイル
 
-以下は個人環境依存のため `.gitignore` で除外：
-
 - `.mcp.json` - ローカルパスを含む
-- `settings.json` - 個人の permissions 設定（`settings.example.json` からコピー）
+- `settings.json` - 個人の permissions 設定
 - `.credentials.json` - 認証情報
 - `history.jsonl`, `file-history/`, `session-env/` - ランタイムデータ
-
-各メンバーは `settings.example.json` をコピーし、自分の環境に合わせてカスタマイズする。
 
 ## 参考リンク
 
 - [Claude Code 公式ドキュメント](https://code.claude.com/docs)
 - [Skills 詳細](./skills/)
 - [Knowledge 管理システム](./knowledge/README.md)
-- [MCP サーバー一覧](https://github.com/modelcontextprotocol/servers)
