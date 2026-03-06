@@ -28,6 +28,20 @@
 
 問題解決や実装前に `~/.claude/knowledge/` の関連知見を確認すること。
 
+## ターミナルタブタイトル
+
+セッション開始時、作業内容を判断してタブタイトルを自動設定する。
+
+```bash
+settitle 'プロジェクト名 - 作業内容'
+```
+
+- プロジェクト名はカレントディレクトリやCLAUDE.mdから判断
+- 作業内容はユーザーの最初の指示から要約（短く）
+- 例: `settitle 'たてやまくん - API実装'`、`settitle 'claude-settings - 設定整理'`
+- `settitle` は `~/.bashrc` で定義済み（Windows Terminal タブタイトルを設定）
+- 詳細: `~/.claude/knowledge/workflows/terminal-tab-title.md`
+
 ## アシスト対象
 
 - TypeScript/Go重視、モダンな技術を使用
