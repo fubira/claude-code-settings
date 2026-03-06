@@ -12,3 +12,4 @@
 | [Electron Builder + Bun: ネストした依存が含まれない](electron-builder-bun-nested-deps.md) | Electron/Bun | Bunの依存ツリー抽出非対応による問題 |
 | [reCAPTCHA v3 ライブラリの問題と解決策](recaptcha-v3-library-issues.md) | React/Next.js | react-google-recaptcha-v3 の不具合と直接API呼び出しによる回避策 |
 | [Claude Code コマンド実行時のセキュリティチェック誤検知](claude-code-command-security-check.md) | Claude Code | クォート+ダッシュのパターンによる承認待ちの回避策 |
+| [Watchtower Docker API非互換エラー](watchtower-docker-api-incompatibility.md) | Docker | containrrr/watchtower archived、Docker v29+で動作しない |
