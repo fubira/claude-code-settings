@@ -25,6 +25,7 @@
 | `refactoring-assistant` | Code Smell検出時 |
 | `doc-maintainer` | ドキュメント更新が必要そうなとき |
 | `knowledge-manager` | 汎用的な解決策を発見したとき |
+| `journal-manager` | 実験・分析・意思決定の後（作成）、20件超（整理） |
 
 問題解決や実装前に `~/.claude/knowledge/` の関連知見を確認すること。
 
@@ -153,14 +154,7 @@ PRスタイルの開発を行うプロジェクトでは `codeartsjp/codearts-pr
 
 ### 作業ジャーナル
 
-プロジェクトごとに `journal/` ディレクトリを設け、作業中の分析・実験・意思決定の経緯を記録する。
-
-- **パス**: `WORK/{ORG}_{PROJECT}/journal/YYYY-MM-DD_HHmm_トピック.md`
-- **粒度**: 1トピック1ファイル。同日に複数ファイルOK。縦に長くなるより分割して比較しやすくする
-- **内容**: 「この時点でこう考えた」という思考の記録。実験結果、比較データ、採用/不採用の判断理由
-- **タイミング**: 実験・分析を行ったとき、重要な意思決定があったとき
-- **運用**: 古くなったらアーカイブ。永続的なデータ（セグメント分析等）は `journal/` の親ディレクトリに置く
-- **auto memoryとの使い分け**: auto memoryは技術的な事実・パターン（コード規約、アーキテクチャ）、ジャーナルは時系列の思考経緯・実験ログ
+`journal-manager` Skill が作成・整理を支援する。詳細は `~/.claude/skills/journal-manager/SKILL.md`。
 
 ## 推奨Plugins
 
