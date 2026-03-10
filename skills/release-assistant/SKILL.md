@@ -6,317 +6,71 @@ allowed-tools: [Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion]
 
 # Release Assistant Skill
 
-## Purpose
-
-Automate and ensure reliable release workflows with:
-
-- Automatic version bump based on commit history
-- Mandatory lint, build, and test execution before release
-- Safe tag creation and push
-- Semantic versioning (SemVer) compliance
+Automate release workflows: Lint → Build → Test → Version Bump → Tag → Push.
 
 ## Activation Triggers
 
-Automatically activate when:
-
-- User says "リリース", "release", "リリースして"
-- User mentions "バージョンアップ", "version bump", "タグを切る"
-- User asks to publish or deploy a new version
-
-**Patch Release triggers:**
-- `/patch-release` command
-- "パッチリリース", "パッチバージョン上げて"
-- "lint, buildしてタグ作成"
+- "release", "version bump"
+- `/patch-release` → Patch Release flow
 
 ## Workflow
 
 ### Phase 1: Pre-flight Checks
 
-**CRITICAL: These checks MUST pass before proceeding**
+**Do NOT proceed until ALL checks pass.**
 
-1. **Check working directory**
-   - Run `git status` to verify clean working tree
-   - If uncommitted changes exist:
-     - Show changes to user
-     - Ask if they want to commit first
-     - Offer to abort release
-
-2. **Run linter**
-   - Execute project-specific lint command:
-     - `bun run lint` (Bun projects)
-     - `npm run lint` (npm projects)
-     - `pnpm lint` (pnpm projects)
-   - If lint fails:
-     - Show errors to user
-     - Fix automatically if possible (e.g., `--write` flag)
-     - Ask user to fix manually if auto-fix unavailable
-     - ABORT release until lint passes
-
-3. **Run build**
-   - Execute project-specific build command:
-     - `bun run build` (Bun projects)
-     - `npm run build` (npm projects)
-     - `pnpm build` (pnpm projects)
-   - If build fails:
-     - Show build errors to user
-     - ABORT release until build passes
-   - Note: TypeScript type check is included in build (`tsc -b`)
-
-4. **Run tests** (optional, based on project configuration)
-   - Execute project-specific test command:
-     - `bun test` (Bun projects)
-     - `npm test` (npm projects)
-     - `pnpm test` (pnpm projects)
-   - If tests fail:
-     - Show failed tests to user
-     - ABORT release until tests pass
-     - Suggest running tests locally first
-   - Note: Skip if no test script exists or user explicitly skips
-
-**Only proceed if ALL checks pass**
+1. `git status` to verify clean working tree (abort if uncommitted changes)
+2. Check `package.json` scripts, run with project's package manager:
+   - **lint**: On failure, try auto-fix (`--write` etc.), abort if not fixable
+   - **build**: Abort on failure (includes `tsc -b` type checking)
+   - **test**: Abort on failure (skip if no test script defined)
 
 ### Phase 2: Version Analysis
 
-1. **Find current version**
-   - Read `package.json` version field
-   - Find latest git tag (format: `v*`)
-   - Compare to ensure consistency
+1. Determine current version from `package.json` version and latest git tag (`v*`)
+2. Analyze commits with `git log <last-tag>..HEAD --oneline`
+3. Determine version bump type based on Conventional Commits:
+   - **MAJOR**: `BREAKING CHANGE` present
+   - **MINOR**: `feat` present (no breaking)
+   - **PATCH**: Only `fix`, `refactor`, `docs`, `chore`, etc.
+4. Group commits by type, present change summary to user
 
-2. **Analyze commits since last release**
-   - Run `git log <last-tag>..HEAD --oneline`
-   - Parse commit messages for Conventional Commits format
-   - Categorize commits:
-     - `feat`: New features
-     - `fix`: Bug fixes
-     - `BREAKING CHANGE`: Breaking changes
-     - `refactor`, `docs`, `style`, `test`, `chore`: Minor changes
+### Phase 3: Version Bump & Commit
 
-3. **Calculate version bump type**
-   - Based on commit analysis:
-     - **MAJOR**: If any `BREAKING CHANGE` found
-     - **MINOR**: If any `feat` found (and no breaking changes)
-     - **PATCH**: If only `fix`, `refactor`, `docs`, `style`, `test`, `chore`
-   - Apply SemVer rules (see `rules/version-bump-rules.md`)
+1. Propose new version, get user confirmation (override allowed)
+2. Update `package.json` with Edit tool
+3. Commit and create tag:
+   ```
+   chore(release): Bump version to X.Y.Z
 
-4. **Generate changelog summary**
-   - Group commits by type
-   - Create human-readable summary
-   - Show to user for review
+   🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
-### Phase 3: Version Bump
+   Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+   ```
+   ```bash
+   git tag vX.Y.Z
+   ```
 
-1. **Propose new version**
-   - Calculate next version based on bump type
-   - Examples:
-     - `0.2.4` → `0.3.0` (MINOR bump for feat)
-     - `0.3.0` → `1.0.0` (MAJOR bump for breaking change)
-     - `0.3.0` → `0.3.1` (PATCH bump for fix)
+### Phase 4: Push
 
-2. **Confirm with user**
-   - Show current version
-   - Show proposed version
-   - Show reasoning (what commits triggered this bump)
-   - Allow user to override if needed
+1. Confirm push with user (show branch name and tag)
+2. `git push origin <branch> && git push origin vX.Y.Z`
+3. Show release summary, prompt to check CI/CD pipeline
 
-3. **Update package.json**
-   - Use Edit tool to update version field
-   - Preserve exact formatting
+## Patch Release (`/patch-release`)
 
-### Phase 4: Commit & Tag
+Simplified flow for bug-fix-only releases (no `feat` commits).
 
-1. **Commit version bump**
-   - Stage `package.json`
-   - Create commit with message:
-     ```
-     chore(release): Bump version to X.Y.Z
-
-     🤖 Generated with [Claude Code](https://claude.com/claude-code)
-
-     Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
-     ```
-
-2. **Create git tag**
-   - Format: `vX.Y.Z` (e.g., `v0.3.0`)
-   - Run `git tag vX.Y.Z`
-   - Verify tag creation with `git tag -l "vX.Y.*"`
-
-3. **Verify git status**
-   - Run `git status` to confirm clean state
-   - Run `git log -1` to show latest commit
-
-### Phase 5: Push
-
-1. **Confirm push**
-   - Ask user: "Ready to push commits and tags to remote?"
-   - Show what will be pushed:
-     - Branch: `main` (or current branch)
-     - Tag: `vX.Y.Z`
-
-2. **Push to remote**
-   - Push commits: `git push origin <branch>`
-   - Push tags: `git push origin vX.Y.Z`
-   - Verify success
-
-3. **Post-release summary**
-   - Show release summary:
-     - Version: `vX.Y.Z`
-     - Commits included: N commits
-     - Changes: Brief summary
-     - Tag pushed: ✅
-   - Remind user about CI/CD:
-     - "CI/CD pipeline will now build and deploy this release"
-     - "Monitor GitHub Actions for deployment status"
-
-## Version Bump Rules
-
-Detailed rules in `rules/version-bump-rules.md`:
-
-- **MAJOR (X.0.0)**: Breaking changes, API changes
-- **MINOR (0.X.0)**: New features, backward-compatible changes
-- **PATCH (0.0.X)**: Bug fixes, refactoring, docs
-
-## Release Checklist
-
-See `templates/release-checklist.md` for complete checklist.
+- Skip version analysis (always PATCH)
+- Tests optional (build includes type checking)
+- Skip changelog, minimize confirmation steps
 
 ## Error Handling
 
-### Lint failures
-- Action: Show errors, offer to auto-fix with `--write`
-- If auto-fix unavailable: Ask user to fix manually
-- ABORT release until resolved
-
-### Test failures
-- Action: Show failed tests with details
-- ABORT release immediately
-- Suggest: "Fix tests first, then re-run release"
-
-### Type check failures
-- Action: Show type errors
-- ABORT release until resolved
-
-### Uncommitted changes
-- Action: Show changes, ask user to commit or stash
-- Offer to commit automatically if changes are simple
-- ABORT release if user declines
-
-### Tag already exists
-- Action: Check if tag already exists remotely
-- If exists: ABORT with error message
-- Suggest: Delete tag locally/remotely or use different version
-
-### Push failures
-- Action: Show error message from git
-- Common causes:
-  - No remote configured
-  - Permission denied
-  - Network issues
-- Suggest solutions based on error
-
-## Integration with Global CLAUDE.md
-
-Add to global CLAUDE.md:
-
-```markdown
-## リリース作業
-
-リリースは `release-assistant` Skill が支援する。
-
-**基本フロー**: Lint → Test → Version Bump → Tag → Push
-
-詳細は `~/.claude/skills/release-assistant/SKILL.md` を参照。
-```
-
-## Safety Guarantees
-
-This Skill provides these safety guarantees:
-
-1. **No release without passing lint** - Code quality assured
-2. **No release without passing tests** - Functionality verified
-3. **No release with uncommitted changes** - Clean state guaranteed
-4. **No release without user confirmation** - Manual approval required
-5. **Semantic versioning enforced** - Predictable version numbers
-
-## Usage Tips
-
-### When to use this Skill
-
-- ✅ Ready to publish a new version
-- ✅ All features/fixes are committed
-- ✅ Tests are passing locally
-- ✅ Ready to trigger CI/CD deployment
-
-### When NOT to use this Skill
-
-- ❌ Still working on features
-- ❌ Tests are failing
-- ❌ Code is not committed
-- ❌ Want to create a tag without version bump
-
-### Best practices
-
-1. **Run tests locally first** before invoking this Skill
-2. **Review commit history** to ensure all changes are included
-3. **Check CI/CD status** after push to verify deployment
-4. **Use conventional commits** for automatic version detection
-
-## Quick Patch Release (`/patch-release`)
-
-Simplified workflow for patch version releases. Use when:
-
-- Only bug fixes, refactoring, or minor changes
-- No new features (no `feat` commits)
-- Want quick release without full analysis
-
-### Workflow
-
-```bash
-# 1. Check working directory is clean
-git status
-
-# 2. Run lint
-bun run lint
-
-# 3. Run build (includes TypeScript check)
-bun run build
-
-# 4. Get current version
-cat package.json | grep '"version"'
-
-# 5. Bump patch version (e.g., 0.1.1 → 0.1.2)
-# Edit package.json
-
-# 6. Commit and tag
-git add package.json
-git commit -m "chore(release): vX.Y.Z"
-git tag -a vX.Y.Z -m "vX.Y.Z - brief description"
-
-# 7. Verify
-git log --oneline -2
-git tag --sort=-v:refname | head -3
-```
-
-### Command Usage
-
-User can invoke with:
-- `/patch-release` - Run simplified patch release flow
-- `パッチリリース` - Same as above
-- `パッチバージョン上げて` - Same as above
-
-### Differences from Full Release
-
-| Aspect | Full Release | Patch Release |
-|--------|--------------|---------------|
-| Version analysis | Auto-detect from commits | Always PATCH |
-| Tests | Required | Optional (build includes type check) |
-| Changelog | Generated | Skip |
-| User confirmation | Multiple steps | Minimal |
-
-## Maintenance
-
-Update this Skill when:
-
-- New test frameworks are adopted
-- Linter configuration changes
-- Release process requirements evolve
-- New project types need support
+| Error | Action |
+|-------|--------|
+| Lint failure | Auto-fix with `--write` → abort if not fixable |
+| Test/Build failure | Abort, prompt to fix |
+| Uncommitted changes | Suggest commit/stash, abort |
+| Tag already exists | Abort, suggest delete or different version |
+| Push failure | Suggest solution based on error message |

@@ -6,243 +6,80 @@ allowed-tools: [Read, Write, Edit, Glob, Grep, Bash, Agent, AskUserQuestion]
 
 # Journal Manager Skill
 
-## Purpose
-
-Obsidian作業ジャーナルの作成からライフサイクル管理までを担う。ジャーナルは「この時点でこう考えた」思考の記録であり、プロアクティブに作成し、定期的に整理する。
-
-## ジャーナルのライフサイクル
-
-```
-作成 → 蓄積 → レビュー → 整理（統合/アーカイブ/昇格）
-                 ↑                    |
-                 └────────────────────┘（定期サイクル）
-```
-
-### ステータス
-
-| ステータス | 場所 | 説明 |
-|-----------|------|------|
-| Active | `journal/` | 現在有効な思考記録 |
-| Archived | `journal/archives/` | 結論が反映済み or 陳腐化。参照用に保存 |
-| Deferred | `journal/deferred/` | 将来再検討する研究テーマ。再開時期の目安を記載 |
+Create and manage Obsidian work journals. Record "what I thought at this point" as thinking logs.
 
 ## Activation Triggers
 
-### 作成（プロアクティブ）
+**Create (proactive)**: After experiments/analyses, decisions, incident responses, comparisons, or user request
+**Organize**: `/journal-review`, `/journal-cleanup`, auto-suggest when active files > 20
 
-以下のタイミングでジャーナル作成を**自動的に提案または実行**する:
+## Journal Location
 
-- 実験・分析を行った後（ML学習結果、チューニング結果、セグメント分析等）
-- 重要な意思決定があったとき（採用/不採用の判断、方針変更）
-- 障害対応を完了したとき（根本原因、対策、教訓）
-- 複数の選択肢を比較検討したとき
-- マスターが「まとめて」「記録して」「ジャーナルに書いて」と言ったとき
+- **Path**: `/mnt/c/Users/matsushita/obsidian/notes/WORK/{ORG}_{PROJECT}/journal/YYYY-MM-DD_HHmm_topic.md`
+- Date in JST. Topic in hyphenated English or Japanese (keep short)
 
-### レビュー・整理
+## auto memory vs Journal
 
-- `/journal-review` — ジャーナル全体のレビューと整理提案
-- `/journal-cleanup` — 提案済みの整理を実行
-- 「ジャーナルを整理して」「ジャーナルをまとめて」
-- `journal/` 直下のアクティブファイルが **20件を超えた**とき（自動提案）
+- **auto memory**: Technical facts and patterns (long-lived) → `.claude/projects/*/memory/`
+- **Journal**: Chronological thinking process (short-to-mid lived) → Obsidian `journal/`
 
-## ジャーナルの場所
+## Part 1: Creating Journals
 
-Obsidian Vault内のプロジェクトディレクトリ:
-- **Vault**: `/mnt/c/Users/matsushita/obsidian/notes`（WSL経由）
-- **パス**: `WORK/{ORG}_{PROJECT}/journal/YYYY-MM-DD_HHmm_トピック.md`
-- 読み書きは `Read` / `Write` / `Edit` ツールを使用
+### Templates
 
-## auto memory との使い分け
+**Experiment/Analysis**: Background → Conditions/Setup → Results (numeric tables) → Findings → Conclusion/Next actions
+**Decision**: Context → Options → Judgment and reasoning → Trade-offs → Next actions
+**Incident Response**: Situation → Root cause → Actions taken → Prevention measures → Lessons learned
+**Work Log**: Tasks done → Design decisions (if any) → TODOs (remaining)
 
-| | auto memory | ジャーナル |
-|---|---|---|
-| **対象** | 技術的な事実・パターン | 時系列の思考経緯 |
-| **例** | コード規約、アーキテクチャ | 実験ログ、比較分析、意思決定 |
-| **寿命** | 長い（事実が変わるまで） | 短〜中（結論が出たらアーカイブ） |
-| **保存先** | `.claude/projects/*/memory/` | Obsidian `journal/` |
+### Principles
 
----
+- One topic per file (multiple per day OK). Use tables for numeric data
+- Record "what I thought at this point" — valuable even if conclusions change later
+- Place persistent data in the parent directory of `journal/`
+- Do NOT record: code diffs (Git handles that), trivial task logs, technical facts suited for auto memory
 
-## Part 1: ジャーナル作成
+## Part 2: Review and Organization
 
-### ファイル命名
+### Phase 1: Review (analysis only, no changes)
 
-`YYYY-MM-DD_HHmm_トピック.md`
+1. Read all files with Explore agent, classify by theme
+2. Determine status for each file:
+   - **Archive**: Conclusion already reflected elsewhere / superseded by later work / completed TODOs / approach replaced
+   - **Consolidate**: 3+ consecutive files on same theme / problem-identification + solution pairs
+   - **Defer**: Explicitly marked "future work" research topics (with start conditions)
+   - **Keep**: Sole source of information / latest analysis on active theme / incident response records
+3. Present organization proposal as a table, wait for user approval
 
-- 日付はJST
-- トピックはハイフン区切りの英語 or 日本語（短く）
-- 例: `2026-03-07_0200_two-phase-tuning-experiment.md`
+### Phase 2: Organize (after approval)
 
-### 記録すべき内容
+- **Archive**: Move original file to `archives/` as-is (no content changes)
+- **Consolidate**: Read source files → create merged file (oldest date + theme name, list sources at top, preserve numeric tables faithfully) → move originals to `archives/`
+- **Defer**: Merge related files into one in `deferred/` (state resume conditions at top) → move originals to `archives/`
 
-#### 1. 実験・分析ジャーナル
+### Phase 3: Promotion Check
 
-```markdown
-# タイトル
+| Detected Pattern | Promote To |
+|-----------------|------------|
+| Confirmed technical facts/patterns | MEMORY.md |
+| Project convention changes | CLAUDE.md |
+| Model performance records | profile.md |
+| General-purpose solutions | knowledge/ |
 
-## 背景
-なぜこの実験をしたか。何を解決したいか。
+After promotion, add "→ reflected in X" marker to the journal entry.
 
-## 条件・設定
-パラメータ、データ範囲、比較対象。
-
-## 結果
-数値テーブルで。テキストの羅列より表が後で統合しやすい。
-
-| 条件 | 指標A | 指標B |
-|------|-------|-------|
-| ... | ... | ... |
-
-## 発見・考察
-データから読み取れること。仮説の検証結果。
-
-## 結論・次のアクション
-採用/不採用の判断。次に何をするか。
-```
-
-#### 2. 意思決定ジャーナル
-
-```markdown
-# タイトル
-
-## 背景・文脈
-## 選択肢
-## 判断と理由
-## トレードオフ
-## 次のアクション
-```
-
-#### 3. 障害対応ジャーナル
-
-```markdown
-# タイトル
-
-## 発生状況
-## 根本原因
-## 対応内容
-## 再発防止策
-## 教訓
-```
-
-#### 4. 作業記録ジャーナル
-
-```markdown
-# タイトル
-
-## 作業内容
-### 1. やったこと（箇条書き or セクション分け）
-## 設計判断（あれば）
-## TODO（残作業）
-```
-
-### 作成の原則
-
-- **1トピック1ファイル**。同日に複数OK。縦に長くなるより分割
-- **数値データはテーブルで**。後で統合・比較しやすい
-- **「この時点でこう考えた」を記録**。結論が変わっても記録の価値がある
-- **永続的なデータは `journal/` の親ディレクトリに置く**（セグメント分析等）
-
-### 書かないこと
-
-- コードの詳細な差分（Gitが持っている）
-- 単純な作業ログ（「ファイルAを編集した」程度のもの）
-- auto memory に書くべき技術的事実
-
----
-
-## Part 2: レビューと整理
-
-### Phase 1: レビュー（分析のみ、変更なし）
-
-1. **全ファイルを読み込み、テーマ別に分類**
-   - Explore agentで全ファイルの内容を分析
-   - テーマ（モデル実験、シミュレーション、障害対応、UI等）にグルーピング
-
-2. **各ファイルのステータスを判定**
-
-   **Archiveすべきファイル:**
-   - 結論がMEMORY.md / CLAUDE.md / profile.mdに既に反映済み
-   - 後続の実験・分析に上書きされた初期の記録
-   - 完了済みのTODOリスト
-   - 一時的な日次記録（前日予想等）
-   - Stepup→Kelly のように、手法自体が置き換わったもの
-
-   **統合すべきファイル群:**
-   - 同じテーマの連続する3+ファイル（実験→結果→次ステップ等）
-   - 問題特定→対策提案の2ファイルペア
-   - 同一機能の複数バリアント分析
-
-   **Deferすべきファイル:**
-   - 明確に「将来やる」と記された研究テーマ
-   - 着手条件（期間、データ量等）が明記されているもの
-
-   **維持すべきファイル:**
-   - 唯一の情報源（他に反映されていない）
-   - アクティブなテーマの最新分析
-   - 障害対応記録（運用ナレッジ）
-   - 実装仕様書（別リポ向け等）
-
-3. **整理提案をテーブル形式でユーザーに提示**
-
-4. **ユーザーの承認を待つ**（全実行 / 部分実行 / 修正指示）
-
-### Phase 2: 整理（承認後に実行）
-
-#### アーカイブ
-- 元ファイルをそのまま `archives/` に移動。中身は変更しない
-
-#### 統合
-1. 元ファイル群を全て読み込む
-2. 新しい統合ファイルを作成（journal/ 直下）
-   - ファイル名: 最も古い元ファイルの日付 + 統合テーマ名
-   - 冒頭に `> YYYY-MM-DD のNファイルを統合: ...` と記載
-   - 重複を排除し、結論・発見・TODO を整理
-   - 数値データ・テーブルは忠実に保持
-3. 元ファイルを `archives/` に移動
-
-#### Defer化
-1. 関連ファイル群をマージして `deferred/` に1ファイル作成（冒頭に再開条件を明記）
-2. 元ファイルを `archives/` に移動
-
-### Phase 3: 昇格チェック
-
-統合・レビュー時に以下を検出したら昇格を提案:
-
-| 検出パターン | 昇格先 | 例 |
-|-------------|--------|-----|
-| 確定した技術的事実・パターン | MEMORY.md | 「Kelly基準がStepupより優れる」 |
-| プロジェクト規約の変更 | CLAUDE.md | 「買い目パターンの変更」 |
-| モデルの性能記録 | profile.md | 「v2の5シード中央値は131%」 |
-| 汎用的な解決策 | knowledge/ | 「LightGBMのシード感度対策」 |
-
-昇格後、ジャーナル側の該当情報には「→ MEMORY.mdに反映済み」等のマーカーを付ける。
-
----
-
-## レビュー頻度の目安
-
-| 条件 | アクション |
-|------|----------|
-| ファイル数 > 20 | 自動提案 |
-| モデル更新完了時 | 実験ジャーナルの整理 |
-| リリース後 | 実装ジャーナルのアーカイブ |
-| 月次（任意） | 全体レビュー |
-
-## ディレクトリ構成
+## Directory Structure
 
 ```
 {project}/journal/
-├── *.md                  # Active（現在有効）
-├── archives/             # 陳腐化・統合済み原本
-│   └── *.md
-└── deferred/             # 将来再検討テーマ
-    └── *.md
+├── *.md              # Active
+├── archives/         # Consolidated/obsolete originals
+└── deferred/         # Future research topics
 ```
 
-## 注意事項
+## Important Notes
 
-- **アーカイブは削除ではない**。archives/ に原本を保持する
-- **統合時にデータを落とさない**。数値テーブル・実験結果は忠実に転記
-- **判断に迷ったら維持**。過剰なアーカイブより、多少の冗長さの方がまし
-- **deferred は再開条件を必ず記載**。「いつか」ではなく「〜の条件が揃ったら」
-- **作成は積極的に、整理は慎重に**。書きすぎは整理で対処できるが、書かなかった記録は復元できない
+- Archive means move, not delete (originals kept in archives/)
+- Never drop data during consolidation (faithfully copy numeric tables)
+- When in doubt, keep. Create aggressively, organize cautiously
+- Deferred entries must state concrete resume conditions (not just "someday")
