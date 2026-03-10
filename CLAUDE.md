@@ -57,7 +57,8 @@
 
 - `echo "---"` 等の見た目用の区切りコマンドを入れない（権限確認が発生して止まるため）
 - 複数情報の確認は並列ツール呼び出しか `&&` で対応
-- **サーバーでの確認はシンプルに**: `cat`/`grep`/`head` 等を優先。Pythonワンライナーやスクリプトのコピペはターミナルで改行・スペースが崩れるため、他に手段がない場合の最後の手段とする
+- **サーバーでの確認はシンプルに**: `cat`/`grep`/`head` 等を優先
+  - Pythonワンライナーやスクリプトのコピペはターミナルで改行・スペースが崩れるため最後の手段
 
 ### 問題解決
 
@@ -147,8 +148,7 @@ PRスタイルの開発を行うプロジェクトでは `codeartsjp/codearts-pr
 
 ## Obsidian
 
-- **Vault**: `/mnt/c/Users/matsushita/obsidian/notes`（WSL経由でアクセス可能）
-- 読み書きは WSL パス経由で `Read` / `Write` / `Edit` ツールを使用
+- **Vault**: `/mnt/c/Users/matsushita/obsidian/notes`（WSL経由、`Read`/`Write`/`Edit` で読み書き）
 - ディレクトリ構成: `WORK/`（仕事プロジェクト）、`PERSONAL/`（個人）、`RESOURCES/`、`JOURNALS/`、`ARCHIVES/`
 - 仕事プロジェクト: `WORK/{ORG}_{PROJECT}/`（例: `WORK/CODEARTS_たてやまくん/`）
 - 個人プロジェクト: `PERSONAL/{CATEGORY}/`（例: `PERSONAL/BOATRACE/`）
