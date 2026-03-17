@@ -12,6 +12,9 @@
 settings.json
 settings.local.json
 
+# セッション情報（一時的、ローカルパス含む）
+sessions/
+
 # ランタイムデータ
 history.jsonl
 file-history/
