@@ -169,6 +169,11 @@ PRスタイルの開発を行うプロジェクトでは `codeartsjp/codearts-pr
 - 仕事プロジェクト: `WORK/{ORG}_{PROJECT}/`（例: `WORK/CODEARTS_たてやまくん/`）
 - 個人プロジェクト: `PERSONAL/{CATEGORY}/`（例: `PERSONAL/BOATRACE/`）
 
+### タグの制約
+
+- **ドット(.)を含むタグは使えない**（例: `v0.63.0` はエラー）
+- バージョン番号等はタグではなく本文中に記載する
+
 ### 作業ジャーナル
 
 `journal-manager` Skill が作成・整理を支援する。詳細は `~/.claude/skills/journal-manager/SKILL.md`。
