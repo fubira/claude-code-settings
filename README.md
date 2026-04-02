@@ -6,7 +6,7 @@
 
 ### Personal Skills（Progressive Disclosure）
 
-必要な場面でのみ自動起動する7つの Skill を提供。不要な時はプロンプトに含まれないため、コンテキストを効率的に活用できる。
+必要な場面でのみ自動起動する9つの Skill を提供。不要な時はプロンプトに含まれないため、コンテキストを効率的に活用できる。
 
 - **release-assistant**: リリース作業支援（バージョン管理、タグ作成）
 - **test-executor**: テスト実行・カバレッジ分析（主にGoプロジェクト向け）
@@ -15,6 +15,8 @@
 - **refactoring-assistant**: リファクタリング支援（Code Smell検出、パターン提案）
 - **doc-maintainer**: ドキュメント品質管理（README.md、CLAUDE.md、コメント）
 - **knowledge-manager**: 知見管理（後述）
+- **journal-manager**: Obsidian作業ジャーナルの作成・整理
+- **context-compactor**: コンテキスト圧縮（手動起動のみ）
 
 ### Knowledge 管理システム
 
@@ -46,7 +48,10 @@
 │   ├── refactoring-assistant/
 │   ├── release-assistant/
 │   ├── doc-maintainer/
-│   └── knowledge-manager/
+│   ├── knowledge-manager/
+│   ├── journal-manager/
+│   └── context-compactor/
+├── scripts/               # ユーティリティスクリプト
 ├── knowledge/             # 知見管理システム
 │   ├── README.md
 │   ├── patterns/

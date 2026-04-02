@@ -71,7 +71,7 @@ services:
       - "com.centurylinklabs.watchtower.scope=<app>"
 
   watchtower:
-    image: containrrr/watchtower
+    image: ghcr.io/nicholas-fedor/watchtower
     restart: unless-stopped
     environment:
       WATCHTOWER_SCOPE: <app>
