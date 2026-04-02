@@ -95,6 +95,8 @@ docker compose pull && docker compose up -d
 
 ## 注意事項
 
+- **`containrrr/watchtower` は非推奨**: archived済み、Docker v29+で動作しない。フォーク版 `ghcr.io/nicholas-fedor/watchtower` を使うこと。詳細: [watchtower-docker-api-incompatibility.md](../troubleshooting/watchtower-docker-api-incompatibility.md)
+
 - **タグの打ち直し禁止**: GHCR に既にプッシュ済みのタグを削除して再作成すると `unknown blob` エラーになる。バージョンを上げて新タグを切ること
 - **GITHUB_TOKEN で認証**: 追加シークレット不要（`packages: write` permission を明示するだけ）
 - **Watchtower スコープ**: `--scope` で監視対象を限定し、他のコンテナに影響しないようにする

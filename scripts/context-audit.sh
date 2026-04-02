@@ -31,7 +31,11 @@ measure() {
 # 1. CLAUDE.md files
 echo "[CLAUDE.md]"
 measure "Global (~/.claude/CLAUDE.md)" "$CLAUDE_HOME/CLAUDE.md"
-measure "Project (CLAUDE.md)" "$PROJECT_DIR/CLAUDE.md"
+global_real=$(realpath "$CLAUDE_HOME/CLAUDE.md" 2>/dev/null || true)
+project_real=$(realpath "$PROJECT_DIR/CLAUDE.md" 2>/dev/null || true)
+if [[ -n "$project_real" && "$project_real" != "$global_real" ]]; then
+  measure "Project (CLAUDE.md)" "$PROJECT_DIR/CLAUDE.md"
+fi
 echo ""
 
 # 2. MEMORY.md
