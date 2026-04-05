@@ -26,6 +26,7 @@
 | `doc-maintainer` | ドキュメント更新が必要そうなとき |
 | `knowledge-manager` | 汎用的な解決策を発見したとき |
 | `journal-manager` | 実験・分析・意思決定の後（作成）、20件超（整理） |
+| `prose-linter` | ドキュメント作成・更新後 |
 | `context-compactor` | **手動のみ**: `/compact-context` |
 
 問題解決や実装前に `~/.claude/knowledge/` の関連知見を確認すること。
