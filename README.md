@@ -7,7 +7,7 @@
 ```text
 ~/.claude/
 ├── CLAUDE.md              # グローバルシステムプロンプト
-├── skills/                # 自動起動する Personal Skills（9個）
+├── skills/                # 自動起動する Personal Skills（10個）
 ├── knowledge/             # 開発中に貯まった知見（オンデマンド参照）
 │   ├── patterns/          #   設計パターン
 │   ├── troubleshooting/   #   トラブルシュート
@@ -39,6 +39,7 @@ cp ~/.claude/settings.example.json ~/.claude/settings.json  # 任意
 | `doc-maintainer` | README.md / CLAUDE.md の品質管理 |
 | `knowledge-manager` | 知見の記録・分類 |
 | `journal-manager` | Obsidian 作業ジャーナルの作成・整理 |
+| `prose-linter` | AI調・冗長な文章の検出・修正 |
 | `context-compactor` | コンテキスト圧縮（`/compact-context`） |
 
 ## Knowledge
