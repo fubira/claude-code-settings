@@ -12,3 +12,4 @@
 | [Electronアイコン設定](electron-application-icons.md) | Build | インストーラー/ウィンドウ両方のアイコン設定 |
 | [外部ライブラリのテスト方針](testing-external-libraries.md) | Testing | ライブラリ自体はテストしない、vi.spyOn活用 |
 | [Biomeインポートソート方針](biome-import-sorting.md) | Code Quality | グループ順のみ必要、文字順不要。将来の細粒度設定に備える |
+| [数値リテラルの目視コピー](numeric-literal-precision-loss.md) | Data Integrity | LLMがログから数値を書き写すと無意識に丸める。必ず自動抽出する |
