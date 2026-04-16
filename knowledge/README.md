@@ -22,4 +22,4 @@ Front Matter の仕様: [FRONTMATTER.md](FRONTMATTER.md)
 
 ## 追加方法
 
-`knowledge-manager` Skill が自動提案する。手動で追加する場合はテンプレートに従う: `~/.claude/skills/knowledge-manager/templates/`
+`knowledge-manager` Skill が自動提案する。手動で追加する場合は既存エントリと [FRONTMATTER.md](FRONTMATTER.md) を参考にする。

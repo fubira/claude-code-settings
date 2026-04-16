@@ -1,3 +1,12 @@
+---
+title: "Claude Code: コマンド実行時のセキュリティチェック誤検知"
+category: troubleshooting
+tags: [claude-code, bash, security, workaround]
+created: 2026-02-24
+updated: 2026-02-24
+status: active
+---
+
 # Claude Code: コマンド実行時のセキュリティチェック誤検知
 
 ## 症状

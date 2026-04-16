@@ -1,3 +1,12 @@
+---
+title: 本番環境安全性の原則
+category: best-practices
+tags: [production, deployment, safety, cdn, operations]
+created: 2026-03-27
+updated: 2026-03-27
+status: active
+---
+
 # 本番環境安全性の原則
 
 実運用システムにおける障害を予防・最小化するための原則。
