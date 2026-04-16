@@ -46,7 +46,7 @@ Safe, high-quality Git commits. Sensitive file exclusion, .gitignore management,
 
    🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
-   Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+   Co-Authored-By: Claude <noreply@anthropic.com>
    ```
    - 3-5 bullets explaining what/why/impact. No file lists
 3. Present to user for confirmation
@@ -76,6 +76,4 @@ Warn and abort commit on detection.
 
 ## Supporting Files
 
-- `rules/gitignore-patterns.md`: .gitignore pattern library
-- `rules/file-classification.md`: Detailed file classification rules
 - `templates/commit-message.md`: Message template and examples

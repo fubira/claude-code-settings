@@ -1,7 +1,7 @@
 ---
 name: doc-maintainer
 description: Maintains high-quality, concise, project-aligned documentation. Creates, updates, and validates README.md, CLAUDE.md, code comments, and other documentation. Activates after implementing features, when documentation is outdated, or when explicitly requested.
-allowed-tools: [Read, Write, Edit, Glob, Grep, mcp__ide__getDiagnostics, AskUserQuestion]
+allowed-tools: [Read, Write, Edit, Glob, Grep, AskUserQuestion]
 ---
 
 # Doc Maintainer Skill
@@ -38,6 +38,6 @@ Create, update, and validate documentation. Keep docs concise, accurate, and sca
 ## Workflow
 
 1. **Analyze**: Read existing docs and project CLAUDE.md, identify gaps and inconsistencies
-2. **Verify**: Check length limits, temporal info leaks, hardcoded metrics. Run `mcp__ide__getDiagnostics` for Markdown lint
+2. **Verify**: Check length limits, temporal info leaks, hardcoded metrics. Run project Markdown lint if configured
 3. **Optimize**: Logical structure, important info first, consistent terminology and style
 4. **QA**: Verify alignment with codebase, validate links, test code examples

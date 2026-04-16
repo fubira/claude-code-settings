@@ -1,7 +1,7 @@
 ---
 name: code-reviewer
 description: Assists with code review by analyzing code changes for quality, best practices, security, and potential issues. Activates after implementing code features, bug fixes, or refactorings. Provides structured feedback with critical issues, suggestions, and positive highlights.
-allowed-tools: [Read, Bash, Glob, Grep, mcp__ide__getDiagnostics, AskUserQuestion]
+allowed-tools: [Read, Bash, Glob, Grep, AskUserQuestion]
 ---
 
 # Code Reviewer Skill
@@ -27,7 +27,7 @@ Review code changes for quality, security, and performance. Provide structured, 
 ## Workflow
 
 1. **Context**: `git diff` to understand changes, check project CLAUDE.md, identify related tests
-2. **Analysis**: Review against above areas. Run `mcp__ide__getDiagnostics` for lint/type errors
+2. **Analysis**: Review against above areas. Run project lint/type-check commands for errors
 3. **Test Verification**: Check coverage and test quality
 4. **Feedback**: Report using the format below
 

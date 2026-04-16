@@ -27,7 +27,7 @@ Detect code smells and assist refactoring during development. Proactively sugges
 ## Workflow
 
 1. **Detect**: Read code, match against thresholds. Prioritize by severity (security > readability > style)
-2. **Analyze**: Check tech-stack rules (`patterns/typescript-react.md`, `patterns/go.md`). Consider context (one-off vs recurring, business justification for complexity)
+2. **Analyze**: Consider context (one-off vs recurring, business justification for complexity)
 3. **Suggest**: Show location (file:line), present before/after with trade-offs. Execute after user approval (partial approval OK)
 4. **Implement**: Make small incremental changes. Run tests/linter to verify. Record new patterns via knowledge-manager
 
@@ -36,9 +36,3 @@ Detect code smells and assist refactoring during development. Proactively sugges
 - Do not refactor without test coverage (add tests first)
 - Do not change behavior (refactoring ≠ feature change)
 - Prefer incremental improvement over large-scale rewrites
-
-## Supporting Files
-
-- `rules/code-smells.md`: Detection criteria and pattern details
-- `patterns/typescript-react.md`: TS/React-specific patterns
-- `patterns/go.md`: Go-specific patterns

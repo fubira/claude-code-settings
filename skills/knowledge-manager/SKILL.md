@@ -27,8 +27,20 @@ Manage a structured knowledge base. Progressive disclosure: reference knowledge 
 
 1. **Detect**: Identify valuable insights during development
 2. **Evaluate**: Assess on 3 axes — Reusability, Impact, Learning Value (record if 2/3 are Medium+)
-3. **Record**: Check category INDEX.md → deduplicate → create with template (`templates/`) → update INDEX.md
+3. **Record**: Check category INDEX.md → deduplicate → create entry → update INDEX.md
 4. **User Approval**: Present summary, category, evaluation, and usage examples; create only after approval
+
+## Entry Structure
+
+Keep entries concise (< 100 lines). Common elements:
+
+- **Overview**: 1-2 sentence summary
+- **Context/Rationale**: When/why this applies
+- **Details**: Commands, code, or steps (language-tagged fenced blocks)
+- **Pitfalls**: Known failure modes
+- **References**: External docs or related entries
+
+Infer exact structure from the category — no fixed template required. See existing entries in `~/.claude/knowledge/` for style.
 
 ## Search and Retrieval
 

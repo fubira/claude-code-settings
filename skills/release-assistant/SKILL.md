@@ -45,7 +45,7 @@ Automate release workflows: Lint → Build → Test → Version Bump → Tag →
 
    🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
-   Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+   Co-Authored-By: Claude <noreply@anthropic.com>
    ```
    ```bash
    git tag vX.Y.Z
