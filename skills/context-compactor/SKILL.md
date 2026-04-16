@@ -28,9 +28,7 @@ Analyze and compact documents that affect context window size. Reduce token usag
 
 ### Phase 1: Measure
 
-1. Count lines and estimate tokens for each target file
-2. Present a summary table with file sizes
-3. Identify the largest contributors to context
+Run `~/.claude/scripts/context-audit.sh` to get sizes for CLAUDE.md, all projects' MEMORY.md, skills, and knowledge base in one pass (with token estimate and context-window usage %). Identify the largest contributors from the output.
 
 ### Phase 2: Analyze
 
