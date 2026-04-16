@@ -41,3 +41,10 @@ Create, update, and validate documentation. Keep docs concise, accurate, and sca
 2. **Verify**: Check length limits, temporal info leaks, hardcoded metrics. Run project Markdown lint if configured
 3. **Optimize**: Logical structure, important info first, consistent terminology and style
 4. **QA**: Verify alignment with codebase, validate links, test code examples
+
+## Boundary with prose-linter
+
+- **doc-maintainer**: 構造・長さ・整合性（章立て、README 行数、コメント要件、時系列情報の除去）
+- **prose-linter**: 文体・語彙（AI調の修飾語、冗長表現）
+
+doc-maintainer → prose-linter の順で走らせる。構造修正後に文体パスをかける。

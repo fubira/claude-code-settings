@@ -1,12 +1,12 @@
 ---
 name: test-executor
-description: Executes tests, analyzes test results, checks test coverage, and provides comprehensive testing status overview. Primarily for Go projects. Activates after implementing/modifying code to verify correctness, or when explicitly requested to assess test suite health.
+description: Executes tests, analyzes results, and reports coverage for Go and Node/Bun projects. Activates after code implementation/modification to verify correctness, or when explicitly requested.
 allowed-tools: [Bash, Read, Glob, Grep, AskUserQuestion]
 ---
 
 # Test Executor Skill
 
-Execute tests, analyze results, and report coverage. Primarily for Go projects.
+Execute tests, analyze results, report coverage. Supports Go and Node/Bun.
 
 ## Activation Triggers
 
@@ -16,53 +16,55 @@ Execute tests, analyze results, and report coverage. Primarily for Go projects.
 
 ## Workflow
 
-### Phase 1: Determine Test Scope
+### Phase 1: Detect project type and runner
 
-- Identify target packages from project structure
-- Check for Makefile or custom test commands
-- Coverage threshold: follow project settings (default 80%)
+| Indicator | Project type | Test command |
+|-----------|-------------|-------------|
+| `go.mod` | Go | `go test ./... -coverprofile=coverage.out -covermode=atomic` |
+| `package.json` + `"test": "bun test"` | Bun | `bun test --coverage` |
+| `package.json` + vitest/jest config | Node (vitest/jest) | `npm test` / `npx vitest run --coverage` |
+| `Cargo.toml` | Rust | `cargo test` |
+| Custom `Makefile` | Any | Prefer Makefile target over default |
+
+Check `package.json` scripts first — respect custom commands. Coverage threshold defaults to 80% (override via project CLAUDE.md).
 
 ### Phase 2: Execute
 
-```bash
-# Tests + coverage
-go test ./internal/... -coverprofile=coverage.out -covermode=atomic
-go tool cover -func=coverage.out
+Run detected command. For coverage report:
 
-# Benchmarks (on request only)
-go test -bench=. -benchmem ./...
-```
+- Go: `go tool cover -func=coverage.out`
+- Bun/Vitest: coverage summary in stdout
 
-### Phase 3: Report Results
+Benchmarks only on explicit request (e.g. `go test -bench=. -benchmem ./...`).
+
+### Phase 3: Report
 
 ```markdown
 ## Test Results
 
-### Summary
-- Tests run: X
-- Passed: Y ✅ / Failed: Z ❌
-- Coverage: W% (threshold: N%)
-- Verdict: [✅ All passing / ⚠️ Issues found / ❌ Critical failures]
+- Tests: X passed / Y failed
+- Coverage: Z% (threshold: N%)
+- Verdict: [passing / issues / failing]
 
-### Package Coverage
-[package-by-package breakdown]
+### Package coverage
+[per-package breakdown]
 
 ### Issues
-[items needing attention]
+[failures with root cause]
 
-### Recommended Actions
+### Recommended actions
 [specific next steps]
 ```
 
 ## Failure Analysis
 
-- Identify root cause, not just surface-level error message
+- Identify root cause, not surface-level message
 - Suggest specific fixes
-- Recommend adding tests for the failure scenario
+- Recommend adding regression tests for the failure
 
 ## Edge Cases
 
 - No tests found → suggest creating test files
-- coverage.out generation failure → troubleshoot
+- Coverage generation failure → troubleshoot config
 - Flaky test → re-run to confirm
-- Build error → distinguish compilation errors from test failures
+- Build error → distinguish compile failure from test failure
