@@ -14,14 +14,18 @@ Manage a structured knowledge base. Progressive disclosure: reference knowledge 
 - Solved a non-obvious technical problem (automatic)
 - Established a new coding convention or pattern (automatic)
 
+## Knowledge Base Location
+
+All entries live under `~/.claude/knowledge/` (global, cross-project). Not project-local.
+
 ## Categories
 
 | Category | Path | When to Record |
 |----------|------|---------------|
-| Patterns | `knowledge/patterns/` | Reusable design patterns, architecture |
-| Troubleshooting | `knowledge/troubleshooting/` | Non-obvious technical problem solutions |
-| Best Practices | `knowledge/best-practices/` | Coding standards, quality guidelines |
-| Workflows | `knowledge/workflows/` | Dev processes, CI/CD, operational procedures |
+| Patterns | `~/.claude/knowledge/patterns/` | Reusable design patterns, architecture |
+| Troubleshooting | `~/.claude/knowledge/troubleshooting/` | Non-obvious technical problem solutions |
+| Best Practices | `~/.claude/knowledge/best-practices/` | Coding standards, quality guidelines |
+| Workflows | `~/.claude/knowledge/workflows/` | Dev processes, CI/CD, operational procedures |
 
 ## Recording Process
 
