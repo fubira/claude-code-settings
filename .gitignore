@@ -1,65 +1,19 @@
-# Claude Code - .gitignore
+# Ignore everything by default. This directory contains credentials, session
+# history, telemetry, caches, local MCP settings, and machine-specific state.
+*
 
-# 認証情報（絶対に除外）
-.credentials.json
+# Shared repository metadata and documentation.
+!/.gitattributes
+!/.gitignore
+!/CLAUDE.md
+!/README.md
 
-# MCP設定（ローカル環境依存）
-.mcp.json
-.mcp.json.backup
-.claude.json
+# Shared Claude Code templates and utilities.
+!/settings.example.json
+!/scripts/
+!/scripts/**
 
-# 個人設定（settings.example.json をコピーしてカスタマイズ）
-settings.json
-settings.local.json
-
-# セッション情報（一時的、ローカルパス含む）
-sessions/
-
-# ランタイムデータ
-history.jsonl
-file-history/
-session-env/
-shell-snapshots/
-todos/
-debug/
-statsig/
-telemetry/
-mcp-needs-auth-cache.json
-
-# Anthropic固有データ
-.anthropic/
-
-# IDE接続ロックファイル（一時ファイル）
-ide/
-
-# プロジェクト固有の設定（環境依存）
-projects/
-
-# 共有Knowledge（実体は Obsidian Vault: RESOURCES/AI_KNOWLEDGE/）
-knowledge/
-
-# プラグイン（環境依存のパス情報、外部リポジトリを含む）
-plugins/
-
-# ログファイル
-*.log
-
-# OS固有ファイル
-.DS_Store
-Thumbs.db
-
-cache/
-
-# バックアップファイル
-backups/
-
-# 一時ファイル
-*.tmp
-tmpclaude-*-cwd
-paste-cache/
-
-# Claude Code 一時データ
-plans/
-tasks/
-usage-data/
-stats-cache.json
+# User-maintained skills and their templates.
+!/skills/
+!/skills/*/
+!/skills/*/**
