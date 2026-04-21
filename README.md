@@ -1,6 +1,6 @@
 # Claude Code グローバル設定
 
-`~/.claude/` に置く個人用の Claude Code 設定。Skills と Knowledge を Git 管理している。
+`~/.claude/` に置く個人用の Claude Code 設定。Skills と共有 Knowledge の参照ルールを Git 管理している。
 
 ## 構成
 
@@ -8,11 +8,6 @@
 ~/.claude/
 ├── CLAUDE.md              # グローバルシステムプロンプト
 ├── skills/                # 自動起動する Personal Skills（10個）
-├── knowledge/             # 開発中に貯まった知見（オンデマンド参照）
-│   ├── patterns/          #   設計パターン
-│   ├── troubleshooting/   #   トラブルシュート
-│   ├── best-practices/    #   ベストプラクティス
-│   └── workflows/         #   CI/CD・開発フロー
 ├── scripts/               # ユーティリティスクリプト
 ├── settings.example.json  # permissions テンプレート
 └── .gitignore
@@ -44,11 +39,11 @@ cp ~/.claude/settings.example.json ~/.claude/settings.json  # 任意
 
 ## Knowledge
 
-開発中に見つけた汎用的なパターンや解決策を `knowledge/` に蓄積している。CLAUDE.md には含めず、必要なときだけ INDEX.md 経由で参照する。
+開発中に見つけた汎用的なパターンや解決策は Obsidian Vault の `RESOURCES/AI_KNOWLEDGE/` に蓄積する。CLAUDE.md には含めず、必要なときだけ INDEX.md 経由で参照する。
 
 ## 共有時の注意
 
-Git 管理対象: `CLAUDE.md`, `skills/`, `knowledge/`, `settings.example.json`, `.gitignore`
+Git 管理対象: `CLAUDE.md`, `skills/`, `settings.example.json`, `.gitignore`
 
 以下は `.gitignore` 済みだが、フォーク時に混入しないよう注意:
 

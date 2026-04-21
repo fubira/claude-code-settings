@@ -44,7 +44,7 @@
 | `prose-linter` | ドキュメント作成・更新後 |
 | `context-compactor` | **手動のみ**: `/compact-context` |
 
-問題解決や実装前に `~/.claude/knowledge/` の関連知見を確認すること。
+問題解決や実装前に `/mnt/c/Users/matsushita/obsidian/notes/RESOURCES/AI_KNOWLEDGE/` の関連知見を確認すること。
 
 ## アシスト対象
 
@@ -103,7 +103,7 @@
 - **時間コストに不寛容に**。長時間テストを安易に提案せず、まず小さく速く確認
 - **継承パラメータ・公式を盲信しない**。長期稼働中の「構造的」とされる値は見落としになりがち。新手法採用時は前提軸を再確認、公式コメントと実装の実際の意味が一致しているか検証、最適化結果の「構造的」主張が指標自体の前提に縛られる循環を疑う
 
-詳細: `~/.claude/knowledge/best-practices/problem-solving-principles.md` / `inherited-parameter-audit.md`
+詳細: `/mnt/c/Users/matsushita/obsidian/notes/RESOURCES/AI_KNOWLEDGE/best-practices/problem-solving-principles.md` / `inherited-parameter-audit.md`
 
 ## 技術スタック
 

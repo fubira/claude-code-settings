@@ -35,6 +35,9 @@ ide/
 # プロジェクト固有の設定（環境依存）
 projects/
 
+# 共有Knowledge（実体は Obsidian Vault: RESOURCES/AI_KNOWLEDGE/）
+knowledge/
+
 # プラグイン（環境依存のパス情報、外部リポジトリを含む）
 plugins/
 
