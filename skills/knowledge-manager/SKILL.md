@@ -16,16 +16,16 @@ Manage a structured knowledge base. Progressive disclosure: reference knowledge 
 
 ## Knowledge Base Location
 
-All entries live under `~/.claude/knowledge/` (global, cross-project). Not project-local.
+All entries live under `/mnt/c/Users/matsushita/obsidian/notes/RESOURCES/AI_KNOWLEDGE/` (Obsidian vault, global, cross-project). Not project-local.
 
 ## Categories
 
 | Category | Path | When to Record |
 |----------|------|---------------|
-| Patterns | `~/.claude/knowledge/patterns/` | Reusable design patterns, architecture |
-| Troubleshooting | `~/.claude/knowledge/troubleshooting/` | Non-obvious technical problem solutions |
-| Best Practices | `~/.claude/knowledge/best-practices/` | Coding standards, quality guidelines |
-| Workflows | `~/.claude/knowledge/workflows/` | Dev processes, CI/CD, operational procedures |
+| Patterns | `/mnt/c/Users/matsushita/obsidian/notes/RESOURCES/AI_KNOWLEDGE/patterns/` | Reusable design patterns, architecture |
+| Troubleshooting | `/mnt/c/Users/matsushita/obsidian/notes/RESOURCES/AI_KNOWLEDGE/troubleshooting/` | Non-obvious technical problem solutions |
+| Best Practices | `/mnt/c/Users/matsushita/obsidian/notes/RESOURCES/AI_KNOWLEDGE/best-practices/` | Coding standards, quality guidelines |
+| Workflows | `/mnt/c/Users/matsushita/obsidian/notes/RESOURCES/AI_KNOWLEDGE/workflows/` | Dev processes, CI/CD, operational procedures |
 
 ## Recording Process
 
@@ -44,7 +44,7 @@ Keep entries concise (< 100 lines). Common elements:
 - **Pitfalls**: Known failure modes
 - **References**: External docs or related entries
 
-Infer exact structure from the category — no fixed template required. See existing entries in `~/.claude/knowledge/` for style.
+Infer exact structure from the category — no fixed template required. See existing entries in `/mnt/c/Users/matsushita/obsidian/notes/RESOURCES/AI_KNOWLEDGE/` for style.
 
 ## Search and Retrieval
 

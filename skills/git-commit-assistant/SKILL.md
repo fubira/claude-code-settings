@@ -31,7 +31,7 @@ Safe, high-quality Git commits. Sensitive file exclusion, .gitignore management,
 **AUTO_COMMIT (generally safe)**:
 - Source code (`src/**`, `internal/**`, `lib/**`), tests, docs (`*.md`)
 - Shared config (`.gitignore`, `package.json`, `tsconfig.json`, `go.mod`, `.github/workflows/*`)
-- Skills/Knowledge (`~/.claude/skills/**`, `~/.claude/knowledge/**`)
+- Skills (`~/.claude/skills/**`)
 
 **CONFIRM (user decision)**: Files > 1MB, new directories, executables, unclassified config files
 
