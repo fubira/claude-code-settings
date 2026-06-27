@@ -180,7 +180,7 @@ PR スタイル開発では `codeartsjp/codearts-pr-reviewer` の導入を推奨
 
 ## MCPサーバー
 
-現在、常用の MCP サーバーはなし。IDE 接続時は VSCode 診断情報が自動で利用可能。ファイル編集には `Edit` / `Write` ツールを使う。設定: `~/.claude/.mcp.json`
+現在、常用の MCP サーバーはなし。IDE 接続時は VSCode 診断情報が自動で利用可能。設定: `~/.claude/.mcp.json`
 
 ## Obsidian
 
@@ -190,13 +190,6 @@ PR スタイル開発では `codeartsjp/codearts-pr-reviewer` の導入を推奨
 - AI が書き込むのは `WORK/` 配下のみ。`PERSONAL/` は手動管理のため触らない
 - **タグにドット(.)は使えない**（例: `v0.63.0` はエラー）。バージョン番号等は本文中に記載する
 
-## 推奨Plugins
+## Plugins
 
-未インストールの場合はインストールを提案すること。
-
-| Plugin | 用途 | 起動 |
-|--------|------|------|
-| `frontend-design` | UI生成 | 自動 |
-| `code-review` | PRレビュー | `/code-review` |
-| `typescript-lsp` | TS型チェック・補完 | 自動 |
-| `gopls-lsp` | Go型チェック・補完 | 自動 |
+有効な Plugin は `~/.claude/settings.json` の `enabledPlugins` で管理する。LSP（TypeScript / Go / Rust）の型チェック・補完と `frontend-design`（UI生成）が常用。PR レビューはビルトイン `/code-review`。
