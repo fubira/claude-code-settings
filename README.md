@@ -7,7 +7,7 @@
 ```text
 ~/.claude/
 ├── CLAUDE.md              # グローバルシステムプロンプト
-├── skills/                # 自動起動する Personal Skills（10個）
+├── skills/                # Personal Skills と Cloudflare / Web 開発スキル
 ├── scripts/               # ユーティリティスクリプト
 ├── settings.example.json  # permissions テンプレート
 └── .gitignore
@@ -20,9 +20,9 @@ git clone <repository-url> ~/.claude
 cp ~/.claude/settings.example.json ~/.claude/settings.json  # 任意
 ```
 
-## Skills 一覧
+## Personal Skills
 
-条件に合えば自動起動する。`context-compactor` のみ手動。
+開発ワークフローを補助する。条件に合えば自動起動する。`context-compactor` のみ手動。
 
 | Skill | やること |
 |-------|---------|
@@ -36,6 +36,22 @@ cp ~/.claude/settings.example.json ~/.claude/settings.json  # 任意
 | `journal-manager` | Obsidian 作業ジャーナルの作成・整理 |
 | `prose-linter` | AI調・冗長な文章の検出・修正 |
 | `context-compactor` | コンテキスト圧縮（`/compact-context`） |
+
+## Cloudflare / Web 開発スキル
+
+該当する開発タスクで起動する。Cloudflare 公式ドキュメント参照を優先する構成。
+
+| Skill | やること |
+|-------|---------|
+| `cloudflare` | Workers / Pages / ストレージ / AI / ネットワークの総合リファレンス |
+| `wrangler` | Workers CLI の構文・運用 |
+| `workers-best-practices` | Workers コードのベストプラクティス点検・執筆 |
+| `agents-sdk` | Agents SDK によるステートフルエージェント構築 |
+| `durable-objects` | Durable Objects の作成・レビュー |
+| `sandbox-sdk` | Sandbox SDK によるコード実行環境構築 |
+| `cloudflare-email-service` | Email Sending / Email Routing でのメール送受信 |
+| `turnstile-spin` | Turnstile（CAPTCHA）のエンドツーエンド導入 |
+| `web-perf` | Core Web Vitals 計測・パフォーマンス分析 |
 
 ## Knowledge
 
