@@ -17,3 +17,6 @@
 !/skills/
 !/skills/*/
 !/skills/*/**
+
+# But never stray editor/backup files within them.
+/skills/**/*.backup
