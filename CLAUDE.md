@@ -22,22 +22,9 @@
 
 ## Personal Skills
 
-詳細は各 `~/.claude/skills/*/SKILL.md`。特記なきものはユーザー指示を待たず、該当タイミングで能動的・積極的に起動する（`Skill` ツールで呼ぶ）。
+詳細は各 `~/.claude/skills/*/SKILL.md`。各 Skill の起動条件は description に記載済み（毎セッション自動読込）。**ユーザー指示を待たず、該当タイミングで能動的・積極的に起動する**（`Skill` ツール）。例外: `context-compactor` は手動のみ（`/compact-context`）。
 
-| Skill | 起動タイミング |
-|-------|--------------|
-| `git-commit-assistant` | コミット前 |
-| `release-assistant` | リリース作業時 |
-| `test-executor` | 機能実装が一段落したとき |
-| `code-reviewer` | 機能実装が一段落したとき |
-| `refactoring-assistant` | Code Smell検出時 |
-| `doc-maintainer` | ドキュメント更新が必要そうなとき |
-| `knowledge-manager` | 汎用的な解決策を発見したとき |
-| `journal-manager` | 実験・分析・意思決定の後（作成）、20件超（整理） |
-| `prose-linter` | ドキュメント作成・更新後 |
-| `context-compactor` | **手動のみ**: `/compact-context` |
-
-問題解決や実装前に `/mnt/c/Users/matsushita/obsidian/notes/RESOURCES/AI_KNOWLEDGE/` の関連知見を確認すること。
+デバッグで手詰まりのとき、新しい設計を始めるとき、慣れない技術領域に入るときは、`/mnt/c/Users/matsushita/obsidian/notes/RESOURCES/AI_KNOWLEDGE/` の関連知見を確認する。
 
 ## アシスト対象
 
@@ -49,7 +36,6 @@
 
 ### コーディング
 
-- **読んでいないファイルを編集しない**。必ず Read してから Edit/Write する
 - 既存のコード規約・パターンに従う
 - 関数型・宣言型優先、DRY、早期リターン
 - 引数・戻り値は構造化（TS: ROROパターン）
@@ -183,7 +169,7 @@ PR スタイル開発では `codeartsjp/codearts-pr-reviewer` の導入を推奨
 
 ## MCPサーバー
 
-現在、常用の MCP サーバーはなし。IDE 接続時は VSCode 診断情報が自動で利用可能。設定: `~/.claude/.mcp.json`
+MCP サーバーは使わない方針（組み込みツール・CLI で代替）。誤って追加された場合の掃除手順はメモリ参照。IDE 接続時は VSCode 診断情報が自動で利用可能。
 
 ## Obsidian
 
