@@ -63,8 +63,8 @@ Create and manage Obsidian work journals. Record "what I thought at this point" 
 |-----------------|------------|
 | Confirmed technical facts/patterns | MEMORY.md |
 | Project convention changes | CLAUDE.md |
-| Model performance records | profile.md |
-| General-purpose solutions | knowledge/ |
+| Model performance records | Data files in the parent directory of `journal/` |
+| General-purpose solutions | `AI_KNOWLEDGE/` (via knowledge-manager skill) |
 
 After promotion, add "→ reflected in X" marker to the journal entry.
 

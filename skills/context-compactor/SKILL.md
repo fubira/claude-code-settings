@@ -2,6 +2,7 @@
 name: context-compactor
 description: Analyzes and compacts context-affecting documents (project memory, CLAUDE.md, skill files) to reduce token usage and compaction frequency. Manual trigger only. Always requires user approval before making changes.
 allowed-tools: [Read, Write, Edit, Glob, Grep, Bash, Agent, AskUserQuestion]
+disable-model-invocation: true
 ---
 
 # Context Compactor Skill

@@ -52,15 +52,8 @@ Git tag format is `vX.Y.Z` for all types.
 
 1. Propose new version, get user confirmation (override allowed)
 2. Node/Rust: Edit manifest file. Go: skip file edit
-3. Commit (Node/Rust only) and create tag:
-   ```
-   chore(release): Bump version to X.Y.Z
-
-   Co-Authored-By: Claude <noreply@anthropic.com>
-   ```
-   ```bash
-   git tag vX.Y.Z
-   ```
+3. Commit (Node/Rust only) with subject `chore(release): Bump version to X.Y.Z`
+   (format and trailer per git-commit-assistant), then `git tag vX.Y.Z`
 
 ### Phase 4: Push
 
