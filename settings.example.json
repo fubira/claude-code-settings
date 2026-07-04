@@ -29,7 +29,9 @@
       "WebFetch(domain:npmjs.com)",
       "WebFetch(domain:nextjs.org)"
     ],
-    "deny": []
+    "deny": [
+      "Bash(sed:*)"
+    ]
   },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true,

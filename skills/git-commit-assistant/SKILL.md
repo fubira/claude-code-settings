@@ -43,12 +43,9 @@ Safe, high-quality Git commits. Sensitive file exclusion, .gitignore management,
    <type>(<scope>): <subject>  ← English, max 50 chars, imperative
 
    - <description (Japanese OK)>
-
-   🤖 Generated with [Claude Code](https://claude.com/claude-code)
-
-   Co-Authored-By: Claude <noreply@anthropic.com>
    ```
    - 3-5 bullets explaining what/why/impact. No file lists
+   - Attribution trailer comes from `attribution.commit` in settings.json — do not write it manually
 3. Present to user for confirmation
 
 ### Phase 4: Commit & Push
