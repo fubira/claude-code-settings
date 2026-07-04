@@ -1,6 +1,9 @@
 #!/bin/bash
-# Claude Code コンテキスト監査スクリプト
-# 各セッションで自動ロードされるファイルのサイズを計測する
+# Claude Code コンテキスト関連ファイルのサイズ一覧
+# ファイルごとの行数・文字数という事実のみを出力する。
+# token 推定・使用率・「自動ロード合計」は出力しない。何がいつロードされるかは
+# Claude Code 本体の仕様に依存して変わるため、スクリプトに写し取ると必ず陳腐化する。
+# 実際のコンテキスト使用量はビルトインの /context コマンドで確認する。
 # Usage: ~/.claude/scripts/context-audit.sh [project-dir]
 
 set -euo pipefail
@@ -8,27 +11,18 @@ set -euo pipefail
 PROJECT_DIR="${1:-.}"
 CLAUDE_HOME="$HOME/.claude"
 
-echo "=== Claude Code Context Audit ==="
-echo ""
-
-total_lines=0
-total_chars=0
-
 measure() {
   local label="$1" path="$2"
   if [[ -f "$path" ]]; then
-    local lines chars
-    lines=$(wc -l < "$path")
-    chars=$(wc -c < "$path")
-    printf "  %-40s %4d lines  %6d chars\n" "$label" "$lines" "$chars"
-    total_lines=$((total_lines + lines))
-    total_chars=$((total_chars + chars))
+    printf "  %-46s %5d lines  %7d chars\n" "$label" "$(wc -l < "$path")" "$(wc -c < "$path")"
   else
-    printf "  %-40s %s\n" "$label" "(not found)"
+    printf "  %-46s %s\n" "$label" "(not found)"
   fi
 }
 
-# 1. CLAUDE.md files
+echo "=== Claude Code Context File Inventory ==="
+echo ""
+
 echo "[CLAUDE.md]"
 measure "Global (~/.claude/CLAUDE.md)" "$CLAUDE_HOME/CLAUDE.md"
 global_real=$(realpath "$CLAUDE_HOME/CLAUDE.md" 2>/dev/null || true)
@@ -38,61 +32,35 @@ if [[ -n "$project_real" && "$project_real" != "$global_real" ]]; then
 fi
 echo ""
 
-# 2. MEMORY.md
-echo "[Auto Memory]"
+echo "[Memory] (per project: MEMORY.md / topic files)"
 for memdir in "$CLAUDE_HOME/projects/"*/memory/; do
-  if [[ -d "$memdir" ]]; then
-    proj=$(basename "$(dirname "$memdir")")
-    if [[ -f "$memdir/MEMORY.md" ]]; then
-      measure "MEMORY.md ($proj)" "$memdir/MEMORY.md"
-    fi
-    # Count topic files
-    topic_count=$(find "$memdir" -name "*.md" ! -name "MEMORY.md" 2>/dev/null | wc -l)
-    if [[ $topic_count -gt 0 ]]; then
-      topic_chars=$(find "$memdir" -name "*.md" ! -name "MEMORY.md" -exec cat {} + 2>/dev/null | wc -c)
-      printf "  %-40s %4d files  %6d chars (not auto-loaded)\n" "  Topic files" "$topic_count" "$topic_chars"
-    fi
+  [[ -d "$memdir" ]] || continue
+  proj=$(basename "$(dirname "$memdir")")
+  if [[ -f "$memdir/MEMORY.md" ]]; then
+    measure "MEMORY.md ($proj)" "$memdir/MEMORY.md"
+  fi
+  topic_count=$(find "$memdir" -name "*.md" ! -name "MEMORY.md" | wc -l)
+  if [[ $topic_count -gt 0 ]]; then
+    topic_chars=$(find "$memdir" -name "*.md" ! -name "MEMORY.md" -exec cat {} + | wc -c)
+    printf "  %-46s %5d files  %7d chars\n" "  topic files" "$topic_count" "$topic_chars"
   fi
 done
 echo ""
 
-# 3. Skills
-echo "[Skills]"
-skill_total_lines=0
-skill_total_chars=0
-skill_count=0
+echo "[Skills] (SKILL.md total / frontmatter description)"
 for skill_dir in "$CLAUDE_HOME/skills/"*/; do
-  if [[ -d "$skill_dir" ]]; then
-    skill_name=$(basename "$skill_dir")
-    if [[ -f "$skill_dir/SKILL.md" ]]; then
-      lines=$(wc -l < "$skill_dir/SKILL.md")
-      chars=$(wc -c < "$skill_dir/SKILL.md")
-      printf "  %-40s %4d lines  %6d chars\n" "$skill_name" "$lines" "$chars"
-      skill_total_lines=$((skill_total_lines + lines))
-      skill_total_chars=$((skill_total_chars + chars))
-      skill_count=$((skill_count + 1))
-      total_lines=$((total_lines + lines))
-      total_chars=$((total_chars + chars))
-    fi
-  fi
+  skill="$skill_dir/SKILL.md"
+  [[ -f "$skill" ]] || continue
+  name=$(basename "$skill_dir")
+  desc_chars=$(awk '
+    NR == 1 && /^---$/ { infm = 1; next }
+    infm && /^---$/ { exit }
+    infm && /^description:/ { cap = 1; sub(/^description:[ ]*/, ""); print; next }
+    cap && /^[A-Za-z_-]+:/ { cap = 0 }
+    cap { print }
+  ' "$skill" | wc -c)
+  printf "  %-30s %5d lines  %7d chars  (desc %4d chars)\n" \
+    "$name" "$(wc -l < "$skill")" "$(wc -c < "$skill")" "$desc_chars"
 done
-printf "  %-40s %4d lines  %6d chars (%d skills)\n" "Skills subtotal" "$skill_total_lines" "$skill_total_chars" "$skill_count"
 echo ""
-
-# 4. Knowledge (referenced but not auto-loaded)
-echo "[Knowledge] (referenced on demand, not auto-loaded)"
-if [[ -d "$CLAUDE_HOME/knowledge" ]]; then
-  kb_count=$(find "$CLAUDE_HOME/knowledge" -name "*.md" 2>/dev/null | wc -l)
-  kb_chars=$(find "$CLAUDE_HOME/knowledge" -name "*.md" -exec cat {} + 2>/dev/null | wc -c)
-  printf "  %-40s %4d files  %6d chars\n" "Knowledge base" "$kb_count" "$kb_chars"
-fi
-echo ""
-
-# Summary
-echo "=== Summary ==="
-printf "  Auto-loaded total:  %d lines / %d chars (~%d tokens est.)\n" \
-  "$total_lines" "$total_chars" "$((total_chars / 4))"
-echo ""
-echo "Token estimate: chars/4 (rough approximation for mixed JP/EN)"
-echo "Claude Code context window: ~200k tokens"
-printf "Estimated usage: ~%.1f%%\n" "$(echo "scale=1; $total_chars / 4 / 2000" | bc)"
+echo "Note: 実際のコンテキスト使用量は /context コマンドで確認する。"
