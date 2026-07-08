@@ -22,7 +22,7 @@
 
 ## Personal Skills
 
-詳細は各 `~/.claude/skills/*/SKILL.md`。各 Skill の起動条件は description に記載済み（毎セッション自動読込）。**ユーザー指示を待たず、該当タイミングで能動的・積極的に起動する**（`Skill` ツール）。例外: `context-compactor`（`/compact-context`）と `handoff`（`/handoff`）は手動のみ。
+詳細は各 `~/.claude/skills/*/SKILL.md`。各 Skill の起動条件は description に記載済み（毎セッション自動読込）。**ユーザー指示を待たず、該当タイミングで能動的・積極的に起動する**（`Skill` ツール）。手動のみの Skill は frontmatter の `disable-model-invocation: true` で管理する（列挙しない。README の生成表「起動」列で一覧できる）。
 
 デバッグで手詰まりのとき、新しい設計を始めるとき、慣れない技術領域に入るときは、`/mnt/c/Users/matsushita/obsidian/notes/RESOURCES/AI_KNOWLEDGE/` の関連知見を確認する。
 

@@ -16,7 +16,7 @@ Manage a structured knowledge base. Progressive disclosure: reference knowledge 
 
 ## Knowledge Base Location
 
-All entries live under `/mnt/c/Users/matsushita/obsidian/notes/RESOURCES/AI_KNOWLEDGE/` (Obsidian vault, global, cross-project; referred to as `AI_KNOWLEDGE/` below). Not project-local.
+All entries live under `RESOURCES/AI_KNOWLEDGE/` in the Obsidian vault (vault root path is defined in the global CLAUDE.md "Obsidian" section; referred to as `AI_KNOWLEDGE/` below). Global, cross-project — not project-local.
 
 ## Categories
 

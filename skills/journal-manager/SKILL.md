@@ -15,7 +15,7 @@ Create and manage Obsidian work journals. Record "what I thought at this point" 
 
 ## Journal Location
 
-- **Path**: `/mnt/c/Users/matsushita/obsidian/notes/WORK/{ORG}_{PROJECT}/journal/YYYY-MM-DD_HHmm_topic.md`
+- **Path**: `WORK/{ORG}_{PROJECT}/journal/YYYY-MM-DD_HHmm_topic.md` (relative to the Obsidian vault root defined in the global CLAUDE.md "Obsidian" section)
 - Date in JST. Topic in hyphenated English or Japanese (keep short)
 
 ## auto memory vs Journal
