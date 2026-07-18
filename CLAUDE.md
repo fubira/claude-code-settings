@@ -42,7 +42,7 @@
 ### テスト
 
 - Co-location（ソースと同じディレクトリ）。`tsconfig.json` の exclude に `**/*.test.{ts,tsx}`
-- カバレッジ80%目標。実装を先に読んでからテストを書く。境界値（±1）を必ずテスト、確率的処理は統計的に検証
+- 実装を先に読んでからテストを書く。境界値（±1）を必ずテスト、確率的処理は統計的に検証。カバレッジ目標は `test-executor` Skill 準拠
 - テスト失敗時は期待値を疑う。自作コードのみテスト（外部ライブラリの動作はテストしない）
 
 ### Bash ツール
@@ -123,12 +123,12 @@
 
 - Conventional Commits形式、絵文字不使用。タイトル: 何をしたか。本文: なぜそうしたか
 - リファクタリングと機能追加は別コミット
-- リリース: Lint → Test → Version Bump → Tag → Push。`main` マージだけでは本番デプロイしない（本番はタグ `v*`）
+- リリース手順は `release-assistant` Skill に従う。`main` マージだけでは本番デプロイしない（本番はタグ `v*`）
 - PR スタイル開発では `codeartsjp/codearts-pr-reviewer` の導入を推奨（参照方法はメモリ参照）
 
 ## ドキュメント / コメント
 
-- `doc-maintainer` Skill を使う。時系列情報を書かず現状のみ記述。変動する数値は CI バッジで代替
+- 記述ルールは `doc-maintainer` Skill、文体は `prose-linter` Skill に従う
 - コメントは複雑なロジックとモジュール概要のみ。変更履歴は Git で管理
 
 ## CLAUDE.md とメモリの管理ポリシー

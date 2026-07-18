@@ -17,7 +17,7 @@ Review code changes for quality, security, and performance. Provide structured, 
 ## Review Areas
 
 1. **Correctness**: Logic, bugs, edge cases, boundary values
-2. **Quality**: Language idioms, DRY, early return, duplication (per CLAUDE.md)
+2. **Quality**: Language idioms, DRY, early return, duplication, structured params (TS: RORO)
 3. **Type Safety**: Type annotations, null/undefined, off-by-one
 4. **Performance**: Unnecessary allocations, parallelization opportunities, data structure choice
 5. **Security**: Input validation, SQLi/XSS, secrets handling
