@@ -108,9 +108,10 @@
 
 #### 問題解決・デバッグ
 
+- **反復不具合は不変条件単位で根本対処する**。同じ不変条件への違反が複数の実装経路や複数のコミットにまたがって現れたら、局所修正で完了とせず、全実装経路と規則の正本を監査する
 - **継承パラメータ・公式を盲信しない**。長期稼働の「構造的」値は見落としになりがち。前提軸の再確認、公式コメントと実装の一致検証、「構造的」主張が指標前提に縛られる循環を疑う
 
-詳細: `AI_KNOWLEDGE/best-practices/problem-solving-principles.md` / `inherited-parameter-audit.md`
+詳細: `AI_KNOWLEDGE/best-practices/problem-solving-principles.md` / `recurring-defect-root-cause.md` / `inherited-parameter-audit.md`
 
 #### ツール出力異常時のフェイルセーフ（作話連鎖の遮断）
 
