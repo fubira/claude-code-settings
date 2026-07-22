@@ -22,7 +22,7 @@
 
 ## Personal Skills
 
-各 Skill の起動条件は description に記載済み（毎セッション自動読込）。**ユーザー指示を待たず、該当タイミングで能動的に起動する**。手動のみの Skill は frontmatter の `disable-model-invocation: true` で管理する。
+各 Skill の起動条件は `description` に記載済み（メタデータは毎セッション自動読込）。**ユーザー指示を待たず、該当タイミングで能動的に起動する**。手動のみの Skill は frontmatter の `disable-model-invocation: true` で管理する。
 
 デバッグで手詰まりのとき、新しい設計を始めるとき、慣れない技術領域に入るときは、`/mnt/c/Users/matsushita/obsidian/notes/RESOURCES/AI_KNOWLEDGE/` の関連知見を確認する。
 
@@ -36,6 +36,8 @@
 
 ### コーディング
 
+- **読んでいないファイルを編集しない**。必ず Read してから Edit/Write する
+- 既存のコード規約・パターンに従う。関数型・宣言型優先、DRY、早期リターン
 - 引数・戻り値は構造化（TS: RORO パターン）、I/O は並列化（`Promise.all` / goroutine）、頻出定数はモジュールレベルで定義
 - **ローカルパス・IP アドレスをコードに書かない**。環境変数か設定ファイルで外部化する。パス解決は `$(dirname "$0")/..`、`import.meta.dirname` 等の相対解決。テストフィクスチャにも実在パスを使わない（`/tmp/test-dir` 等）
 
@@ -61,6 +63,15 @@
 - **サブエージェント並列化**: 独立した項目に分かれる作業（複数ファイル調査、複数テスト実行、複数候補の検証）は逐次処理せず並列委譲する
 - **メモリ**: 数ターン以上かかる作業の開始前に確認し、作業中の発見（変動する状態・判断待ち事項）は書き戻す
 - **調査**: 最新情報・バージョン依存の挙動・外部仕様は、記憶から答えず検索・公式ドキュメント確認を先に行う
+
+### 委譲先の選択（Herdr 環境）
+
+`HERDR_ENV=1` のとき、使い捨ての並列調査・実装はサブエージェント（`Agent` ツール）、別ツール・別モデルの視点が要る作業と担当リポジトリが分かれる作業は Herdr の別ペインエージェントへ回す。既存ペインに idle のインスタンスがいれば新規スポーンより優先する。
+
+- ターゲットは `herdr agent list` で得た `pane_id`。kind 名（`codex`）は指定できない
+- `agent prompt --wait` は 120 秒でバックグラウンド送りになる。長い待ちは `herdr agent wait --timeout`
+- プロンプトに長文を貼らない。基準となる内容はファイルパスを渡して読ませる
+- 相手が `blocked` のとき、代理承認は読み取り専用の操作に限る。破壊的操作はマスターへ回す
 
 ### サブエージェントのモデル振り分け
 
@@ -159,9 +170,32 @@ MCP サーバーは使わない方針（組み込みツール・CLI で代替）
 ## Obsidian
 
 - **Vault**: `/mnt/c/Users/matsushita/obsidian/notes`（WSL経由、`Read`/`Write`/`Edit` で読み書き）
-- AI が書き込むのは `WORK/` 配下のみ（`WORK/{ORG}_{PROJECT}/` 形式）。`PERSONAL/` は手動管理のため触らない
+- AI が書き込むのは `WORK/` 配下（`WORK/{ORG}_{PROJECT}/` 形式）と `RESOURCES/AI_KNOWLEDGE/` 配下のみ。`PERSONAL/` は手動管理のため触らない
+- `RESOURCES/AI_KNOWLEDGE/` は Claude / Codex 共有。参照は該当カテゴリの `INDEX.md` から必要なファイルだけ読む（全件読み込みはしない）。追加時は `FRONTMATTER.md` と対応する `INDEX.md` も更新する
 - **タグにドット(.)は使えない**（例: `v0.63.0` はエラー）。バージョン番号は本文中に記載する
 
 ## Plugins
 
 有効な Plugin は `~/.claude/settings.json` の `enabledPlugins` で管理する。LSP（TypeScript / Go / Rust）と `frontend-design` が常用。PR レビューはビルトイン `/code-review`。
+
+## Codex 設定との同期
+
+`~/.codex/AGENTS.md`（リポジトリ `fubira/codex-agent-settings`）と対になる。両者が同じ判断をするよう、以下のセクションは**同一文面をミラーする**。片方を変更したらもう片方も同じターンで更新する。
+
+ミラー対象: 基本情報 / 出力スタイル / Personal Skills（起動方針の段落のみ）/ アシスト対象 / 作業方針（コーディング・テスト・能力の能動的活用・委譲先の選択・軽微な判断の自律実行・行動規範）/ 技術スタック / Git / ドキュメント・コメント / Obsidian
+
+ミラーしない（ハーネス固有）: Bash ツール節、サブエージェントのモデル振り分け、CLAUDE.md とメモリの管理ポリシー、MCP サーバー、Plugins、本節
+
+固有差分の対応表:
+
+| 項目 | Claude | Codex |
+|------|--------|-------|
+| 指示ファイル | `CLAUDE.md` | `AGENTS.md` |
+| Skill の手動専用化 | frontmatter `disable-model-invocation: true` | `agents/openai.yaml` の `policy.allow_implicit_invocation: false` |
+| サブエージェント定義 | `~/.claude/agents/*.md` | `~/.codex/agents/*.toml` |
+| サブエージェント呼び出し | `Agent` ツール | `spawn_agent` |
+| 軽量モデルの表現 | Sonnet / Haiku | 軽量モデル |
+| リリース Skill | `release-assistant` | `release` |
+| 異常時のセッション復旧 | `/rewind` または `/handoff` | 新しいセッションへ移行し、一次情報から再開 |
+| メモリ | `MEMORY.md` 全行が常時プロンプトに載る（80行予算） | `memories/` + SQLite、関連時に検索注入 |
+| コマンド権限 | `settings.json` の `permissions.allow` / `deny` | `rules/*.rules` の `prefix_rule`。sandbox・書込パス・ネットワークは別設定で1対1にならない |
