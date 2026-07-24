@@ -41,7 +41,7 @@ allowed-tools: [Read, Write, Edit, Glob, Grep, AskUserQuestion]
 2. **構造**: 行数・時系列の漏れ・ハードコード数値・章立て・用語の一貫性を直す
 3. **文体**: NG 例と直し方の一覧を読み、照らして洗い出す
 
-   `references/patterns.md`
+   [検出パターン](references/patterns.md)
 
 4. **提示と修正**: 該当箇所と修正案を提示し、承認後に Edit（一括修正はしない）
 5. **QA**: コードとの整合、リンク、コード例の妥当性を確認
@@ -49,5 +49,6 @@ allowed-tools: [Read, Write, Edit, Glob, Grep, AskUserQuestion]
 ## Decision Criteria（判断基準）
 
 - **削るか迷ったら削る**。足りなければ後で足せる
+- **対象・読者・場所を勝手に規定しない**。文書の種類を問わず適用する
 - **形容詞・副詞は疑う**。事実と動詞で伝わるなら不要
 - **原文の意図は変えない**。言い回しだけ直す
