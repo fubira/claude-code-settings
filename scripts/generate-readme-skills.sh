@@ -33,6 +33,7 @@ skill_row() {
     infm && /^---$/ { exit }
     infm && /^description:/ {
       sub(/^description:[ ]*/, "")
+      sub(/^["'"'"']/, ""); sub(/["'"'"']$/, "")
       if (match($0, /\. /)) print substr($0, 1, RSTART)
       else print $0
       exit
@@ -53,6 +54,8 @@ gen_table() {
   for skill_md in "$CLAUDE_HOME/skills/"*/SKILL.md; do
     [[ -f "$skill_md" ]] || continue
     name=$(basename "$(dirname "$skill_md")")
+    # git 管理外のスキルは他所からの導入物。このリポジトリの提供物ではないため載せない
+    git -C "$CLAUDE_HOME" check-ignore -q "skills/$name" && continue
     if [[ "$kind" == "vendored" ]] && is_vendored "$name"; then
       skill_row "$skill_md"
     elif [[ "$kind" == "personal" ]] && ! is_vendored "$name"; then
