@@ -7,9 +7,12 @@ set -euo pipefail
 
 input=$(cat)
 
-model=$(echo "$input" | jq -r '.model.display_name // .model.id // "?"')
-dir=$(echo "$input" | jq -r '.workspace.current_dir // .cwd // "?"')
-used=$(echo "$input" | jq -r '.context_window.used_percentage // empty' | cut -d. -f1)
+# 再描画のたびに走るので jq は1回で済ませる。値の欠落は空文字で返し、位置をずらさない
+IFS=$'\t' read -r model dir used < <(printf '%s' "$input" | jq -r '[
+  (.model.display_name // .model.id // "?"),
+  (.workspace.current_dir // .cwd // "?"),
+  (if .context_window.used_percentage == null then "" else (.context_window.used_percentage | floor | tostring) end)
+] | @tsv')
 
 branch=$(git -C "$dir" branch --show-current 2>/dev/null || true)
 
