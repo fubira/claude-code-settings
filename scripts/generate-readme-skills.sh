@@ -14,7 +14,8 @@ CLAUDE_HOME="$HOME/.claude"
 README="$CLAUDE_HOME/README.md"
 
 # Cloudflare / Web 開発スキル（外部由来）。ここに無いものは Personal Skills として扱う
-VENDORED="agents-sdk cloudflare cloudflare-email-service durable-objects sandbox-sdk turnstile-spin web-perf workers-best-practices wrangler"
+# 外部由来のスキルを追加したらここにも名前を足す
+VENDORED="workers-best-practices wrangler"
 
 is_vendored() {
   local name="$1" v
