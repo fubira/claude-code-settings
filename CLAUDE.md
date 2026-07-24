@@ -142,7 +142,7 @@
 
 ## ドキュメント / コメント
 
-- 記述ルールは `doc-maintainer` Skill、文体は `prose-linter` Skill に従う
+- ドキュメントの構造・文体・手順書ルールは `doc-rules` Skill に従う
 - コメントは複雑なロジックとモジュール概要のみ。変更履歴は Git で管理
 
 ## CLAUDE.md とメモリの管理ポリシー
