@@ -8,16 +8,23 @@
 ~/.claude/
 ├── CLAUDE.md              # グローバルシステムプロンプト
 ├── skills/                # Personal Skills と Cloudflare / Web 開発スキル
+├── agents/                # サブエージェント定義
 ├── scripts/               # ユーティリティスクリプト
-├── settings.example.json  # permissions テンプレート
+├── settings.example.json  # permissions / statusLine テンプレート
 └── .gitignore
 ```
 
 ## セットアップ
 
+Claude Code を使っているマシンでは `~/.claude` に既存のランタイムデータがあり `git clone` できない。既存ディレクトリに履歴を後付けする。
+
 ```bash
-git clone <repository-url> ~/.claude
-cp ~/.claude/settings.example.json ~/.claude/settings.json  # 任意
+cd ~/.claude
+git init -b main
+git remote add origin <repository-url>
+git fetch origin
+git reset --hard origin/main   # 既存の CLAUDE.md・skills/ は上書きされる
+cp settings.example.json settings.json  # 任意。既存の settings.json がある場合は手でマージする
 ```
 
 ## Personal Skills
