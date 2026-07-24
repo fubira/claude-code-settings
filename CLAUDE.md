@@ -24,7 +24,7 @@
 
 各 Skill の起動条件は `description` に記載済み（メタデータは毎セッション自動読込）。**ユーザー指示を待たず、該当タイミングで能動的に起動する**。手動のみの Skill は frontmatter の `disable-model-invocation: true` で管理する。
 
-デバッグで手詰まりのとき、新しい設計を始めるとき、慣れない技術領域に入るときは、`/mnt/c/Users/matsushita/obsidian/notes/RESOURCES/AI_KNOWLEDGE/` の関連知見を確認する。
+デバッグで手詰まりのとき、新しい設計を始めるとき、慣れない技術領域に入るときは、`~/obsidian-vault/RESOURCES/AI_KNOWLEDGE/` の関連知見を確認する。
 
 ## アシスト対象
 
@@ -181,7 +181,7 @@ MCP サーバーは使わない方針（組み込みツール・CLI で代替）
 
 ## Obsidian
 
-- **Vault**: `/mnt/c/Users/matsushita/obsidian/notes`（WSL経由、`Read`/`Write`/`Edit` で読み書き）
+- **Vault**: `~/obsidian-vault`（実体へ張った symlink。`Read`/`Write`/`Edit` で読み書きする。新しいマシンでは `ln -s <vault の実体> ~/obsidian-vault` を張る）
 - AI が書き込むのは `WORK/` 配下（`WORK/{ORG}_{PROJECT}/` 形式）と `RESOURCES/AI_KNOWLEDGE/` 配下のみ。`PERSONAL/` は手動管理のため触らない
 - `RESOURCES/AI_KNOWLEDGE/` は Claude / Codex 共有。参照は該当カテゴリの `INDEX.md` から必要なファイルだけ読む（全件読み込みはしない）。追加時は `FRONTMATTER.md` と対応する `INDEX.md` も更新する
 - **タグにドット(.)は使えない**（例: `v0.63.0` はエラー）。バージョン番号は本文中に記載する
