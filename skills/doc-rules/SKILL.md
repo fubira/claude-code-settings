@@ -1,6 +1,6 @@
 ---
 name: doc-rules
-description: Documentation rules — structure, length, style, and how-to writing. Creates, updates, and reviews README.md, CLAUDE.md, INSTALL/how-to docs, and code comments. Keeps docs concise, procedural, and free of AI-tone. Activates after implementing features, when docs are outdated, or on explicit request.
+description: Documentation rules — structure, length, style, and how-to writing. Use when writing or revising a README, CLAUDE.md, INSTALL or how-to document, or when asked to review prose for AI-tone. Do not use for code comments or commit messages in ordinary edits.
 allowed-tools: [Read, Write, Edit, Glob, Grep, AskUserQuestion]
 ---
 

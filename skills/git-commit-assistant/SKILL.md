@@ -1,6 +1,6 @@
 ---
 name: git-commit-assistant
-description: Assists with careful Git commits in any repository. Activates when committing changes, checking .gitignore, or generating commit messages. Ensures proper file exclusion (credentials, MCP configs, personal settings), identifies untracked files, and generates Conventional Commits messages with Japanese explanations.
+description: Stages and commits changes safely in any repository. Use when the user asks to commit, or when a commit would include untracked or sensitive files (credentials, MCP configs, personal settings). Writes Conventional Commits messages with a Japanese explanation. Do not use to merely inspect git status or a diff.
 allowed-tools: [Bash, Read, Write, Edit, AskUserQuestion, Grep, Glob]
 ---
 

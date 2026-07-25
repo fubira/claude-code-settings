@@ -1,6 +1,6 @@
 ---
 name: code-reviewer
-description: Assists with code review by analyzing code changes for quality, best practices, security, and potential issues. Activates after implementing code features, bug fixes, or refactorings. Provides structured feedback with critical issues, suggestions, and positive highlights.
+description: Reviews a diff against this user's standards, above all whether a fix addresses the violated invariant or only silences its symptom. Use when the user asks for a review, before creating a PR, or when re-checking a diff that answers earlier review findings. Do not use after ordinary edits, and do not use for routine branch review — the built-in /code-review covers that.
 allowed-tools: [Read, Bash, Glob, Grep, AskUserQuestion]
 ---
 
@@ -10,9 +10,11 @@ Review code changes for quality, security, and performance. Provide structured, 
 
 ## Activation Triggers
 
-- After completing a feature, bug fix, or refactoring (automatic)
-- "review this code" (manual)
+- "review this code" and similar explicit requests
 - Before PR creation
+- Re-checking a diff that answers earlier review findings
+
+Routine branch review belongs to the built-in `/code-review`. Do not run after ordinary edits.
 
 ## Review Areas
 

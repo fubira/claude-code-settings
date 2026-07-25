@@ -18,6 +18,11 @@
 !/skills/*/
 !/skills/*/**
 
+# Skills kept in version control but not loaded into context. Copy into a
+# project's .claude/skills/ when that project needs them.
+!/skills-disabled/
+!/skills-disabled/**
+
 # User-maintained subagent definitions.
 !/agents/
 !/agents/**

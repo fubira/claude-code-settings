@@ -1,6 +1,6 @@
 ---
 name: test-executor
-description: Executes tests, analyzes results, and reports coverage for Go and Node/Bun projects. Activates after code implementation/modification to verify correctness, or when explicitly requested.
+description: Runs tests for Go and Node/Bun projects, interprets failures, and reports coverage against this user's targets. Use when asked to run or fix tests, or when a change needs verification before being called done. Do not use to read or write test files.
 allowed-tools: [Bash, Read, Glob, Grep, AskUserQuestion]
 ---
 

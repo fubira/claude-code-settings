@@ -1,6 +1,6 @@
 ---
 name: knowledge-manager
-description: Manages a structured knowledge base of patterns, troubleshooting guides, best practices, and workflows. Activates when discovering reusable insights, solving technical problems, or establishing new standards. Records knowledge in categorized files for future reference without bloating global CLAUDE.md.
+description: Records and retrieves the AI_KNOWLEDGE base in the Obsidian vault (patterns, troubleshooting, best practices). Use when a non-obvious finding is worth reusing across projects, when entering an unfamiliar technical area, or when the user asks to record knowledge. Do not use for findings that belong in the repository itself or in project memory.
 allowed-tools: [Read, Write, Glob, Grep, AskUserQuestion]
 ---
 

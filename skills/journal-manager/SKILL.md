@@ -1,6 +1,6 @@
 ---
 name: journal-manager
-description: Creates and manages Obsidian work journals. Automatically writes journals after experiments, analyses, and key decisions. Periodically reviews, consolidates, archives, and promotes journal entries to permanent documentation.
+description: Writes and maintains work journals under WORK/ in the Obsidian vault. Use after an experiment or analysis produces measured results worth carrying across sessions, and when consolidating or archiving existing journals. Do not use for ordinary implementation work or as a progress log.
 allowed-tools: [Read, Write, Edit, Glob, Grep, Bash, Agent, AskUserQuestion]
 ---
 

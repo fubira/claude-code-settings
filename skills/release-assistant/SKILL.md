@@ -1,6 +1,6 @@
 ---
 name: release-assistant
-description: Automates and ensures reliable release workflows with automatic version bump based on commit history, mandatory lint/build/test execution before release, and safe tag creation and push. Supports Node/Bun and Go projects.
+description: Runs the release workflow for Node/Bun and Go projects — version bump from commit history, mandatory lint/build/test, then tag creation and push. Use when the user asks to release, cut a version, or publish a tag. Do not use for ordinary commits or for merging to main.
 allowed-tools: [Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion]
 ---
 
