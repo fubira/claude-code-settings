@@ -22,5 +22,9 @@
 !/agents/
 !/agents/**
 
+# Shared documentation referenced from CLAUDE.md.
+!/docs/
+!/docs/**
+
 # But never stray editor/backup files within them.
 /skills/**/*.backup
