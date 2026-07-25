@@ -7,8 +7,11 @@
 ```text
 ~/.claude/
 ├── CLAUDE.md              # グローバルシステムプロンプト
+├── rules/                 # CLAUDE.md と一緒に毎セッション読み込まれる指示
 ├── skills/                # Personal Skills と Cloudflare / Web 開発スキル
+├── skills-disabled/       # 版管理のみ。必要なプロジェクトへコピーして使う
 ├── agents/                # サブエージェント定義
+├── docs/                  # CLAUDE.md から参照する補足ドキュメント
 ├── scripts/               # ユーティリティスクリプト
 ├── settings.example.json  # permissions / statusLine テンプレート
 └── .gitignore

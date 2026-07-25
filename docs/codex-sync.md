@@ -5,7 +5,7 @@
 
 ## ミラー対象
 
-基本情報 / 出力スタイル / Personal Skills（起動方針の段落のみ）/ アシスト対象 /
+基本情報 / 出力スタイル / 報告と分解の形 / Personal Skills（起動方針の段落のみ）/ アシスト対象 /
 作業方針（コーディング・テスト・能力の能動的活用・委譲・軽微な判断の自律実行・行動規範）/
 技術スタック / Git / ドキュメント・コメント / Obsidian
 
@@ -20,6 +20,7 @@ Plugins・MCP の掃除手順・同期の詳細は `~/.claude/.claude/CLAUDE.md`
 | 項目 | Claude | Codex |
 |------|--------|-------|
 | 指示ファイル | `CLAUDE.md` | `AGENTS.md` |
+| 報告と分解の形 | `~/.claude/rules/response-style.md`（起動時に無条件ロード。モデル世代が変わったら削除して評価し直す） | `AGENTS.md` の「出力スタイル」節に直接記載 |
 | Skill の手動専用化 | frontmatter `disable-model-invocation: true` | `agents/openai.yaml` の `policy.allow_implicit_invocation: false` |
 | サブエージェント定義 | `~/.claude/agents/*.md` | `~/.codex/agents/*.toml` |
 | サブエージェント呼び出し | `Agent` ツール | `spawn_agent` |

@@ -32,6 +32,10 @@
 !/agents/
 !/agents/**
 
+# Instruction files loaded into every session alongside CLAUDE.md.
+!/rules/
+!/rules/**
+
 # Shared documentation referenced from CLAUDE.md.
 !/docs/
 !/docs/**
