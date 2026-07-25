@@ -46,7 +46,9 @@ Safe, high-quality Git commits. Sensitive file exclusion, .gitignore management,
    ```
    - 3-5 bullets explaining what/why/impact. No file lists
    - Attribution trailer comes from `attribution.commit` in settings.json — do not write it manually
-3. Present to user for confirmation
+3. Confirm with the user only when Phase 2 turned up a CONFIRM-class file, a file that
+   should be excluded, or an ambiguous commit scope. Invoking this skill already expresses
+   intent to commit, so an unambiguous commit proceeds without a separate approval step.
 
 ### Phase 4: Commit & Push
 
