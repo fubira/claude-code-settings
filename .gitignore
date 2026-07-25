@@ -8,6 +8,11 @@
 !/CLAUDE.md
 !/README.md
 
+# Project instructions for this settings repository itself
+# (settings.local.json under the same directory stays ignored).
+!/.claude/
+!/.claude/CLAUDE.md
+
 # Shared Claude Code templates and utilities.
 !/settings.example.json
 !/scripts/

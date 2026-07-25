@@ -16,7 +16,7 @@ Manage a structured knowledge base. Progressive disclosure: reference knowledge 
 
 ## Knowledge Base Location
 
-All entries live under `RESOURCES/AI_KNOWLEDGE/` in the Obsidian vault (vault root path is defined in the global CLAUDE.md "Obsidian" section; referred to as `AI_KNOWLEDGE/` below). Global, cross-project — not project-local.
+All entries live under `RESOURCES/AI_KNOWLEDGE/` in the Obsidian vault (vault root path is defined in the global CLAUDE.md "Obsidian" section; referred to as `AI_KNOWLEDGE/` below). Global, cross-project — not project-local, and shared with Codex, so keep entries tool-neutral.
 
 ## Categories
 
@@ -31,7 +31,7 @@ All entries live under `RESOURCES/AI_KNOWLEDGE/` in the Obsidian vault (vault ro
 
 1. **Detect**: Identify valuable insights during development
 2. **Evaluate**: Assess on 3 axes — Reusability, Impact, Learning Value (record if 2/3 are Medium+)
-3. **Record**: Check category INDEX.md → deduplicate → create entry → update INDEX.md
+3. **Record**: Check category INDEX.md → deduplicate → create entry with front matter per `AI_KNOWLEDGE/FRONTMATTER.md` → update that category's INDEX.md
 4. **User Approval**: Present summary, category, evaluation, and usage examples; create only after approval
 
 ## Entry Structure
@@ -49,7 +49,7 @@ Infer exact structure from the category — no fixed template required. See exis
 ## Search and Retrieval
 
 1. Check relevant category INDEX.md
-2. Read only the specific files needed
+2. Read only the specific files needed — never read a category in bulk
 3. Provide answers with source references
 
 ## Maintenance

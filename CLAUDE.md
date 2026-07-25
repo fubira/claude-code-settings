@@ -44,7 +44,7 @@
 
 ### テスト
 
-- Co-location（ソースと同じディレクトリ）。`tsconfig.json` の exclude に `**/*.test.{ts,tsx}`
+- テストはソースと同じディレクトリに置く（co-location）
 - 実装を先に読んでからテストを書く。境界値（±1）を必ずテスト、確率的処理は統計的に検証。カバレッジ目標は `test-executor` Skill 準拠
 - テスト失敗時は期待値を疑う。自作コードのみテスト（外部ライブラリの動作はテストしない）
 
@@ -118,11 +118,7 @@
 
 ## 技術スタック（新規プロジェクトの既定値）
 
-既存プロジェクトではプロジェクト側 CLAUDE.md・既存規約が優先。
-
-- **TypeScript/React**: Biome、Bun/Bun:Test（lockfile は `bun.lock`。`bun.lockb` は非推奨）、CSS Modules + clsx、Feature-based（`src/features/`）。バレルエクスポートはライブラリモジュールのみ
-- **Go**: `cmd/`, `internal/`, `pkg/` 構造、テーブル駆動テスト、`golangci-lint`
-- **Cloudflare Workers**: Static Assets + SPA ルーティング、esbuild minify、wrangler.toml
+既存プロジェクトではプロジェクト側 CLAUDE.md・既存規約が優先。新規に立ち上げるときは `AI_KNOWLEDGE/patterns/cross-stack/default-tech-stack.md` を読む。
 
 ## Git
 
@@ -146,21 +142,15 @@ CLAUDE.md も MEMORY.md も毎会話プロンプトに載るため、量が品�
 
 ## MCPサーバー
 
-MCP サーバーは使わない（組み込みツール・CLI で代替）。誤って追加された場合の掃除手順はメモリ参照。
+MCP サーバーは使わない（組み込みツール・CLI で代替）。
 
 ## Obsidian
 
-- **Vault**: `~/obsidian-vault`（実体へ張った symlink。`Read`/`Write`/`Edit` で読み書きする。新しいマシンでは `ln -s <vault の実体> ~/obsidian-vault` を張る）
-- AI が書き込むのは `WORK/` 配下（`WORK/{ORG}_{PROJECT}/` 形式）と `RESOURCES/AI_KNOWLEDGE/` 配下のみ。`PERSONAL/` は手動管理のため触らない
-- `RESOURCES/AI_KNOWLEDGE/` は Claude / Codex 共有。参照は該当カテゴリの `INDEX.md` から必要なファイルだけ読む（全件読み込みはしない）。追加時は `FRONTMATTER.md` と対応する `INDEX.md` も更新する
+- **Vault**: `~/obsidian-vault`（実体へ張った symlink。新しいマシンでは `ln -s <vault の実体> ~/obsidian-vault` を張る）
+- AI が書き込むのは `WORK/{ORG}_{PROJECT}/` と `RESOURCES/AI_KNOWLEDGE/` の配下のみ。`PERSONAL/` は手動管理のため触らない
 - **タグにドット(.)は使えない**（例: `v0.63.0` はエラー）。バージョン番号は本文中に記載する
-
-## Plugins
-
-有効な Plugin は `~/.claude/settings.json` の `enabledPlugins` で管理する。LSP（TypeScript / Go / Rust）と `frontend-design` が常用。PR レビューはビルトイン `/code-review`。
+- 参照・追加の手順は `knowledge-manager` / `journal-manager` Skill に従う
 
 ## Codex 設定との同期
 
-`~/.codex/AGENTS.md` と対になる。ミラー対象セクションは同一文面を保ち、片方を変更したらもう片方も同じターンで更新する。
-
-対象範囲と固有差分の対応表は `~/.claude/docs/codex-sync.md`。CLAUDE.md / AGENTS.md を編集するときに読む。
+`~/.codex/AGENTS.md` と対になる。CLAUDE.md / AGENTS.md を編集するときは `~/.claude/docs/codex-sync.md` を読み、ミラー対象は同じターンで両方更新する。

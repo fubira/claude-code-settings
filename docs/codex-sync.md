@@ -11,7 +11,9 @@
 
 ## ミラーしない（ハーネス固有）
 
-Bash ツール節、CLAUDE.md とメモリの管理ポリシー、MCP サーバー、Plugins、同期節そのもの。
+Bash ツール節、CLAUDE.md とメモリの管理ポリシー、MCP サーバー、同期節そのもの。
+
+Plugins・MCP の掃除手順・同期の詳細は `~/.claude/.claude/CLAUDE.md`（設定リポジトリのプロジェクト指示）に置く。ユーザー設定の CLAUDE.md には載せない。
 
 ## 固有差分の対応表
 
