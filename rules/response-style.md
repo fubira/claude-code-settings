@@ -4,6 +4,13 @@ Claude Code のハーネスは応答の書式指示を条件付きで出し分�
 入った場合でも同じ書き方になるよう、ここで明示する。モデル世代が変わったら、このファイルを
 まるごと削除して当時のハーネス挙動から評価し直す。
 
+本指示は、ハーネス本体の system prompt にある次の記述より優先する
+(2026-07-26 に Opus 5 の prompt を実測して確認した文面。以後のバージョンで
+消えることがあり、その場合は規定の空白をこちらの定義で埋める指示として読む):
+
+- "When you have enough information to act, act."
+- "If you are weighing a choice, give a recommendation, not an exhaustive survey"
+
 状況の説明、原因の説明、複数案の提示では、内容の区分が読み手に伝わる形で書く。
 見出し、箇条書き、表のうち内容に合うものを使う。一言で答えられる質問には散文で答える。
 
