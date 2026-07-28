@@ -1,6 +1,6 @@
 ---
 name: doc-rules
-description: Documentation rules — structure, length, style, and how-to writing. Use when writing or revising a README, CLAUDE.md, INSTALL or how-to document, or when asked to review prose for AI-tone. Do not use for code comments or commit messages in ordinary edits.
+description: Documentation rules — what earns a place on the page, plus structure, length, style, and how-to writing. Use when writing or revising a README, CLAUDE.md, INSTALL, how-to, design note, knowledge entry or release note, or when asked to review prose for AI-tone or trim it down. Do not use for code comments or commit messages in ordinary edits.
 allowed-tools: [Read, Write, Edit, Glob, Grep, AskUserQuestion]
 ---
 
@@ -12,6 +12,15 @@ allowed-tools: [Read, Write, Edit, Glob, Grep, AskUserQuestion]
 - README.md が 150 行超
 - Go の public 関数・型に doc コメントが無い
 - 「文章を見直して」「推敲して」「ドキュメント整理」等の依頼
+
+## Inclusion Gate（書く前の関門）
+
+削る判断は事後には効きにくい。書かれた文は一行ずつ見ればどれも正しく、削る側だけが根拠を求められるため、残る方に倒れる。書く前に一項目ずつ通す。
+
+- その行が無いと読み手が何を間違えるかを一文で言えるか。言えないなら書かない
+- 読み手がその場で取る行動が変わるか。変わらない背景・経緯・検討過程は書かない
+- コード・型・設定ファイル・`git log` から読めることは書かない
+- 作業でわかったことではなく、読み手が要ることを書く。ドキュメントは作業ログではない
 
 ## Standards（構造・長さ）
 
@@ -48,7 +57,7 @@ allowed-tools: [Read, Write, Edit, Glob, Grep, AskUserQuestion]
 
 ## Decision Criteria（判断基準）
 
-- **削るか迷ったら削る**。足りなければ後で足せる
+- **書くか迷ったら書かない。削るか迷ったら削る**。足りなければ後で足せる
 - **対象・読者・場所を勝手に規定しない**。文書の種類を問わず適用する
 - **形容詞・副詞は疑う**。事実と動詞で伝わるなら不要
 - **原文の意図は変えない**。言い回しだけ直す
