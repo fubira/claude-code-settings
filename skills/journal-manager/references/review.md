@@ -6,7 +6,7 @@ Procedure for `/journal-review` and `/journal-cleanup` (and auto-suggested organ
 
 1. Read all files with Explore agent, classify by theme
 2. Determine status for each file:
-   - **Archive**: Conclusion already reflected elsewhere / superseded by later work / completed TODOs / approach replaced
+   - **Delete**: Conclusion already reflected elsewhere / superseded by later work / completed TODOs / approach replaced
    - **Consolidate**: 3+ consecutive files on same theme / problem-identification + solution pairs
    - **Defer**: Explicitly marked "future work" research topics (with start conditions)
    - **Keep**: Sole source of information / latest analysis on active theme / incident response records
@@ -14,17 +14,18 @@ Procedure for `/journal-review` and `/journal-cleanup` (and auto-suggested organ
 
 ## Phase 2: Organize (after approval)
 
-- **Archive**: Move original file to `archives/` as-is (no content changes)
+- **Delete**: Remove the file. The surviving copy elsewhere is the sole source
 - **Consolidate**: Read source files → create merged file (oldest date + theme name, list sources at top, preserve numeric tables faithfully) → move originals to `archives/`
-- **Defer**: Merge related files into one in `deferred/` (state resume conditions at top) → move originals to `archives/`
+- **Defer**: Merge related files into one in `deferred/` (state resume conditions at top) → delete originals
 
 ## Phase 3: Promotion Check
 
 | Detected Pattern | Promote To |
 |-----------------|------------|
-| Confirmed technical facts/patterns | MEMORY.md |
+| Operational state / pending decisions carried across sessions | MEMORY.md |
+| Methodology, rules, and the measurements behind them | Knowledge page in the parent directory of `journal/` |
+| Numeric results, segment analyses | Same as above |
 | Project convention changes | CLAUDE.md |
-| Model performance records | Data files in the parent directory of `journal/` |
 | General-purpose solutions | `AI_KNOWLEDGE/` (via knowledge-manager skill) |
 
-After promotion, add "→ reflected in X" marker to the journal entry.
+Delete the journal file once its content is promoted. Two copies of the same fact leave no clear source of truth.

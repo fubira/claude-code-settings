@@ -1,60 +1,62 @@
 ---
 name: journal-manager
-description: Writes and maintains work journals under WORK/ in the Obsidian vault. Use after an experiment or analysis produces measured results worth carrying across sessions, and when consolidating or archiving existing journals. Do not use for ordinary implementation work or as a progress log.
+description: Writes and maintains work journals under WORK/ in the Obsidian vault. Use after an experiment or analysis produces a reading that has no permanent home yet, and when consolidating or promoting existing journals. Do not use for ordinary implementation work, progress logs, or findings that already have a destination.
 allowed-tools: [Read, Write, Edit, Glob, Grep, Bash, Agent, AskUserQuestion]
 ---
 
 # Journal Manager Skill
 
-Create and manage Obsidian work journals. Record "what I thought at this point" as thinking logs.
+**journal は恒久の置き場がまだ無い読みの待機場所。** 昇格させたら削除する。
 
 ## Activation Triggers
 
-**Create (proactive)**: After experiments/analyses, decisions, incident responses, comparisons, or user request
-**Organize**: `/journal-review`, `/journal-cleanup`, auto-suggest when active files > 20
+**Create**: 実験・分析・判断で、既存の恒久ページに収まらない読みが出たとき
+**Organize**: `/journal-review`, `/journal-cleanup`、active が 20 を超えたとき
 
 ## Journal Location
 
-- **Path**: `WORK/{ORG}_{PROJECT}/journal/YYYY-MM-DD_HHmm_topic.md` (relative to the Obsidian vault root defined in the global CLAUDE.md "Obsidian" section)
-- Date in JST. Topic in hyphenated English or Japanese (keep short)
+- **Path**: `WORK/{ORG}_{PROJECT}/journal/YYYY-MM-DD_HHmm_topic.md`（vault root は global CLAUDE.md の「Obsidian」節）
+- 日付は JST。topic は短く
 
-## auto memory vs Journal
+## 書く前に昇格先を探す
 
-- **auto memory**: Technical facts and patterns (long-lived) → `.claude/projects/*/memory/`
-- **Journal**: Chronological thinking process (short-to-mid lived) → Obsidian `journal/`
+**先に恒久の置き場を探し、あればそちらへ直接書く。** journal に置くのは行き先が無いものだけ。
 
-## Part 1: Creating Journals
+| 内容 | 置き場 |
+|---|---|
+| 会話をまたぐ運用状態・判断待ち | auto memory |
+| 方法論・規則・その根拠になる実測値 | `journal/` の親ディレクトリの知見ページ |
+| 数値成績・セグメント分析 | 同上 |
+| 汎用的な解法 | `AI_KNOWLEDGE/`（`knowledge-manager` Skill 経由） |
+| コード差分・作業ログ・進捗 | 書かない |
 
-### Templates
+## 書き方
 
-**Experiment/Analysis**: Background → Conditions/Setup → Results (numeric tables) → Findings → Conclusion/Next actions
-**Decision**: Context → Options → Judgment and reasoning → Trade-offs → Next actions
-**Incident Response**: Situation → Root cause → Actions taken → Prevention measures → Lessons learned
-**Work Log**: Tasks done → Design decisions (if any) → TODOs (remaining)
+- 1 ファイル 1 トピック。数値は表で
+- **無いと読み手が判断を誤る情報だけ。** 何を誤るかを一文で言えないものは書かない
+- 否定した命題（自分の誤りの記録）・検討経緯・将来予定は載せない
 
-### Principles
+### 型
 
-- One topic per file (multiple per day OK). Use tables for numeric data
-- Record "what I thought at this point" — valuable even if conclusions change later
-- Place persistent data in the parent directory of `journal/`
-- Do NOT record: code diffs (Git handles that), trivial task logs, technical facts suited for auto memory
+**実験・分析**: 背景 → 条件 → 結果（数値表） → 読み → 次の行動
+**判断**: 状況 → 選択肢 → 判断と理由 → 次の行動
+**事故対応**: 事象 → 根本原因 → 対処 → 再発防止
 
-## Part 2: Review and Organization
+## 昇格と削除
 
-Runs only on `/journal-review` / `/journal-cleanup` (or when suggesting organization at 20+ active files). Read `references/review.md` for the 3-phase procedure (Review → Organize → Promotion Check) before starting.
+内容が恒久ページ・memory・規則へ移ったら **journal ファイルを削除する**。同じ事実が
+2 箇所にあると、どちらが正本か分からなくなる。
+
+統合するとき（複数 journal を 1 本にまとめるとき）だけ、元を `archives/` へ移す。
+手順は `references/review.md`。
 
 ## Directory Structure
 
 ```
 {project}/journal/
-├── *.md              # Active
-├── archives/         # Consolidated/obsolete originals
-└── deferred/         # Future research topics
+├── *.md              # 昇格先が未定のもの
+├── archives/         # 統合前の原本
+└── deferred/         # 保留トピック
 ```
 
-## Important Notes
-
-- Archive means move, not delete (originals kept in archives/)
-- Never drop data during consolidation (faithfully copy numeric tables)
-- When in doubt, keep. Create aggressively, organize cautiously
-- Deferred entries must state concrete resume conditions (not just "someday")
+`deferred/` は「いつか」ではなく具体的な再開条件を書く。数値表は統合時も落とさない。
