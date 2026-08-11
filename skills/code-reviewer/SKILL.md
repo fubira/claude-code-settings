@@ -37,15 +37,14 @@ Routine branch review belongs to the built-in `/code-review`. Do not run after o
 
 ## Symptom-Only Fixes
 
-A finding is not closed by silencing its symptom. Treat these as unresolved until the root cause is stated:
+The catalogue of symptom-only patterns lives in `~/.claude/CLAUDE.md`（行動規範 > 問題解決・デバッグ）. Read it and check the diff against that list rather than a copy kept here.
 
-- A branch, guard, or special case added only for the reported input
-- Thresholds, expected values, or tolerances adjusted to match observed output
-- Exceptions swallowed, or errors downgraded to warnings/logs
-- Tests relaxed, skipped, or rewritten to assert the new behavior
-- The fix touches one call path when the invariant is enforced in several
+A finding is not closed by silencing its symptom. Two checks specific to re-review:
 
-Ask what invariant was broken. If the answer is only "the test failed", the root cause is not established. Re-raise the original finding rather than closing it, and check the other paths that enforce the same invariant.
+- The fix touches one call path when the invariant is enforced in several. Ask for the count of the other sites — the rules require it to be stated before the fix
+- Ask what invariant was broken. If the answer is only "the test failed" or "the linter complained", the root cause is not established
+
+Re-raise the original finding rather than closing it, and check the other paths that enforce the same invariant.
 
 ## Output Format
 
