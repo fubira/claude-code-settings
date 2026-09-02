@@ -1,4 +1,9 @@
 {
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
   "permissions": {
     "allow": [
       "Bash(git:*)",
@@ -6,12 +11,9 @@
       "Bash(pwd:*)",
       "Bash(cd:*)",
       "Bash(npm:*)",
-      "Bash(npx:*)",
-      "Bash(node:*)",
       "Bash(bun:*)",
       "Bash(go:*)",
       "Bash(biome:*)",
-      "Bash(python:*)",
       "Bash(make:*)",
       "Bash(jq:*)",
       "Bash(curl:*)",
@@ -27,11 +29,10 @@
       "WebFetch(domain:stackoverflow.com)",
       "WebFetch(domain:developer.mozilla.org)",
       "WebFetch(domain:npmjs.com)",
-      "WebFetch(domain:nextjs.org)"
+      "WebFetch(domain:nextjs.org)",
+      "Bash(sed -n:*)"
     ],
-    "deny": [
-      "Bash(sed:*)"
-    ]
+    "deny": []
   },
   "statusLine": {
     "type": "command",
@@ -41,6 +42,7 @@
     "typescript-lsp@claude-plugins-official": true,
     "gopls-lsp@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true,
-    "rust-analyzer-lsp@claude-plugins-official": true
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "ponytail@ponytail": true
   }
 }

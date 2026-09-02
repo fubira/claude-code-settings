@@ -4,6 +4,8 @@
 # 抽出は許可リスト方式。下の jq に書いたキーだけが example に載り、それ以外
 # （model / tui / effortLevel など個人設定を含む）はすべて落ちる。
 # 共有したいキーを settings.json に足したときは、jq 側にも追加すること。
+# attribution は個人設定に見えるが共有対象。キーが無いマシンでは帰属ありが既定になり、
+# 値が空文字なので検証エラーも出ない（型は string で、空文字が非表示を意味する）。
 # permissions のうち特定ホスト・特定プロジェクト向けの項目は EXCLUDE_PATTERN で除く。
 # Usage: ~/.claude/scripts/generate-settings-example.sh
 
@@ -15,6 +17,7 @@ CLAUDE_HOME="$HOME/.claude"
 EXCLUDE_PATTERN='server-tune|ssh one'
 
 jq --arg exclude "$EXCLUDE_PATTERN" '{
+  attribution: .attribution,
   permissions: {
     allow: [ .permissions.allow[] | select(test($exclude) | not) ],
     deny: (.permissions.deny // [])
