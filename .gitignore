@@ -22,6 +22,8 @@
 !/skills/
 !/skills/*/
 !/skills/*/**
+# Anthropic-distributed skills synced by the harness.
+/skills/synced/
 
 # Skills kept in version control but not loaded into context. Copy into a
 # project's .claude/skills/ when that project needs them.
