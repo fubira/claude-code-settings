@@ -6,7 +6,7 @@ allowed-tools: [Read, Write, Edit, Glob, Grep, Bash, Agent, AskUserQuestion]
 
 # Journal Manager Skill
 
-**journal は恒久の置き場がまだ無い読みの待機場所。** 昇格させたら削除する。
+**journal は恒久の置き場がまだ無い読みの待機場所。** 昇格しても残し、棚卸しで `archives/` へ移す。
 
 ## Activation Triggers
 
@@ -42,20 +42,20 @@ allowed-tools: [Read, Write, Edit, Glob, Grep, Bash, Agent, AskUserQuestion]
 **判断**: 状況 → 選択肢 → 判断と理由 → 次の行動
 **事故対応**: 事象 → 根本原因 → 対処 → 再発防止
 
-## 昇格と削除
+## 昇格とアーカイブ
 
-内容が恒久ページ・memory・規則へ移ったら **journal ファイルを削除する**。同じ事実が
-2 箇所にあると、どちらが正本か分からなくなる。
+内容が恒久ページ・memory・規則へ移ったら、journal の冒頭に「昇格済み（日付）→ 昇格先」を
+書き足し、**ファイルは残す**。正本は昇格先で、この一行が正本の向きを示す。判断の流れを
+1 枚で読み返せる価値は昇格後も残るので、昇格のたびに削除を提案しない。
 
-統合するとき（複数 journal を 1 本にまとめるとき）だけ、元を `archives/` へ移す。
-手順は `references/review.md`。
+journal は削除せず、棚卸し（`/journal-cleanup`）で `archives/` へ移す。手順は `references/review.md`。
 
 ## Directory Structure
 
 ```
 {project}/journal/
 ├── *.md              # 昇格先が未定のもの
-├── archives/         # 統合前の原本
+├── archives/         # 棚卸しで移した journal・統合前の原本
 └── deferred/         # 保留トピック
 ```
 

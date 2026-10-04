@@ -6,7 +6,7 @@ Procedure for `/journal-review` and `/journal-cleanup` (and auto-suggested organ
 
 1. Read all files with Explore agent, classify by theme
 2. Determine status for each file:
-   - **Delete**: Conclusion already reflected elsewhere / superseded by later work / completed TODOs / approach replaced
+   - **Archive**: Conclusion already reflected elsewhere / superseded by later work / completed TODOs / approach replaced
    - **Consolidate**: 3+ consecutive files on same theme / problem-identification + solution pairs
    - **Defer**: Explicitly marked "future work" research topics (with start conditions)
    - **Keep**: Sole source of information / latest analysis on active theme / incident response records
@@ -14,9 +14,9 @@ Procedure for `/journal-review` and `/journal-cleanup` (and auto-suggested organ
 
 ## Phase 2: Organize (after approval)
 
-- **Delete**: Remove the file. The surviving copy elsewhere is the sole source
+- **Archive**: Move the file to `archives/`. Never delete a journal
 - **Consolidate**: Read source files → create merged file (oldest date + theme name, list sources at top, preserve numeric tables faithfully) → move originals to `archives/`
-- **Defer**: Merge related files into one in `deferred/` (state resume conditions at top) → delete originals
+- **Defer**: Merge related files into one in `deferred/` (state resume conditions at top) → move originals to `archives/`
 
 ## Phase 3: Promotion Check
 
@@ -28,4 +28,4 @@ Procedure for `/journal-review` and `/journal-cleanup` (and auto-suggested organ
 | Project convention changes | CLAUDE.md |
 | General-purpose solutions | `AI_KNOWLEDGE/` (via knowledge-manager skill) |
 
-Delete the journal file once its content is promoted. Two copies of the same fact leave no clear source of truth.
+Once content is promoted, add "昇格済み (date) → destination" at the top of the journal and keep the file. The destination is the source of truth; the note shows which way it points.
